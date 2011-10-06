@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+<!--
+    Document   : PerformanceProxyConfig.xml
+    Created on : April 14, 2011, 08:34 AM
+    Author     : Sai Valluripalli
+    Description:
+        The beans available in this file must be identified in the "description" element for the Spring configuration application. Beans are listed between braces
+	in the description separated with a comma like the following sample: {somebean,anotherbean}
+-->
+    <description>Beans included in this file: {performance}</description>
+
+    <!-- No-op Implementation -->
+    <bean class="org.alembic.aurion.performance.proxy.PerformanceProxyNoOpImpl" id="performancenoop" name="performancenoop">
+        <meta key="impltype" value="noop"/>
+    </bean>
+
+    <!-- Java Implementation -->
+    <bean class="org.alembic.aurion.performance.proxy.PerformanceProxyJavaImpl" id="performance" name="performance">
+        <meta key="impltype" value="java"/>
+        <meta key="default" value="true"/>
+    </bean>
+
+    <!-- Secured and UnSecured implementations yet to be done... -->
+</beans>

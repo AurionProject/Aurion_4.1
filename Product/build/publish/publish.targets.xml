@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="publish.targets">
+	
+	<import file="publish.properties.xml"/>
+
+	<target name="publish.help">
+		<echo>
+			publish.create - Publish all of the release artifacts.
+		</echo>
+	</target>
+
+	<!-- Clean all of the releases in the dist area. -->
+	<target name="publish.clean.all">
+		<delete dir="${publish.dist.base.dir}" failonerror="true" />
+	</target>
+	
+	<!-- Clean just the release tied to this build. -->
+	<target name="publish.clean">
+		<delete dir="${publish.dist.release.dir}" failonerror="true" />
+	</target>
+
+	<target name="publish.create" depends="package.create,copy.deployable.artifacts">
+		<mkdir dir="${publish.dist.base.dir}" />
+		<mkdir dir="${publish.dist.release.dir}" />
+		<mkdir dir="${publish.dist.release.temp.dir}" />
+		<echo file="${publish.releaseinfo.path}" >
+			Release=${publish.release.label.prefix}
+			BuildDate=${publish.release.date}
+			BuildTime=${publish.release.time}
+		</echo>
+		<call target="publish.binary.release"/>
+		<call target="publish.interfaces.release"/>
+		<call target="publish.ESCs.release"/>
+		<call target="publish.soapui.validation.tests.release"/>
+		<call target="publish.lift.manualtest.release"/>
+
+
+		
+<!--		<call target="publish.properties.release"/> -->
+		
+<!--
+		<deltree dir="${publish.dist.release.temp.dir}" />
+-->		
+	</target>
+	
+	<target name="publish.binary.release">
+
+		<property name="publish.binary.release.name" value="${publish.zip.prefix.name}_Binaries_${publish.release.label.prefix}.zip"/>
+		<property name="publish.binary.release.path" value="${publish.dist.release.dir}/${publish.binary.release.name}"/>
+
+		<zip zipfile="${publish.binary.release.path}">
+			<zipfileset dir="${publish.binaries.deploy.dir}">
+				<include name="**\*"/>
+			</zipfileset>
+			<zipfileset dir="${publish.binaries.install.dir}">
+				<include name="**\*"/>
+			</zipfileset>
+			<zipfileset dir="${publish.binaries.dbscripts.dir}" prefix="${publish.binaries.dbscripts.name}">
+				<include name="**\*"/>
+			</zipfileset>
+			<zipfileset dir="${publish.dist.release.temp.dir}">
+				<include name="ReleaseInfo.txt"/>
+			</zipfileset>
+		</zip>
+
+	</target>
+	
+	<target name="publish.interfaces.release">
+		<property name="publish.interfaces.release.name" value="${publish.zip.prefix.name}_Interfaces_${publish.release.label.prefix}.zip"/>
+		<property name="publish.interfaces.release.path" value="${publish.dist.release.dir}/${publish.interfaces.release.name}"/>
+
+		<zip zipfile="${publish.interfaces.release.path}">
+			<zipfileset dir="${publish.production.dir}\" >
+				<include name="Common\Interfaces\**" />
+			</zipfileset>
+		</zip>
+
+	</target>
+
+	<target name="publish.ESCs.release">
+		<call target="publish.ESCs.dynamicdocuments.release"/>
+		<call target="publish.ESCs.fta.release"/>
+		<call target="publish.ESCs.opensso.adapterpepws.release"/>
+	</target>
+
+	<target name="publish.ESCs.dynamicdocuments.release">
+		<property name="publish.ESCs.dynamicdocuments.release.name" value="${publish.zip.prefix.name}_DynamicDocuments_${publish.release.label.prefix}.zip"/>
+		<property name="publish.ESCs.dynamicdocuments.release.path" value="${publish.dist.release.dir}/${publish.ESCs.dynamicdocuments.release.name}"/>
+
+		<zip zipfile="${publish.ESCs.dynamicdocuments.release.path}" whenempty="fail">
+			<zipfileset dir="${publish.production.dir}\Adapters\Framework\AdapterCommonDataLayerEJB\dist\debug\" prefix="bin">
+				<include name="AdapterCommonDataLayerEJB.jar"/>
+			</zipfileset>
+			<zipfileset dir="${publish.production.dir}\Adapters\Framework\AdapterDocumentAssemblyProxyEJB\dist\debug\" prefix="bin" >
+				<include name="AdapterDocumentAssemblyProxyEJB.jar"/>
+			</zipfileset>
+			<zipfileset dir="${publish.production.dir}\Adapters\Framework\AdapterDocumentRepositoryEJB\dist\debug\" prefix="bin" >
+				<include name="AdapterDocumentRepositoryEJB.jar"/>
+			</zipfileset>
+			<zipfileset dir="${publish.production.dir}\Adapters\Framework\DocumentManagerEJB\dist\debug\" prefix="bin" >
+				<include name="DocumentManagerEJB.jar"/>
+			</zipfileset>
+			<zipfileset dir="${publish.production.dir}\Adapters\Framework\NHINAdapterServiceEJB\dist\debug\" prefix="bin" >
+				<include name="NHINAdapterServiceEJB.jar"/>
+			</zipfileset>
+			<zipfileset dir="${publish.product.dir}\SoapUI_Test\ManualSuite\" prefix="SelfTest\DynamicDocumentTest" >
+				<include name="DynamicDocumentTest-Internal-soapui-project.*"/>
+			</zipfileset>
+			<zipfileset dir="${publish.product.dir}\SoapUI_Test\ManualSuite\" prefix="SelfTest\DynamicDocumentTest" >
+				<include name="DynamicDocumentTest-EndtoEnd-soapui-project.*"/>
+			</zipfileset>
+		</zip>
+
+	</target>  
+	
+	<target name="publish.ESCs.fta.release">
+		<property name="publish.ESC.name" value="Generic_File_Transfer_Adapter"/>
+
+		<property name="publish.ESCs.fta.release.name" value="${publish.zip.prefix.name}_${publish.ESC.name}_${publish.release.label.prefix}.zip"/>
+		<property name="publish.ESCs.fta.release.path" value="${publish.dist.release.dir}/${publish.ESCs.fta.release.name}"/>
+
+		<zip zipfile="${publish.ESCs.fta.release.path}" whenempty="fail">
+			<zipfileset dir="${publish.production.dir}\Adapters\GenericFileTransfer\FTATransferAdapterEJB\dist\debug" >
+				<include name="*.jar"/>
+			</zipfileset>
+		</zip>
+
+		<property name="publish.ESCs.fta.test.release.name" value="${publish.zip.prefix.name}_${publish.ESC.name}_Test_${publish.release.label.prefix}.zip"/>
+		<property name="publish.ESCs.fta.test.release.path" value="${publish.dist.release.dir}/${publish.ESCs.fta.test.release.name}"/>
+
+		<zip zipfile="${publish.ESCs.fta.test.release.path}" whenempty="fail">
+			<zipfileset dir="${publish.product.dir}\SoapUI_Test\ManualSuite\FTAManualTest" prefix="FTAManualTest" >
+				<include name="*.*"/>
+				<exclude name="build.xml"/>
+			</zipfileset>
+		</zip>
+		
+	</target>
+
+	<target name="publish.soapui.validation.tests.release">
+		<property name="publish.soapui.validation.tests.release.name" value="${publish.zip.prefix.name}_Validation_Tests_${publish.release.label.prefix}.zip"/>
+		<property name="publish.soapui.validation.tests.release.path" value="${publish.dist.release.dir}/${publish.soapui.validation.tests.release.name}"/>
+
+		<zip zipfile="${publish.soapui.validation.tests.release.path}" whenempty="fail">
+			<zipfileset dir="${publish.product.dir}\SoapUI_Test\ValidationSuite" prefix="ValidationSuite">
+				<include name="*.*"/>
+				<exclude name="build.xml"/>
+			</zipfileset>
+			<zipfileset dir="${publish.product.dir}\Production\Common\Properties\Dev" prefix="ValidationSuite">
+				<include name="mpi.xml"/>
+				<include name="reidentification.xml"/>
+			</zipfileset>
+			<zipfileset dir="${publish.product.dir}\DBScripts\nhincdb" prefix="ValidationSuite">
+				<include name="populateTestData.sql"/>
+			</zipfileset>
+		</zip>
+
+	</target>
+	
+	<target name="publish.ESCs.opensso.adapterpepws.release">
+		<property name="publish.ESCs.opensso.adapterpepws.release.name" value="${publish.zip.prefix.name}_OpenSSO_AdapterPEPWS_Test_${publish.release.label.prefix}.zip"/>
+		<property name="publish.ESCs.opensso.adapterpepws.release.path" value="${publish.dist.release.dir}/${publish.ESCs.opensso.adapterpepws.release.name}"/>
+
+		<zip zipfile="${publish.ESCs.opensso.adapterpepws.release.path}" whenempty="fail">
+			<zipfileset dir="${publish.product.dir}\SoapUI_Test\ManualSuite\OpenSSO" prefix="OpenSSOAdapterPEPWSTest" >
+				<include name="*.*"/>
+				<exclude name="build.xml"/>
+			</zipfileset>
+		</zip>
+	</target>
+
+	<target name="publish.lift.manualtest.release">
+		<property name="publish.lift.manualtest.release.name" value="${publish.zip.prefix.name}_LiFT_Test_${publish.release.label.prefix}.zip"/>
+		<property name="publish.lift.manualtest.release.path" value="${publish.dist.release.dir}/${publish.lift.manualtest.release.name}"/>
+
+		<zip zipfile="${publish.lift.manualtest.release.path}" whenempty="fail">
+			<zipfileset dir="${publish.product.dir}\SoapUI_Test\ManualSuite\" prefix="LiFtWSTest">
+				<include name="EntityXDRLiFTAsyncRequestTests-soapui-project.xml"/>
+				<include name="EntityXDRLiFTAsyncRequestTests-soapui-project.properties"/>
+				<include name="LiFTEnabled_internalConnectionInfo.xml"/>
+				<include name="LiFTDisabled_internalConnectionInfo.xml"/>
+				<include name="LiftDocument.jpg"/>
+			</zipfileset>
+			<zipfileset dir="${publish.product.dir}\IntegrationTest\scripts\" prefix="LiFtWSScripts">
+				<include name="DBFunctions.groovy"/>
+				<include name="FileUtils.groovy"/>
+				<include name="GlassFishUtils.groovy"/>
+				<include name="PropertyReader.groovy"/>
+			</zipfileset>
+		</zip>
+	</target>
+	
+
+<!--	
+	<target name="publish.properties.release">
+
+		<foreach item="Folder" property="Properties.Dir">
+			<in>
+				<items basedir="${publish.properties.base.dir}">
+					<include name="*"/>
+					<exclude name="${publish.properties.base.dir}"/>
+				</items>
+			</in>
+			<do>
+				<echo message="${Properties.Dir}"/>
+				<property name="Properties.Dir.Name" value="${path::get-file-name-without-extension(Properties.Dir)}"/>
+				<property name="Properties.Zip.FileName" value="${ProjectFullName}_Properties_${Properties.Dir.Name}_${CCNetLabel}.zip"/>
+				<property name="Properties.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${Properties.Zip.FileName}"/>
+
+				<zip zipfile="${Properties.Zip.FilePath}">
+					<fileset basedir="${publish.properties.base.dir}\${Properties.Dir.Name}\" >
+						<include name="*\**" />
+					</fileset>
+				</zip>
+
+				<property name="Publish.Web.File.Name" value="${Properties.Zip.FileName}"/>
+				<property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
+
+				<call target="Publish.Link" />
+			</do>
+		</foreach>
+	</target>
+-->	
+
+</project>

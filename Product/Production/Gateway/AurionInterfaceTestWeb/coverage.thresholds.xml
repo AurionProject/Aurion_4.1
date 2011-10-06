@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thresholds>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.adaptermpi.AdapterMpiSecured"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.adaptermpi.AdapterMpiSecuredImpl"
+              linecount="10"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="12" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.auditquery.AuditQuery"
+              linecount="19"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.auditquery.AuditQueryImpl"
+              linecount="17"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.docquery.DocQuery"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.docquery.DocQueryImpl"
+              linecount="14"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.docretrieve.DocRetrieve"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.docretrieve.DocRetrieveImpl"
+              linecount="14"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.genericheaderhandler.SoapHeaderHandler"
+              linecount="11"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.notify.HiemNotify"
+              linecount="3"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.notify.HiemNotifyImpl"
+              linecount="24"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.patientdiscovery.NhinPatientDiscovery"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="24" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.patientdiscovery.NhinPatientDiscoveryImpl"
+              linecount="18"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.patientdiscovery.async.request.NhinPatientDiscoveryAsyncReq"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="24" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.patientdiscovery.async.request.NhinPatientDiscoveryAsyncReqImpl"
+              linecount="18"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.patientdiscovery.async.response.NhinPatientDiscoveryAsyncResp"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="24" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.patientdiscovery.async.response.NhinPatientDiscoveryAsyncRespImpl"
+              linecount="18"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.subjectdiscovery.SubjectDiscovery"
+              linecount="5"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="48" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.subjectdiscovery.SubjectDiscoveryImpl"
+              linecount="45"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.subscription.HiemSubscription"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.subscription.HiemSubscriptionImpl"
+              linecount="21"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.unsubscribe.HiemUnsubscribe"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="30" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.unsubscribe.HiemUnsubscribeImpl"
+              linecount="89"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="20" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.unsubscribe.HiemUnsubscribeSoapHeaderHandler"
+              linecount="62"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.xdr.NhinXDR"
+              linecount="3"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.xdr.NhinXDRImpl"
+              linecount="16"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.xdr.async.request.NhinXDRRequest"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.xdr.async.request.NhinXDRRequestImpl"
+              linecount="8"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.xdr.async.response.NhinXDRResponse"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.xdr.async.response.NhinXDRResponseImpl"
+              linecount="8"
+              linerate="80"
+              linesexecuted="0"/>
+</thresholds>

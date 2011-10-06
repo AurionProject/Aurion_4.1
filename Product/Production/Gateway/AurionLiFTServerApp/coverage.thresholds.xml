@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thresholds>
+   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.lift.ServerApp"
+              linecount="43"
+              linerate="80"
+              linesexecuted="0"/>
+</thresholds>

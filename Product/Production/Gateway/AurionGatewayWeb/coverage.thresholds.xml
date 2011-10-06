@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thresholds>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.adapter.subjectdiscovery.AdapterSubjectDiscovery"
+              linecount="5"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.adapter.subjectdiscovery.AdapterSubjectDiscoveryImpl"
+              linecount="47"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.auditquery.adapter.AdapterAuditQueryService"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="8" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.auditquery.adapter.AdapterAuditQueryServiceImpl"
+              linecount="28"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.admindistribution.entity.EntityAdministrativeDistribution"
+              linecount="4"
+              linerate="80"
+              linesexecuted="0.03"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.admindistribution.entity.EntityAdministrativeDistributionSecured"
+              linecount="6"
+              linerate="80"
+              linesexecuted="0.04"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.auditquery.EntityAuditQuery"
+              linecount="10"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="26" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.auditquery.entity.EntityAuditLogImpl"
+              linecount="54"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.auditquery.entity.EntityAuditLogQuery"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.auditrepository.nhinc.AuditRepository"
+              linecount="5"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="8" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.auditrepository.nhinc.AuditRepositorySecuredImpl"
+              linecount="41"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.auditrepository.nhinc.AuditRepositoryUnsecured"
+              linecount="5"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="8" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.auditrepository.nhinc.AuditRepositoryUnsecuredImpl"
+              linecount="45"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="6" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.docquery.entity.EntityDocQueryImpl"
+              linecount="36"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.docquery.entity.EntityDocQuerySecured"
+              linecount="8"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.docquery.entity.EntityDocQueryUnsecured"
+              linecount="8"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.docquery.entity.deferred.request.EntityDocQueryDeferredReq"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0.02"/>
+   <threshold branchcount="4" branchrate="80" branchsexecuted="0.04"
+              class="org.alembic.aurion.docquery.entity.deferred.request.EntityDocQueryDeferredReqImpl"
+              linecount="15"
+              linerate="80"
+              linesexecuted="0.13"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.docquery.entity.deferred.request.EntityDocQueryDeferredReqSecured"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0.02"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.docquery.entity.deferred.response.EntityDocQueryDeferredResponseSecured"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.docquery.entity.deferred.response.EntityDocQueryDeferredResponseSecuredImpl"
+              linecount="9"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.docquery.entity.deferred.response.EntityDocQueryDeferredResponseUnsecured"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.docquery.entity.deferred.response.EntityDocQueryDeferredResponseUnsecuredImpl"
+              linecount="8"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.docretrieve.entity.EntityDocRetreiveImpl"
+              linecount="14"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.docretrieve.entity.EntityDocRetrieve"
+              linecount="3"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.docretrieve.entity.EntityDocRetrieveSecured"
+              linecount="3"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.docretrieve.entity.deferred.request.EntityDocRetrieveDeferredReq"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.docretrieve.entity.deferred.request.EntityDocRetrieveDeferredReqSecured"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="6" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.docretrieve.entity.deferred.request.EntityDocRetrieveDeferredRequestImpl"
+              linecount="19"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.docretrieve.entity.deferred.response.EntityDocRetrieveDeferredResp"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.docretrieve.entity.deferred.response.EntityDocRetrieveDeferredRespSecured"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="6" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.docretrieve.entity.deferred.response.EntityDocRetrieveDeferredResponseImpl"
+              linecount="19"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="6" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.docsubmission.entity.EntityDocSubmissionImpl"
+              linecount="40"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.docsubmission.entity.EntityDocSubmissionSecured"
+              linecount="8"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.docsubmission.entity.EntityDocSubmissionUnsecured"
+              linecount="8"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.docsubmission.entity.deferred.request.EntityDocSubmissionDeferredRequestImpl"
+              linecount="14"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.docsubmission.entity.deferred.request.EntityDocSubmissionDeferredRequestSecured"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.docsubmission.entity.deferred.request.EntityDocSubmissionDeferredRequestUnsecured"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.docsubmission.entity.deferred.response.EntityDocSubmissionDeferredResponseImpl"
+              linecount="14"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.docsubmission.entity.deferred.response.EntityDocSubmissionDeferredResponseSecured"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.docsubmission.entity.deferred.response.EntityDocSubmissionDeferredResponseUnsecured"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.gateway.policyenginetransformation.PolicyEngineTransformationService"
+              linecount="12"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.genericheaderhandler.SoapHeaderHandler"
+              linecount="11"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.hiem.entity.notify.EntityNotificationConsumerImpl"
+              linecount="19"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.hiem.entity.notify.EntityNotificationConsumerSecured"
+              linecount="3"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.hiem.entity.notify.EntityNotificationConsumerUnsecured"
+              linecount="4"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.hiem.entity.notify.EntityNotifySoapHeaderHandler"
+              linecount="7"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.hiem.entity.subscribe.EntityNotificationProducerImpl"
+              linecount="23"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.hiem.entity.subscribe.EntityNotificationProducerSecured"
+              linecount="3"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.hiem.entity.subscribe.EntityNotificationProducerUnsecured"
+              linecount="4"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.hiem.entity.subscribe.EntitySubscribeSoapHeaderHandler"
+              linecount="7"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.hiem.entity.unsubscribe.EntitySubscriptionManagerImpl"
+              linecount="22"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.hiem.entity.unsubscribe.EntitySubscriptionManagerSecured"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.hiem.entity.unsubscribe.EntitySubscriptionManagerUnsecured"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.hiem.entity.unsubscribe.EntityUnsubscribeSoapHeaderHandler"
+              linecount="7"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.lift.GatewayLiftManager"
+              linecount="11"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.patientcorrelation.nhinc.PatientCorrelationServiceSecured"
+              linecount="3"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="10" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.patientcorrelation.nhinc.PatientCorrelationServiceSecuredImpl"
+              linecount="21"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.patientcorrelation.nhinc.PatientCorrelationServiceUnsecured"
+              linecount="3"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="8" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.patientcorrelation.nhinc.PatientCorrelationServiceUnsecuredImpl"
+              linecount="14"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="2" branchrate="80" branchsexecuted="0.02"
+              class="org.alembic.aurion.patientdiscovery.entity.EntityPatientDiscoverySecured"
+              linecount="8"
+              linerate="80"
+              linesexecuted="0.06"/>
+   <threshold branchcount="8" branchrate="80" branchsexecuted="0.06"
+              class="org.alembic.aurion.patientdiscovery.entity.EntityPatientDiscoverySecuredImpl"
+              linecount="21"
+              linerate="80"
+              linesexecuted="0.18"/>
+   <threshold branchcount="2" branchrate="80" branchsexecuted="0.02"
+              class="org.alembic.aurion.patientdiscovery.entity.EntityPatientDiscoveryUnsecured"
+              linecount="7"
+              linerate="80"
+              linesexecuted="0.06"/>
+   <threshold branchcount="4" branchrate="80" branchsexecuted="0.04"
+              class="org.alembic.aurion.patientdiscovery.entity.EntityPatientDiscoveryUnsecuredImpl"
+              linecount="14"
+              linerate="80"
+              linesexecuted="0.12"/>
+   <threshold branchcount="6" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.patientdiscovery.entity.deferred.request.EntityPatientDiscoveryDeferredRequestImpl"
+              linecount="36"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.patientdiscovery.entity.deferred.request.EntityPatientDiscoveryDeferredRequestSecured"
+              linecount="8"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.patientdiscovery.entity.deferred.request.EntityPatientDiscoveryDeferredRequestUnsecured"
+              linecount="8"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.patientdiscovery.entity.deferred.request.queue.EntityPatientDiscoveryDeferredReqQueueSecured"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.patientdiscovery.entity.deferred.request.queue.EntityPatientDiscoveryDeferredReqQueueUnsecured"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.patientdiscovery.entity.deferred.request.queue.EntityPatientDiscoverySecuredDeferredReqQueueImpl"
+              linecount="13"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="10" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.patientdiscovery.entity.deferred.response.EntityPatientDiscoveryDeferredResponseImpl"
+              linecount="39"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.patientdiscovery.entity.deferred.response.EntityPatientDiscoveryDeferredResponseSecured"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.patientdiscovery.entity.deferred.response.EntityPatientDiscoveryDeferredResponseUnsecured"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="82" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.subjectdiscovery.entity.EntitySubjectDiscoveryImpl"
+              linecount="235"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.subjectdiscovery.entity.EntitySubjectDiscoverySecured"
+              linecount="5"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="102" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.subscription.repository.BaseSubscriptionRepositoryHelper"
+              linecount="243"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="6" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.subscription.repository.GatewaySubscriptionReferenceRepository"
+              linecount="40"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.subscription.repository.GatewaySubscriptionRepository"
+              linecount="32"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="10" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.subscription.repository.SubscriptionReferenceRepositoryHelper"
+              linecount="14"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.subscription.repository.SubscriptionRepositoryHelper"
+              linecount="3"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.subscription.repository.util.HiemSubscriptionRepositoryUtilService"
+              linecount="3"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.subscription.repository.util.HiemSubscriptionRepositoryUtilServiceImpl"
+              linecount="9"
+              linerate="80"
+              linesexecuted="0"/>
+</thresholds>

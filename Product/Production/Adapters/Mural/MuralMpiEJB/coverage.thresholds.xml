@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thresholds>
+   <threshold branchcount="78" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.muralmpi.HL7Parser"
+              linecount="156"
+              linerate="80"
+              linesexecuted="0.22"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.muralmpi.MuralMPI"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="6" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.muralmpi.MuralMPIQuery"
+              linecount="52"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="org.alembic.aurion.muralmpi.PersonName"
+              linecount="13"
+              linerate="80"
+              linesexecuted="0.13"/>
+</thresholds>

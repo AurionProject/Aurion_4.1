@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/test/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/AurionCoreLib"/>
+	<classpathentry kind="var" path="THIRD_PARTY/jmock/bsh-core-2.0b4.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/jmock/cglib-2.1_3-src.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/jmock/cglib-nodep-2.1_3.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/jmock/hamcrest-core-1.1.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/jmock/hamcrest-library-1.1.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/jmock/jmock-2.5.1.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/jmock/jmock-junit3-2.5.1.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/jmock/jmock-junit4-2.5.1.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/log4j"/>
+	<classpathentry kind="var" path="THIRD_PARTY/log4j/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/log4j/log4j-1.2.15.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/OpenSSO/openssoclientsdk.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/SpringFramework/spring.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/jmock/jmock-legacy-2.5.1.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/jmock/jmock-script-2.5.1.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/jmock/objenesis-1.0.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/JUnit/junit-4.5.jar"/>
+	<classpathentry kind="lib" path="src/conf"/>
+	<classpathentry kind="lib" path="src/main/resources"/>
+	<classpathentry kind="lib" path="src/main/webapp"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/AurionCommonTypesLib"/>
+	<classpathentry kind="var" path="THIRD_PARTY/Mockito/mockito-all-1.8.5.jar"/>
+	<classpathentry kind="output" path="build/eclipse"/>
+</classpath>

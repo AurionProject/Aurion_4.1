@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!--
+    Document   : auditperformance.hbm.xml
+    Created on : April 12, 2011, 11:41 PM
+    Author     : Sai Valluripalli
+    Description:
+        Purpose of the document follows.
+-->
+<hibernate-mapping package="org.alembic.aurion.performance.model">
+  <class name="AuditPerformance" table="auditperformance">
+    <id name="id" type="int">
+      <column name="Id" sql-type="INTEGER"/>
+      <generator class="native"/>
+    </id>
+    <property name="transactionId">
+      <column name="transactionId"/>
+    </property>
+    <property name="txTimeStamp">
+      <column name="txTimeStamp"/>
+    </property>
+    <property name="interface_">
+      <column name="interface"/>
+    </property>
+    <property name="attempts">
+      <column name="attempts"/>
+    </property>
+    <property name="type">
+      <column name="type"/>
+    </property>
+  </class>
+</hibernate-mapping>

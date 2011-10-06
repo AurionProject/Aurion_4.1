@@ -1,0 +1,40 @@
+<project name="publish.properties">
+	<!-- Hudson will set the BUILD_NUMBER property if this is being run within HUDSON.  If it
+	     is not, then we should set a standard value so that we know it is a dev build.  -->
+	<if>
+		<isset property="BUILD_NUMBER" />
+		<then>
+			<property name="publish.release.label.prefix" value="4.0.0.${BUILD_NUMBER}" />
+		</then>
+		<else>
+			<property name="publish.release.label.prefix" value="4.0.0.DEV" />
+		</else>
+	</if>
+
+	<property name="publish.product.dir" value="${root.project.directory.path}" />
+	<property name="publish.dist.base.dir" value="${publish.product.dir}/dist" />
+	<property name="publish.dist.release.dir" value="${publish.dist.base.dir}/${publish.release.label.prefix}" />
+	<property name="publish.dist.release.temp.dir" value="${publish.dist.release.dir}/temp" />
+	<property name="publish.production.dir" value="${publish.product.dir}/Production" />
+	
+	<property name="publish.releaseinfo.path" value="${publish.dist.release.temp.dir}/ReleaseInfo.txt" />
+	<property name="publish.zip.prefix.name" value="Aurion" />
+
+	
+	<tstamp>
+		<format property="publish.release.date" pattern="yyyy-MM-dd" />
+	</tstamp>
+	<tstamp>
+		<format property="publish.release.time" pattern="HH:mm:ss" />
+	</tstamp>
+
+	<property name="publish.binaries.deploy.dir" value="${deployment.dir}" />
+	<property name="publish.binaries.install.dir" value="${publish.product.dir}/Install" />
+	<property name="publish.binaries.dbscripts.name" value="DBScripts" />
+	<property name="publish.binaries.dbscripts.dir" value="${publish.product.dir}/${publish.binaries.dbscripts.name}" />
+	<property name="publish.properties.base.dir" value="${publish.production.dir}\Common\Properties\"/>
+	
+
+	
+	
+</project>

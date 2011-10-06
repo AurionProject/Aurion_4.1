@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions
+ xmlns="http://schemas.xmlsoap.org/wsdl/"
+ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+ xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="mainclientconfig"
+ >
+    <import location="NhincComponentAuditRepositorySecured.xml" namespace="urn:org:alembic:aurion:nhinccomponentauditrepository"/>
+    <import location="AdapterPolicyEngineSecured.xml" namespace="urn:org:alembic:aurion:adapterpolicyenginesecured"/>
+    <import location="NhinDocQuery.xml" namespace="urn:ihe:iti:xds-b:2007"/>
+    <import location="NhinDocQueryDeferredRequest.xml" namespace="urn:ihe:iti:xds-b:2007"/>
+    <import location="NhinDocQueryDeferredResponse.xml" namespace="urn:ihe:iti:xds-b:2007"/>
+    <import location="NhinDocRetrieve.xml" namespace="urn:ihe:iti:xds-b:2007"/>
+    <import location="NhinSubscription.xml" namespace="http://docs.oasis-open.org/wsn/bw-2"/>
+    <import location="NhinAuditLogQuery.xml" namespace="http://services.nhin.com/wsdl/auditlogquery"/>
+    <import location="NhinPatientDiscovery.xml" namespace="urn:ihe:iti:xcpd:2009"/>
+    <import location="NhinPatientDiscoveryDeferredRequest.xml" namespace="urn:ihe:iti:xcpd:2009"/>
+    <import location="NhinPatientDiscoveryDeferredResponse.xml" namespace="urn:ihe:iti:xcpd:2009"/>
+    <import location="NhinSubjectDiscovery.xml" namespace="urn:ihe:iti:pixv3:2007"/>
+    <import location="NhinXDR.xml" namespace="urn:ihe:iti:xdr:2007"/>
+    <import location="NhinXDRDeferredRequest.xml" namespace="urn:ihe:iti:xdr:2007"/>
+    <import location="NhinXDRDeferredResponse.xml" namespace="urn:ihe:iti:xdr:2007"/>
+    <import location="NhinAdminDist.xml" namespace="urn:org:alembic:aurion:nhinadmindistribution"/>
+    <import location="NhinDocRetrieveDeferredReq.xml" namespace="urn:org:alembic:aurion:nhindocretrievedeferredrequest"/>
+    <import location="NhinDocRetrieveDeferredResp.xml" namespace="urn:org:alembic:aurion:nhindocretrievedeferredresponse"/>
+<!--
+    <import location="AdapterDocQuerySecured.xml" namespace="urn:org:alembic:aurion:adapterdocquerysecured"/>
+    <import location="AdapterDocRetrieveSecured.xml" namespace="urn:org:alembic:aurion:adapterdocretrievesecured"/>
+    <import location="AdapterAuditLogQuerySaml.xml" namespace="urn:org:alembic:aurion:adapterauditlogquerysaml"/>
+    <import location="AdapterPatientDiscoverySecured.xml" namespace="urn:org:alembic:aurion:adapterpatientdiscoverysecured"/>
+    <import location="AdapterSubjectDiscoverySecured.xml" namespace="urn:org:alembic:aurion:adaptersubjectdiscoverysecured"/>
+    <import location="NhincComponentPatientCorrelationSecured.xml" namespace="urn:org:alembic:aurion:nhinccomponentpatientcorrelation"/>
+    <import location="AdapterComponentSecuredMpi.xml" namespace="urn:org:alembic:aurion:adaptercomponentmpi"/>
+    <import location="AdapterComponentXDRSecured.xml" namespace="urn:org:alembic:aurion:nhincadapterxdrsecured"/>
+    <import location="AdapterXDRRequestSecured.xml" namespace="urn:org:alembic:aurion:adapterxdrrequestsecured"/>
+    <import location="AdapterXDRRequestSecuredError.xml" namespace="urn:org:alembic:aurion:adapterxdrrequestsecurederror"/>
+    <import location="AdapterXDRResponseSecured.xml" namespace="urn:org:alembic:aurion:adapterxdrresponsesecured"/>
+    <import location="AdapterPatientDiscoverySecuredAsyncReq.xml" namespace="urn:org:alembic:aurion:adapterpatientdiscoverysecuredasyncreq"/>
+    <import location="AdapterPatientDiscoverySecuredAsyncResp.xml" namespace="urn:org:alembic:aurion:adapterpatientdiscoverysecuredasyncresp"/>
+    <import location="AdapterPatientDiscoverySecuredAsyncReqQueue.xml" namespace="urn:org:alembic:aurion:adapterpatientdiscoverysecuredasyncreqqueue"/>
+    <import location="AdapterPatientDiscoverySecuredAsyncReqError.xml" namespace="urn:org:alembic:aurion:adapterpatientdiscoverysecuredasyncreqerror"/>
+-->
+</definitions>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions
+ xmlns="http://schemas.xmlsoap.org/wsdl/"
+ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+ xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="mainclientconfig"
+ >
+    <import location="NhincComponentAuditRepositorySecured.xml" namespace="urn:org:alembic:aurion:nhinccomponentauditrepository"/>
+    <import location="AdapterComponentSecuredMpi.xml" namespace="urn:org:alembic:aurion:adaptercomponentmpi"/>
+    <import location="EntityAuditLogQuerySecured.xml" namespace="urn:org:alembic:aurion:entityauditlogquerysaml"/>
+    <import location="NhincProxyAuditLogQuerySecured.xml" namespace="urn:org:alembic:aurion:nhincproxyauditlogquerysecured"/>
+    <import location="EntitySubjectDiscoverySecured.xml" namespace="urn:org:alembic:aurion:entitysubjectdiscoverysecured"/>
+    <import location="NhincProxySubjectDiscoverySecured.xml" namespace="urn:org:alembic:aurion:nhincproxysubjectdiscoverysecured"/>
+    <import location="EntityNotificationConsumerSecured.xml" namespace="urn:org:alembic:aurion:entitynotificationconsumersecured"/>
+    <import location="NhincProxyNotificationConsumerSecured.xml" namespace="urn:org:alembic:aurion:nhincproxynotificationconsumersecured"/>
+    <import location="NhincProxySubscriptionManagementSecured.xml" namespace="urn:org:alembic:aurion:nhincproxysubscriptionmanagement"/>
+    <import location="EntitySubscriptionManagementSecured.xml" namespace="urn:org:alembic:aurion:entitysubscriptionmanagementsecured"/>
+    <import location="NhinSubscription.xml" namespace="http://docs.oasis-open.org/wsn/bw-2"/>
+    <import location="AdapterComponentXDRSecured.xml" namespace="urn:org:alembic:aurion:adaptercomponentxdrsecured"/>
+    <import location="NhincComponentPatientCorrelationSecured.xml" namespace="urn:org:alembic:aurion:nhinccomponentpatientcorrelation"/>
+</definitions>
+
+

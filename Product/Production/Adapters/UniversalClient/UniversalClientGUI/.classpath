@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/test/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/AurionCoreLib"/>
+	<classpathentry kind="var" path="THIRD_PARTY/jsf/appbase.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/jsf/commons-beanutils.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/jsf/commons-collections.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/jsf/commons-digester.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/jsf/commons-fileupload-1.0.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/jsf/dataprovider.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/jsf/errorhandler.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/jsf/jsf-api.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/jsf/jsfcl.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/jsf/json-2.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/jsf/sqlx.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/jsf/webui-jsf-suntheme.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/jsf/webui-jsf.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/JSTL1.1/jstl.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/JSTL1.1/standard.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/log4j/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/log4j/log4j-1.2.15.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/bcprov/bcprov-jdk14-135.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/JAXWS2.1/activation.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/JAXWS2.1/FastInfoset.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/JAXWS2.1/http.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/JAXWS2.1/jaxb-api.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/JAXWS2.1/jaxb-impl.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/JAXWS2.1/jaxb-xjc.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/JAXWS2.1/jaxws-api.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/JAXWS2.1/jaxws-rt.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/JAXWS2.1/jaxws-tools.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/JAXWS2.1/jsr173_api.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/JAXWS2.1/jsr181-api.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/JAXWS2.1/jsr250-api.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/JAXWS2.1/mimepull.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/JAXWS2.1/saaj-api.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/JAXWS2.1/saaj-impl.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/JAXWS2.1/sjsxp.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/JAXWS2.1/stax-ex.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/JAXWS2.1/streambuffer.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/jsf/jsf-extensions-common-0.1.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/jsf/jsf-extensions-dynamic-faces-0.1.jar"/>
+	<classpathentry kind="lib" path="src/main/resources"/>
+	<classpathentry kind="lib" path="src/main/webapp"/>
+	<classpathentry kind="lib" path="src/test/resources"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/AurionCommonTypesLib"/>
+	<classpathentry kind="output" path="build/eclipse"/>
+</classpath>

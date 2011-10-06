@@ -1,0 +1,31 @@
+/*
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ *  
+ * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
+ *  
+ */
+package org.alembic.aurion.docretrieve.nhin.proxy;
+
+import org.alembic.aurion.common.nhinccommon.AssertionType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import org.alembic.aurion.common.nhinccommon.NhinTargetSystemType;
+
+/**
+ * Component proxy interface for NHIN Doc Retrieve
+ *
+ * @author Neil Webb, Les Westberg
+ */
+public interface NhinDocRetrieveProxy
+{
+    /**
+     * Retrieve the document(s) specified in the request.
+     *
+     * @param request The identifier(s) of the document(s) to be retrieved.
+     * @param targetSystem The target system where the message is being sent to.
+     * @return The document(s) that were retrieved.
+     */
+    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType request,
+                                                                                 AssertionType assertion,
+                                                                                 NhinTargetSystemType targetSystem);
+}

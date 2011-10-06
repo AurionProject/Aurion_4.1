@@ -1,0 +1,775 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PolicySet xmlns="urn:oasis:names:tc:xacml:2.0:policy:schema:os" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xacml:2.0:policy:schema:os http://docs.oasis-open.org/xacml/access_control-xacml-2.0-policy-schema-os.xsd" PolicySetId="urn:oasis:names:tc:xspa:1.0" PolicyCombiningAlgId="urn:oasis:names:tc:xacml:1.0:policy-combining-algorithm:deny-overrides">
+  <Target />
+  
+  
+  <!-- 
+    Matching Actions that require Opt-In/Opt-Out Status Check.
+      SubjectDiscoveryIn
+      SubjectDiscoveryOut
+      SubjectDiscoveryRevokeIn
+      SubjectDiscoveryRevokeOut
+      DocumentQueryIn
+      DocumentQueryOut
+      DocumentRetrieveIn
+      DocumentRetrieveOut
+      HIEMNotifyIn
+      HIEMNotifyOut
+      SubjectDiscoveryReidentificationIn
+      SubjectDiscoveryReidentificationOut
+      
+    If patient is Opted-In, then we return "Permit"; otherwise, we return "Deny".
+  -->
+  <Policy PolicyId="urn:org:alembic:aurion:SubjectDiscoveryIn:policy" RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:first-applicable">
+    <Target>
+      <Resources>
+        <Resource>
+          <ResourceMatch MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">SubjectDiscoveryIn</AttributeValue>
+            <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:service-type" DataType="http://www.w3.org/2001/XMLSchema#string" />
+          </ResourceMatch>
+        </Resource>
+      </Resources>
+    </Target>
+    <Rule RuleId="urn:org:alembic:aurion:SubjectDiscoveryIn:rule" Effect="Permit">
+      <Description>
+        If the patient is opted in, then permit the request.
+      </Description>
+      <Target />
+      <Condition>
+        <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+          <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">Yes</AttributeValue>
+            <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:patient-opt-in" DataType="http://www.w3.org/2001/XMLSchema#string" />
+          </Apply>
+        </Apply>
+      </Condition>
+    </Rule>
+    <Rule RuleId="urn:gov:hss:fha:nhinc:SubjectDiscoveryIn:not-valid" Effect="Deny">
+      <Description>If the patient is not opted in, then deny the request.  This is our catch-all for all other types.</Description>
+    </Rule>
+  </Policy>  
+  <Policy PolicyId="urn:org:alembic:aurion:SubjectDiscoveryOut:policy" RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:first-applicable">
+    <Target>
+      <Resources>
+        <Resource>
+          <ResourceMatch MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">SubjectDiscoveryOut</AttributeValue>
+            <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:service-type" DataType="http://www.w3.org/2001/XMLSchema#string" />
+          </ResourceMatch>
+        </Resource>
+      </Resources>
+    </Target>
+    <Rule RuleId="urn:org:alembic:aurion:SubjectDiscoveryOut:rule" Effect="Permit">
+      <Description>
+        If the patient is opted in, then permit the request.
+      </Description>
+      <Target />
+      <Condition>
+        <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+          <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">Yes</AttributeValue>
+            <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:patient-opt-in" DataType="http://www.w3.org/2001/XMLSchema#string" />
+          </Apply>
+        </Apply>
+      </Condition>
+    </Rule>
+    <Rule RuleId="urn:gov:hss:fha:nhinc:SubjectDiscoveryOut:not-valid" Effect="Deny">
+      <Description>If the patient is not opted in, then deny the request.  This is our catch-all for all other types.</Description>
+    </Rule>
+  </Policy>
+  <Policy PolicyId="urn:org:alembic:aurion:SubjectDiscoveryRevokeIn:policy" RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:first-applicable">
+    <Target>
+      <Resources>
+        <Resource>
+          <ResourceMatch MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">SubjectDiscoveryRevokeIn</AttributeValue>
+            <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:service-type" DataType="http://www.w3.org/2001/XMLSchema#string" />
+          </ResourceMatch>
+        </Resource>
+      </Resources>
+    </Target>
+    <Rule RuleId="urn:org:alembic:aurion:SubjectDiscoveryRevokeIn:rule" Effect="Permit">
+      <Description>
+        If the patient is opted in, then permit the request.
+      </Description>
+      <Target />
+      <Condition>
+        <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+          <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">Yes</AttributeValue>
+            <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:patient-opt-in" DataType="http://www.w3.org/2001/XMLSchema#string" />
+          </Apply>
+        </Apply>
+      </Condition>
+    </Rule>
+    <Rule RuleId="urn:gov:hss:fha:nhinc:SubjectDiscoveryRevokeIn:not-valid" Effect="Deny">
+      <Description>If the patient is not opted in, then deny the request.  This is our catch-all for all other types.</Description>
+    </Rule>
+  </Policy>
+  <Policy PolicyId="urn:org:alembic:aurion:SubjectDiscoveryRevokeOut:policy" RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:first-applicable">
+    <Target>
+      <Resources>
+        <Resource>
+          <ResourceMatch MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">SubjectDiscoveryRevokeOut</AttributeValue>
+            <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:service-type" DataType="http://www.w3.org/2001/XMLSchema#string" />
+          </ResourceMatch>
+        </Resource>
+      </Resources>
+    </Target>
+    <Rule RuleId="urn:org:alembic:aurion:SubjectDiscoveryRevokeOut:rule" Effect="Permit">
+      <Description>
+        If the patient is opted in, then permit the request.
+      </Description>
+      <Target />
+      <Condition>
+        <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+          <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">Yes</AttributeValue>
+            <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:patient-opt-in" DataType="http://www.w3.org/2001/XMLSchema#string" />
+          </Apply>
+        </Apply>
+      </Condition>
+    </Rule>
+    <Rule RuleId="urn:gov:hss:fha:nhinc:SubjectDiscoveryRevokeOut:not-valid" Effect="Deny">
+      <Description>If the patient is not opted in, then deny the request.  This is our catch-all for all other types.</Description>
+    </Rule>
+  </Policy>
+  <Policy PolicyId="urn:org:alembic:aurion:DocumentQueryIn:policy" RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:first-applicable">
+    <Target>
+      <Resources>
+        <Resource>
+          <ResourceMatch MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">DocumentQueryIn</AttributeValue>
+            <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:service-type" DataType="http://www.w3.org/2001/XMLSchema#string" />
+          </ResourceMatch>
+        </Resource>
+      </Resources>
+    </Target>
+    <Rule RuleId="urn:org:alembic:aurion:DocumentQueryIn:rule" Effect="Permit">
+      <Description>
+        If the patient is opted in, then permit the request.
+      </Description>
+      <Target />
+      <Condition>
+        <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+          <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">Yes</AttributeValue>
+            <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:patient-opt-in" DataType="http://www.w3.org/2001/XMLSchema#string" />
+          </Apply>
+        </Apply>
+      </Condition>
+    </Rule>
+    <Rule RuleId="urn:gov:hss:fha:nhinc:DocumentQueryIn:not-valid" Effect="Deny">
+      <Description>If the patient is not opted in, then deny the request.  This is our catch-all for all other types.</Description>
+    </Rule>
+  </Policy>
+  <Policy PolicyId="urn:org:alembic:aurion:DocumentQueryOut:policy" RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:first-applicable">
+    <Target>
+      <Resources>
+        <Resource>
+          <ResourceMatch MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">DocumentQueryOut</AttributeValue>
+            <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:service-type" DataType="http://www.w3.org/2001/XMLSchema#string" />
+          </ResourceMatch>
+        </Resource>
+      </Resources>
+    </Target>
+    <Rule RuleId="urn:org:alembic:aurion:DocumentQueryOut:rule" Effect="Permit">
+      <Description>
+        If the patient is opted in, then permit the request.
+      </Description>
+      <Target />
+      <Condition>
+        <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+          <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">Yes</AttributeValue>
+            <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:patient-opt-in" DataType="http://www.w3.org/2001/XMLSchema#string" />
+          </Apply>
+        </Apply>
+      </Condition>
+    </Rule>
+    <Rule RuleId="urn:gov:hss:fha:nhinc:DocumentQueryOut:not-valid" Effect="Deny">
+      <Description>If the patient is not opted in, then deny the request.  This is our catch-all for all other types.</Description>
+    </Rule>
+  </Policy>
+  <Policy PolicyId="urn:org:alembic:aurion:DocumentRetrieveIn:policy" RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:first-applicable">
+    <Target>
+      <Resources>
+        <Resource>
+          <ResourceMatch MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">DocumentRetrieveIn</AttributeValue>
+            <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:service-type" DataType="http://www.w3.org/2001/XMLSchema#string" />
+          </ResourceMatch>
+        </Resource>
+      </Resources>
+    </Target>
+    <Rule RuleId="urn:org:alembic:aurion:DocumentRetrieveIn:rule" Effect="Permit">
+      <Description>
+        If the patient is opted in, then permit the request.
+      </Description>
+      <Target />
+      <Condition>
+        <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+          <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">Yes</AttributeValue>
+            <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:patient-opt-in" DataType="http://www.w3.org/2001/XMLSchema#string" />
+          </Apply>
+        </Apply>
+      </Condition>
+    </Rule>
+    <Rule RuleId="urn:gov:hss:fha:nhinc:DocumentRetrieveIn:not-valid" Effect="Deny">
+      <Description>If the patient is not opted in, then deny the request.  This is our catch-all for all other types.</Description>
+    </Rule>
+  </Policy>
+  <Policy PolicyId="urn:org:alembic:aurion:DocumentRetrieveOut:policy" RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:first-applicable">
+    <Target>
+      <Resources>
+        <Resource>
+          <ResourceMatch MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">DocumentRetrieveOut</AttributeValue>
+            <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:service-type" DataType="http://www.w3.org/2001/XMLSchema#string" />
+          </ResourceMatch>
+        </Resource>
+      </Resources>
+    </Target>
+    <Rule RuleId="urn:org:alembic:aurion:DocumentRetrieveOut:rule" Effect="Permit">
+      <Description>
+        If the patient is opted in, then permit the request.
+      </Description>
+      <Target />
+      <Condition>
+        <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+          <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">Yes</AttributeValue>
+            <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:patient-opt-in" DataType="http://www.w3.org/2001/XMLSchema#string" />
+          </Apply>
+        </Apply>
+      </Condition>
+    </Rule>
+    <Rule RuleId="urn:gov:hss:fha:nhinc:DocumentRetrieveOut:not-valid" Effect="Deny">
+      <Description>If the patient is not opted in, then deny the request.  This is our catch-all for all other types.</Description>
+    </Rule>
+  </Policy>
+  <Policy PolicyId="urn:org:alembic:aurion:HIEMNotifyIn:policy" RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:first-applicable">
+    <Target>
+      <Resources>
+        <Resource>
+          <ResourceMatch MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">HIEMNotifyIn</AttributeValue>
+            <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:service-type" DataType="http://www.w3.org/2001/XMLSchema#string" />
+          </ResourceMatch>
+        </Resource>
+      </Resources>
+    </Target>
+    <Rule RuleId="urn:org:alembic:aurion:HIEMNotifyIn:rule" Effect="Permit">
+      <Description>
+        If the patient is opted in, then permit the request.
+      </Description>
+      <Target />
+      <Condition>
+        <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+          <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">Yes</AttributeValue>
+            <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:patient-opt-in" DataType="http://www.w3.org/2001/XMLSchema#string" />
+          </Apply>
+        </Apply>
+      </Condition>
+    </Rule>
+    <Rule RuleId="urn:gov:hss:fha:nhinc:HIEMNotifyIn:not-valid" Effect="Deny">
+      <Description>If the patient is not opted in, then deny the request.  This is our catch-all for all other types.</Description>
+    </Rule>
+  </Policy>
+  <Policy PolicyId="urn:org:alembic:aurion:HIEMNotifyOut:policy" RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:first-applicable">
+    <Target>
+      <Resources>
+        <Resource>
+          <ResourceMatch MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">HIEMNotifyOut</AttributeValue>
+            <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:service-type" DataType="http://www.w3.org/2001/XMLSchema#string" />
+          </ResourceMatch>
+        </Resource>
+      </Resources>
+    </Target>
+    <Rule RuleId="urn:org:alembic:aurion:HIEMNotifyOut:rule" Effect="Permit">
+      <Description>
+        If the patient is opted in, then permit the request.
+      </Description>
+      <Target />
+      <Condition>
+        <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+          <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">Yes</AttributeValue>
+            <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:patient-opt-in" DataType="http://www.w3.org/2001/XMLSchema#string" />
+          </Apply>
+        </Apply>
+      </Condition>
+    </Rule>
+    <Rule RuleId="urn:gov:hss:fha:nhinc:HIEMNotifyOut:not-valid" Effect="Deny">
+      <Description>If the patient is not opted in, then deny the request.  This is our catch-all for all other types.</Description>
+    </Rule>
+  </Policy>
+  <Policy PolicyId="urn:org:alembic:aurion:SubjectDiscoveryReidentificationIn:policy" RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:first-applicable">
+    <Target>
+      <Resources>
+        <Resource>
+          <ResourceMatch MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">SubjectDiscoveryReidentificationIn</AttributeValue>
+            <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:service-type" DataType="http://www.w3.org/2001/XMLSchema#string" />
+          </ResourceMatch>
+        </Resource>
+      </Resources>
+    </Target>
+    <Rule RuleId="urn:org:alembic:aurion:SubjectDiscoveryReidentificationIn:rule" Effect="Permit">
+      <Description>
+        If the patient is opted in, then permit the request.
+      </Description>
+      <Target />
+      <Condition>
+        <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+          <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">Yes</AttributeValue>
+            <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:patient-opt-in" DataType="http://www.w3.org/2001/XMLSchema#string" />
+          </Apply>
+        </Apply>
+      </Condition>
+    </Rule>
+    <Rule RuleId="urn:gov:hss:fha:nhinc:SubjectDiscoveryReidentificationIn:not-valid" Effect="Deny">
+      <Description>If the patient is not opted in, then deny the request.  This is our catch-all for all other types.</Description>
+    </Rule>
+  </Policy>
+  <Policy PolicyId="urn:org:alembic:aurion:SubjectDiscoveryReidentificationOut:policy" RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:first-applicable">
+    <Target>
+      <Resources>
+        <Resource>
+          <ResourceMatch MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">SubjectDiscoveryReidentificationOut</AttributeValue>
+            <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:service-type" DataType="http://www.w3.org/2001/XMLSchema#string" />
+          </ResourceMatch>
+        </Resource>
+      </Resources>
+    </Target>
+    <Rule RuleId="urn:org:alembic:aurion:SubjectDiscoveryReidentificationOut:rule" Effect="Permit">
+      <Description>
+        If the patient is opted in, then permit the request.
+      </Description>
+      <Target />
+      <Condition>
+        <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+          <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">Yes</AttributeValue>
+            <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:patient-opt-in" DataType="http://www.w3.org/2001/XMLSchema#string" />
+          </Apply>
+        </Apply>
+      </Condition>
+    </Rule>
+    <Rule RuleId="urn:gov:hss:fha:nhinc:SubjectDiscoveryReidentificationOut:not-valid" Effect="Deny">
+      <Description>If the patient is not opted in, then deny the request.  This is our catch-all for all other types.</Description>
+    </Rule>
+  </Policy>
+
+
+  <!-- 
+    Matching Actions that require Opt-In/Opt-Out Status Check if and only if the Patient ID is passed.
+      AuditLogQueryIn
+      AuditLogQueryOut
+      HIEMSubscriptionRequestIn
+      HIEMSubscriptionRequestOut
+      HIEMSubscriptionCancelIn
+      HIEMSubscriptionCancelOut
+    
+    If the Patient ID is not passed, then we return "Permit";
+    If the Patient ID is passed and is Opted-In, then we return "Permit"; otherwise, we return "Deny";    
+  -->
+  <Policy PolicyId="urn:org:alembic:aurion:AuditLogQueryIn:policy" RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:first-applicable">
+    <Target>
+      <Resources>
+        <Resource>
+          <ResourceMatch MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">AuditLogQueryIn</AttributeValue>
+            <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:service-type" DataType="http://www.w3.org/2001/XMLSchema#string" />
+          </ResourceMatch>
+        </Resource>
+      </Resources>
+    </Target>
+    <Rule RuleId="urn:org:alembic:aurion:AuditLogQueryIn:rule" Effect="Permit">
+      <Description>
+        If the Patient ID's are present and the Patient is Opted-In, then permit the request.
+      </Description>
+      <Target />
+      <Condition>
+        <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
+          
+          <!-- Patient ID's are present and the Patient is Opted-In, so we permit the request. -->
+          <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+            <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
+              <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:integer-equal">
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-bag-size">
+                  <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:assigning-authority-id" DataType="http://www.w3.org/2001/XMLSchema#string" />
+                </Apply>
+                <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">0</AttributeValue>
+              </Apply>
+            </Apply>
+            <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
+              <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:integer-equal">
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-bag-size">
+                  <ResourceAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:2.0:resource:resource-id" DataType="http://www.w3.org/2001/XMLSchema#string" />
+                </Apply>
+                <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">0</AttributeValue>
+              </Apply>
+            </Apply>
+            <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
+              <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">Yes</AttributeValue>
+              <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:patient-opt-in" DataType="http://www.w3.org/2001/XMLSchema#string" />
+            </Apply>
+          </Apply>
+          
+          <!-- Patient ID's are not present, so we permit the request. -->
+          <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+            <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:integer-equal">
+              <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-bag-size">
+                <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:assigning-authority-id" DataType="http://www.w3.org/2001/XMLSchema#string" />
+              </Apply>
+              <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">0</AttributeValue>
+            </Apply>
+            <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:integer-equal">
+              <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-bag-size">
+                <ResourceAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:2.0:resource:resource-id" DataType="http://www.w3.org/2001/XMLSchema#string" />
+              </Apply>
+              <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">0</AttributeValue>
+            </Apply>
+          </Apply>
+        </Apply>
+      </Condition>
+    </Rule>
+    <Rule RuleId="urn:gov:hss:fha:nhinc:AuditLogQueryIn:not-valid" Effect="Deny">
+      <Description>Patient ID's are present and the Patient is not Opted-In, so we deny the request.</Description>
+    </Rule>
+  </Policy>
+  <Policy PolicyId="urn:org:alembic:aurion:AuditLogQueryOut:policy" RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:first-applicable">
+    <Target>
+      <Resources>
+        <Resource>
+          <ResourceMatch MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">AuditLogQueryOut</AttributeValue>
+            <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:service-type" DataType="http://www.w3.org/2001/XMLSchema#string" />
+          </ResourceMatch>
+        </Resource>
+      </Resources>
+    </Target>
+    <Rule RuleId="urn:org:alembic:aurion:AuditLogQueryOut:rule" Effect="Permit">
+      <Description>
+        If the Patient ID's are present and the Patient is Opted-In, then permit the request.
+      </Description>
+      <Target />
+      <Condition>
+        <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
+
+          <!-- Patient ID's are present and the Patient is Opted-In, so we permit the request. -->
+          <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+            <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
+              <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:integer-equal">
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-bag-size">
+                  <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:assigning-authority-id" DataType="http://www.w3.org/2001/XMLSchema#string" />
+                </Apply>
+                <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">0</AttributeValue>
+              </Apply>
+            </Apply>
+            <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
+              <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:integer-equal">
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-bag-size">
+                  <ResourceAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:2.0:resource:resource-id" DataType="http://www.w3.org/2001/XMLSchema#string" />
+                </Apply>
+                <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">0</AttributeValue>
+              </Apply>
+            </Apply>
+            <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
+              <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">Yes</AttributeValue>
+              <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:patient-opt-in" DataType="http://www.w3.org/2001/XMLSchema#string" />
+            </Apply>
+          </Apply>
+
+          <!-- Patient ID's are not present, so we permit the request. -->
+          <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+            <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:integer-equal">
+              <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-bag-size">
+                <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:assigning-authority-id" DataType="http://www.w3.org/2001/XMLSchema#string" />
+              </Apply>
+              <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">0</AttributeValue>
+            </Apply>
+            <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:integer-equal">
+              <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-bag-size">
+                <ResourceAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:2.0:resource:resource-id" DataType="http://www.w3.org/2001/XMLSchema#string" />
+              </Apply>
+              <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">0</AttributeValue>
+            </Apply>
+          </Apply>
+        </Apply>
+      </Condition>
+    </Rule>
+    <Rule RuleId="urn:gov:hss:fha:nhinc:AuditLogQueryOut:not-valid" Effect="Deny">
+      <Description>Patient ID's are present and the Patient is not Opted-In, so we deny the request.</Description>
+    </Rule>
+  </Policy>
+  <Policy PolicyId="urn:org:alembic:aurion:HIEMSubscriptionRequestIn:policy" RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:first-applicable">
+    <Target>
+      <Resources>
+        <Resource>
+          <ResourceMatch MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">HIEMSubscriptionRequestIn</AttributeValue>
+            <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:service-type" DataType="http://www.w3.org/2001/XMLSchema#string" />
+          </ResourceMatch>
+        </Resource>
+      </Resources>
+    </Target>
+    <Rule RuleId="urn:org:alembic:aurion:HIEMSubscriptionRequestIn:rule" Effect="Permit">
+      <Description>
+        If the Patient ID's are present and the Patient is Opted-In, then permit the request.
+      </Description>
+      <Target />
+      <Condition>
+        <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
+
+          <!-- Patient ID's are present and the Patient is Opted-In, so we permit the request. -->
+          <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+            <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
+              <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:integer-equal">
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-bag-size">
+                  <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:assigning-authority-id" DataType="http://www.w3.org/2001/XMLSchema#string" />
+                </Apply>
+                <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">0</AttributeValue>
+              </Apply>
+            </Apply>
+            <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
+              <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:integer-equal">
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-bag-size">
+                  <ResourceAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:2.0:resource:resource-id" DataType="http://www.w3.org/2001/XMLSchema#string" />
+                </Apply>
+                <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">0</AttributeValue>
+              </Apply>
+            </Apply>
+            <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
+              <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">Yes</AttributeValue>
+              <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:patient-opt-in" DataType="http://www.w3.org/2001/XMLSchema#string" />
+            </Apply>
+          </Apply>
+
+          <!-- Patient ID's are not present, so we permit the request. -->
+          <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+            <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:integer-equal">
+              <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-bag-size">
+                <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:assigning-authority-id" DataType="http://www.w3.org/2001/XMLSchema#string" />
+              </Apply>
+              <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">0</AttributeValue>
+            </Apply>
+            <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:integer-equal">
+              <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-bag-size">
+                <ResourceAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:2.0:resource:resource-id" DataType="http://www.w3.org/2001/XMLSchema#string" />
+              </Apply>
+              <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">0</AttributeValue>
+            </Apply>
+          </Apply>
+        </Apply>
+      </Condition>
+    </Rule>
+    <Rule RuleId="urn:gov:hss:fha:nhinc:HIEMSubscriptionRequestIn:not-valid" Effect="Deny">
+      <Description>Patient ID's are present and the Patient is not Opted-In, so we deny the request.</Description>
+    </Rule>
+  </Policy>
+  <Policy PolicyId="urn:org:alembic:aurion:HIEMSubscriptionRequestOut:policy" RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:first-applicable">
+    <Target>
+      <Resources>
+        <Resource>
+          <ResourceMatch MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">HIEMSubscriptionRequestOut</AttributeValue>
+            <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:service-type" DataType="http://www.w3.org/2001/XMLSchema#string" />
+          </ResourceMatch>
+        </Resource>
+      </Resources>
+    </Target>
+    <Rule RuleId="urn:org:alembic:aurion:HIEMSubscriptionRequestOut:rule" Effect="Permit">
+      <Description>
+        If the Patient ID's are present and the Patient is Opted-In, then permit the request.
+      </Description>
+      <Target />
+      <Condition>
+        <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
+
+          <!-- Patient ID's are present and the Patient is Opted-In, so we permit the request. -->
+          <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+            <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
+              <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:integer-equal">
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-bag-size">
+                  <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:assigning-authority-id" DataType="http://www.w3.org/2001/XMLSchema#string" />
+                </Apply>
+                <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">0</AttributeValue>
+              </Apply>
+            </Apply>
+            <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
+              <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:integer-equal">
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-bag-size">
+                  <ResourceAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:2.0:resource:resource-id" DataType="http://www.w3.org/2001/XMLSchema#string" />
+                </Apply>
+                <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">0</AttributeValue>
+              </Apply>
+            </Apply>
+            <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
+              <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">Yes</AttributeValue>
+              <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:patient-opt-in" DataType="http://www.w3.org/2001/XMLSchema#string" />
+            </Apply>
+          </Apply>
+
+          <!-- Patient ID's are not present, so we permit the request. -->
+          <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+            <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:integer-equal">
+              <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-bag-size">
+                <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:assigning-authority-id" DataType="http://www.w3.org/2001/XMLSchema#string" />
+              </Apply>
+              <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">0</AttributeValue>
+            </Apply>
+            <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:integer-equal">
+              <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-bag-size">
+                <ResourceAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:2.0:resource:resource-id" DataType="http://www.w3.org/2001/XMLSchema#string" />
+              </Apply>
+              <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">0</AttributeValue>
+            </Apply>
+          </Apply>
+        </Apply>
+      </Condition>
+    </Rule>
+    <Rule RuleId="urn:gov:hss:fha:nhinc:HIEMSubscriptionRequestOut:not-valid" Effect="Deny">
+      <Description>Patient ID's are present and the Patient is not Opted-In, so we deny the request.</Description>
+    </Rule>
+  </Policy>
+  <Policy PolicyId="urn:org:alembic:aurion:HIEMSubscriptionCancelIn:policy" RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:first-applicable">
+    <Target>
+      <Resources>
+        <Resource>
+          <ResourceMatch MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">HIEMSubscriptionCancelIn</AttributeValue>
+            <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:service-type" DataType="http://www.w3.org/2001/XMLSchema#string" />
+          </ResourceMatch>
+        </Resource>
+      </Resources>
+    </Target>
+    <Rule RuleId="urn:org:alembic:aurion:HIEMSubscriptionCancelIn:rule" Effect="Permit">
+      <Description>
+        If the Patient ID's are present and the Patient is Opted-In, then permit the request.
+      </Description>
+      <Target />
+      <Condition>
+        <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
+
+          <!-- Patient ID's are present and the Patient is Opted-In, so we permit the request. -->
+          <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+            <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
+              <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:integer-equal">
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-bag-size">
+                  <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:assigning-authority-id" DataType="http://www.w3.org/2001/XMLSchema#string" />
+                </Apply>
+                <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">0</AttributeValue>
+              </Apply>
+            </Apply>
+            <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
+              <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:integer-equal">
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-bag-size">
+                  <ResourceAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:2.0:resource:resource-id" DataType="http://www.w3.org/2001/XMLSchema#string" />
+                </Apply>
+                <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">0</AttributeValue>
+              </Apply>
+            </Apply>
+            <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
+              <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">Yes</AttributeValue>
+              <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:patient-opt-in" DataType="http://www.w3.org/2001/XMLSchema#string" />
+            </Apply>
+          </Apply>
+
+          <!-- Patient ID's are not present, so we permit the request. -->
+          <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+            <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:integer-equal">
+              <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-bag-size">
+                <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:assigning-authority-id" DataType="http://www.w3.org/2001/XMLSchema#string" />
+              </Apply>
+              <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">0</AttributeValue>
+            </Apply>
+            <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:integer-equal">
+              <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-bag-size">
+                <ResourceAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:2.0:resource:resource-id" DataType="http://www.w3.org/2001/XMLSchema#string" />
+              </Apply>
+              <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">0</AttributeValue>
+            </Apply>
+          </Apply>
+        </Apply>
+      </Condition>
+    </Rule>
+    <Rule RuleId="urn:gov:hss:fha:nhinc:HIEMSubscriptionCancelIn:not-valid" Effect="Deny">
+      <Description>Patient ID's are present and the Patient is not Opted-In, so we deny the request.</Description>
+    </Rule>
+  </Policy>
+  <Policy PolicyId="urn:org:alembic:aurion:HIEMSubscriptionCancelOut:policy" RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:first-applicable">
+    <Target>
+      <Resources>
+        <Resource>
+          <ResourceMatch MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">HIEMSubscriptionCancelOut</AttributeValue>
+            <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:service-type" DataType="http://www.w3.org/2001/XMLSchema#string" />
+          </ResourceMatch>
+        </Resource>
+      </Resources>
+    </Target>
+    <Rule RuleId="urn:org:alembic:aurion:HIEMSubscriptionCancelOut:rule" Effect="Permit">
+      <Description>
+        If the Patient ID's are present and the Patient is Opted-In, then permit the request.
+      </Description>
+      <Target />
+      <Condition>
+        <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
+
+          <!-- Patient ID's are present and the Patient is Opted-In, so we permit the request. -->
+          <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+            <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
+              <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:integer-equal">
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-bag-size">
+                  <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:assigning-authority-id" DataType="http://www.w3.org/2001/XMLSchema#string" />
+                </Apply>
+                <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">0</AttributeValue>
+              </Apply>
+            </Apply>
+            <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
+              <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:integer-equal">
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-bag-size">
+                  <ResourceAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:2.0:resource:resource-id" DataType="http://www.w3.org/2001/XMLSchema#string" />
+                </Apply>
+                <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">0</AttributeValue>
+              </Apply>
+            </Apply>
+            <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
+              <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">Yes</AttributeValue>
+              <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:patient-opt-in" DataType="http://www.w3.org/2001/XMLSchema#string" />
+            </Apply>
+          </Apply>
+
+          <!-- Patient ID's are not present, so we permit the request. -->
+          <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+            <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:integer-equal">
+              <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-bag-size">
+                <ResourceAttributeDesignator AttributeId="urn:org:alembic:aurion:assigning-authority-id" DataType="http://www.w3.org/2001/XMLSchema#string" />
+              </Apply>
+              <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">0</AttributeValue>
+            </Apply>
+            <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:integer-equal">
+              <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-bag-size">
+                <ResourceAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:2.0:resource:resource-id" DataType="http://www.w3.org/2001/XMLSchema#string" />
+              </Apply>
+              <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">0</AttributeValue>
+            </Apply>
+          </Apply>
+        </Apply>
+      </Condition>
+    </Rule>
+    <Rule RuleId="urn:gov:hss:fha:nhinc:HIEMSubscriptionCancelOut:not-valid" Effect="Deny">
+      <Description>Patient ID's are present and the Patient is not Opted-In, so we deny the request.</Description>
+    </Rule>
+  </Policy>
+</PolicySet>

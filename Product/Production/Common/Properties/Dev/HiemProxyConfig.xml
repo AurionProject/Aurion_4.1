@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+       
+<!-- 
+	The beans available in this file must be identified in the "description" element for the Spring configuration application. Beans are listed between braces 
+	in the description separated with a comma like the following sample: {somebean,anotherbean}
+-->
+	<description>Beans included in this file: {nhinhiemsubscribe,nhinhiemnotify}</description>
+
+	<!-- Entity HIEM Notify -->
+	<!-- No-op Implementation -->
+	<bean class="org.alembic.aurion.hiem.entity.notify.proxy.EntityHiemNotifyProxyNoOpImpl" id="entityhiemnotifynoop" name="entityhiemnotifynoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+	
+		<!-- Java Implementation -->
+	<bean class="org.alembic.aurion.hiem.entity.notify.proxy.EntityHiemNotifyProxyJavaImpl" id="entityhiemnotifyjava" name="entityhiemnotifyjava"> 
+		<meta key="impltype" value="java"/>
+	</bean>
+
+	<!-- Secured web service Implementation -->
+    <bean class="org.alembic.aurion.hiem.entity.notify.proxy.EntityHiemNotifyProxyWebServiceSecuredImpl" id="entityhiemnotify" name="entityhiemnotifywssecured"> 
+		<meta key="impltype" value="wssecured"/>
+		<meta key="default" value="true"/>
+	</bean> 
+	
+		<!-- Unsecured web service Implementation Implementation -->
+	<bean class="org.alembic.aurion.hiem.entity.notify.proxy.EntityHiemNotifyProxyWebServiceUnsecuredImpl" id="entityhiemnotifywsunsecured" name="entityhiemnotifywsunsecured"> 
+		<meta key="impltype" value="wsunsecured"/>
+	</bean>
+	
+	<!-- Passthru HIEM Notify -->
+	<!-- No-op Implementation -->
+	<bean class="org.alembic.aurion.hiem.passthru.notify.proxy.PassthruHiemNotifyProxyNoOpImpl" id="passthruhiemnotifynoop" name="passthruhiemnotifynoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+	
+		<!-- Java Implementation -->
+	<bean class="org.alembic.aurion.hiem.passthru.notify.proxy.PassthruHiemNotifyProxyJavaImpl" id="passthruhiemnotify" name="passthruhiemnotifyjava"> 
+		<meta key="impltype" value="java"/>
+		<meta key="default" value="true"/>
+	</bean>
+
+	<!-- Secured web service Implementation -->
+    <bean class="org.alembic.aurion.hiem.passthru.notify.proxy.PassthruHiemNotifyProxyWebServiceSecuredImpl" id="passthruhiemnotifywssecured" name="passthruhiemnotifywssecured"> 
+		<meta key="impltype" value="wssecured"/>
+	</bean> 
+	
+		<!-- Unsecured web service Implementation Implementation -->
+	<bean class="org.alembic.aurion.hiem.passthru.notify.proxy.PassthruHiemNotifyProxyWebServiceUnsecuredImpl" id="passthruhiemnotifywsunsecured" name="passthruhiemnotifywsunsecured"> 
+		<meta key="impltype" value="wsunsecured"/>
+	</bean>
+	
+	<!-- NHIN HIEM Notify -->
+	<!-- No-op Implementation -->
+	<bean class="org.alembic.aurion.hiem.nhin.notify.proxy.NhinHiemNotifyProxyNoOpImpl" id="nhinhiemnotifynoop" name="nhinhiemnotifynoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+
+	<!-- Secured web service Implementation -->
+    <bean class="org.alembic.aurion.hiem.nhin.notify.proxy.NhinHiemNotifyProxyWebServiceSecuredImpl" id="nhinhiemnotify" name="nhinhiemnotifywssecured"> 
+		<meta key="impltype" value="wssecured"/>
+		<meta key="default" value="true"/>
+	</bean> 
+	
+	<!-- Adapter HIEM Notify -->
+	<!-- No-op Implementation -->
+	<bean class="org.alembic.aurion.hiem.adapter.notify.proxy.AdapterHiemNotifyProxyNoOpImpl" id="hiemnotifyadapternoop" name="hiemnotifyadapternoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+	
+		<!-- Java Implementation -->
+	<bean class="org.alembic.aurion.hiem.adapter.notify.proxy.AdapterHiemNotifyProxyJavaImpl" id="hiemnotifyadapterjava" name="hiemnotifyadapterjava"> 
+		<meta key="impltype" value="java"/>
+	</bean>
+
+	<!-- Secured web service Implementation -->
+    <bean class="org.alembic.aurion.hiem.adapter.notify.proxy.AdapterHiemNotifyProxyWebServiceSecuredImpl" id="hiemnotifyadapter" name="hiemnotifyadapterwssecured"> 
+		<meta key="impltype" value="wssecured"/>
+		<meta key="default" value="true"/>
+	</bean> 
+	
+		<!-- Unsecured web service Implementation Implementation -->
+	<bean class="org.alembic.aurion.hiem.adapter.notify.proxy.AdapterHiemNotifyProxyWebServiceUnsecuredImpl" id="hiemnotifyadapterwsunsecured" name="hiemnotifyadapterwsunsecured"> 
+		<meta key="impltype" value="wsunsecured"/>
+	</bean>
+	
+	
+	<!-- Entity HIEM Subscribe -->
+	<!-- No-op Implementation -->
+<!--	<bean class="org.alembic.aurion.hiem.entity.subscribe.proxy.EntityHiemSubscribeProxyNoOpImpl" id="entityhiemsubscribenoop" name="entityhiemsubscribenoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> -->
+	
+		<!-- Java Implementation -->
+	<!--<bean class="org.alembic.aurion.hiem.entity.subscribe.proxy.EntityHiemSubscribeProxyJavaImpl" id="entityhiemsubscribejava" name="entityhiemsubscribejava"> 
+		<meta key="impltype" value="java"/>
+	</bean>-->
+
+	<!-- Secured web service Implementation -->
+   <!-- <bean class="org.alembic.aurion.hiem.entity.subscribe.proxy.EntityHiemSubscribeProxyWebServiceSecuredImpl" id="entityhiemsubscribe" name="entityhiemsubscribewssecured"> 
+		<meta key="impltype" value="wssecured"/>
+		<meta key="default" value="true"/>
+	</bean> -->
+	
+		<!-- Unsecured web service Implementation Implementation -->
+	<!--<bean class="org.alembic.aurion.hiem.entity.subscribe.proxy.EntityHiemSubscribeProxyWebServiceUnsecuredImpl" id="entityhiemsubscribewsunsecured" name="entityhiemsubscribewsunsecured"> 
+		<meta key="impltype" value="wsunsecured"/>
+	</bean>-->
+	
+	<!-- Passthru HIEM Subscribe -->
+	<!-- No-op Implementation -->
+	<bean class="org.alembic.aurion.hiem.passthru.subscribe.proxy.PassthruHiemSubscribeProxyNoOpImpl" id="passthruhiemsubscribenoop" name="passthruhiemsubscribenoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+	
+		<!-- Java Implementation -->
+	<bean class="org.alembic.aurion.hiem.passthru.subscribe.proxy.PassthruHiemSubscribeProxyJavaImpl" id="passthruhiemsubscribe" name="passthruhiemsubscribejava"> 
+		<meta key="impltype" value="java"/>
+		<meta key="default" value="true"/>
+	</bean>
+
+	<!-- Secured web service Implementation -->
+    <bean class="org.alembic.aurion.hiem.passthru.subscribe.proxy.PassthruHiemSubscribeProxyWebServiceSecuredImpl" id="passthruhiemsubscribewssecured" name="passthruhiemsubscribewssecured"> 
+		<meta key="impltype" value="wssecured"/>
+	</bean> 
+	
+		<!-- Unsecured web service Implementation Implementation -->
+	<bean class="org.alembic.aurion.hiem.passthru.subscribe.proxy.PassthruHiemSubscribeProxyWebServiceUnsecuredImpl" id="passthruhiemsubscribewsunsecured" name="passthruhiemsubscribewsunsecured"> 
+		<meta key="impltype" value="wsunsecured"/>
+	</bean>
+	
+	<!-- NHIN HIEM Subscribe -->
+	<!-- No-op Implementation -->
+	<bean class="org.alembic.aurion.hiem.nhin.subscribe.proxy.NhinHiemSubscribeProxyNoOpImpl" id="nhinhiemsubscribenoop" name="nhinhiemsubscribenoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+
+	<!-- Secured web service Implementation -->
+    <bean class="org.alembic.aurion.hiem.nhin.subscribe.proxy.NhinHiemSubscribeProxyWebServiceSecuredImpl" id="nhinhiemsubscribe" name="nhinhiemsubscribewssecured"> 
+		<meta key="impltype" value="wssecured"/>
+		<meta key="default" value="true"/>
+	</bean> 
+	
+	<!-- Adapter HIEM Subscribe -->
+	<!-- No-op Implementation -->
+	<bean class="org.alembic.aurion.hiem.adapter.subscribe.proxy.AdapterHiemSubscribeProxyNoOpImpl" id="hiemsubscribeadapternoop" name="hiemsubscribeadapternoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+	
+		<!-- Java Implementation -->
+	<bean class="org.alembic.aurion.hiem.adapter.subscribe.proxy.AdapterHiemSubscribeProxyJavaImpl" id="hiemsubscribeadapterjava" name="hiemsubscribeadapterjava"> 
+		<meta key="impltype" value="java"/>
+	</bean>
+
+	<!-- Secured web service Implementation -->
+    <bean class="org.alembic.aurion.hiem.adapter.subscribe.proxy.AdapterHiemSubscribeProxyWebServiceSecuredImpl" id="hiemsubscribeadapter" name="hiemsubscribeadapterwssecured"> 
+		<meta key="impltype" value="wssecured"/>
+		<meta key="default" value="true"/>
+	</bean> 
+	
+		<!-- Unsecured web service Implementation Implementation -->
+	<bean class="org.alembic.aurion.hiem.adapter.subscribe.proxy.AdapterHiemSubscribeProxyWebServiceUnsecuredImpl" id="hiemsubscribeadapterwsunsecured" name="hiemsubscribeadapterwsunsecured"> 
+		<meta key="impltype" value="wsunsecured"/>
+	</bean>
+	
+	
+	<!-- Entity HIEM Unsubscribe -->
+	<!-- No-op Implementation -->
+	<bean class="org.alembic.aurion.hiem.entity.unsubscribe.proxy.EntityHiemUnsubscribeProxyNoOpImpl" id="entityhiemunsubscribenoop" name="entityhiemunsubscribenoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+	
+		<!-- Java Implementation -->
+	<bean class="org.alembic.aurion.hiem.entity.unsubscribe.proxy.EntityHiemUnsubscribeProxyJavaImpl" id="entityhiemunsubscribejava" name="entityhiemunsubscribejava"> 
+		<meta key="impltype" value="java"/>
+	</bean>
+
+	<!-- Secured web service Implementation -->
+    <bean class="org.alembic.aurion.hiem.entity.unsubscribe.proxy.EntityHiemUnsubscribeProxyWebServiceSecuredImpl" id="entityhiemunsubscribe" name="entityhiemunsubscribewssecured"> 
+		<meta key="impltype" value="wssecured"/>
+		<meta key="default" value="true"/>
+	</bean> 
+	
+		<!-- Unsecured web service Implementation Implementation -->
+	<bean class="org.alembic.aurion.hiem.entity.unsubscribe.proxy.EntityHiemUnsubscribeProxyWebServiceUnsecuredImpl" id="entityhiemunsubscribewsunsecured" name="entityhiemunsubscribewsunsecured"> 
+		<meta key="impltype" value="wsunsecured"/>
+	</bean>
+	
+	<!-- Passthru HIEM Notify -->
+	<!-- No-op Implementation -->
+	<bean class="org.alembic.aurion.hiem.passthru.unsubscribe.proxy.PassthruHiemUnsubscribeProxyNoOpImpl" id="passthruhiemunsubscribenoop" name="passthruhiemunsubscribenoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+	
+		<!-- Java Implementation -->
+	<bean class="org.alembic.aurion.hiem.passthru.unsubscribe.proxy.PassthruHiemUnsubscribeProxyJavaImpl" id="passthruhiemunsubscribe" name="passthruhiemunsubscribejava"> 
+		<meta key="impltype" value="java"/>
+		<meta key="default" value="true"/>
+	</bean>
+
+	<!-- Secured web service Implementation -->
+    <bean class="org.alembic.aurion.hiem.passthru.unsubscribe.proxy.PassthruHiemUnsubscribeProxyWebServiceSecuredImpl" id="passthruhiemunsubscribewssecured" name="passthruhiemunsubscribewssecured"> 
+		<meta key="impltype" value="wssecured"/>
+	</bean> 
+	
+		<!-- Unsecured web service Implementation Implementation -->
+	<bean class="org.alembic.aurion.hiem.passthru.unsubscribe.proxy.PassthruHiemUnsubscribeProxyWebServiceUnsecuredImpl" id="passthruhiemunsubscribewsunsecured" name="passthruhiemunsubscribewsunsecured"> 
+		<meta key="impltype" value="wsunsecured"/>
+	</bean>
+	
+	<!-- NHIN HIEM Unsubscribe -->
+	<!-- No-op Implementation -->
+	<bean class="org.alembic.aurion.hiem.nhin.unsubscribe.proxy.NhinHiemUnsubscribeProxyNoOpImpl" id="nhinhiemunsubscribenoop" name="nhinhiemunsubscribenoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+
+	<!-- Secured web service Implementation -->
+    <bean class="org.alembic.aurion.hiem.nhin.unsubscribe.proxy.NhinHiemUnsubscribeProxyWebServiceSecuredImpl" id="nhinhiemunsubscribe" name="nhinhiemunsubscribewssecured"> 
+		<meta key="impltype" value="wssecured"/>
+		<meta key="default" value="true"/>
+	</bean>
+	
+	<!-- Adapter HIEM Unsubscribe -->
+	<!-- No-op Implementation -->
+	<bean class="org.alembic.aurion.hiem.adapter.unsubscribe.proxy.AdapterHiemUnsubscribeProxyNoOpImpl" id="hiemunsubscribeadapternoop" name="hiemunsubscribeadapternoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+	
+		<!-- Java Implementation -->
+	<bean class="org.alembic.aurion.hiem.adapter.unsubscribe.proxy.AdapterHiemUnsubscribeProxyJavaImpl" id="hiemunsubscribeadapterjava" name="hiemunsubscribeadapterjava"> 
+		<meta key="impltype" value="java"/>
+	</bean>
+
+	<!-- Secured web service Implementation -->
+    <bean class="org.alembic.aurion.hiem.adapter.unsubscribe.proxy.AdapterHiemUnsubscribeProxyWebServiceSecuredImpl" id="hiemunsubscribeadapter" name="hiemunsubscribeadapterwssecured"> 
+		<meta key="impltype" value="wssecured"/>
+		<meta key="default" value="true"/>
+	</bean> 
+	
+		<!-- Unsecured web service Implementation Implementation -->
+	<bean class="org.alembic.aurion.hiem.adapter.unsubscribe.proxy.AdapterHiemUnsubscribeProxyWebServiceUnsecuredImpl" id="hiemunsubscribeadapterwsunsecured" name="hiemunsubscribeadapterwsunsecured"> 
+		<meta key="impltype" value="wsunsecured"/>
+	</bean>
+	
+</beans>

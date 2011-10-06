@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions
+ xmlns="http://schemas.xmlsoap.org/wsdl/"
+ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+ xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="mainclientconfig"
+ >
+    <import location="AdapterAuditLogQuerySaml.xml" namespace="urn:org:alembic:aurion:adapterauditlogquerysaml"/>
+    <import location="AdapterComponentSecuredMpi.xml" namespace="urn:org:alembic:aurion:adaptercomponentmpi"/>
+    <import location="AdapterComponentXDRSecured.xml" namespace="urn:org:alembic:aurion:adaptercomponentxdrsecured"/>
+    <import location="AdapterDocQuerySecured.xml" namespace="urn:org:alembic:aurion:adapterdocquerysecured"/>
+    <import location="AdapterDocQueryDeferredRequestErrorSecured.xml" namespace="urn:org:alembic:aurion:adapterdocquerydeferredrequesterrorsecured"/>
+    <import location="AdapterDocQueryDeferredResponseSecured.xml" namespace="urn:org:alembic:aurion:adapterDocQueryDeferredResponseSecured"/>
+    <import location="AdapterDocQueryDeferredRequestSecured.xml" namespace="urn:org:alembic:aurion:adapterdocquerydeferredrequestsecured"/>
+    <import location="AdapterDocRetrieveSecured.xml" namespace="urn:org:alembic:aurion:adapterdocretrievesecured"/>
+    <import location="AdapterPatientDiscoverySecured.xml" namespace="urn:org:alembic:aurion:adapterpatientdiscoverysecured"/>
+    <import location="AdapterPatientDiscoverySecuredAsyncReq.xml" namespace="urn:org:alembic:aurion:adapterpatientdiscoverysecuredasyncreq"/>
+    <import location="AdapterPatientDiscoverySecuredAsyncReqError.xml" namespace="urn:org:alembic:aurion:adapterpatientdiscoverysecuredasyncreqerror"/>
+    <import location="AdapterPatientDiscoverySecuredAsyncReqQueue.xml" namespace="urn:org:alembic:aurion:adapterpatientdiscoverysecuredasyncreqqueue"/>
+    <import location="AdapterPatientDiscoverySecuredAsyncResp.xml" namespace="urn:org:alembic:aurion:adapterpatientdiscoverysecuredasyncresp"/>
+    <import location="AdapterPolicyEngineSecured.xml" namespace="urn:org:alembic:aurion:adapterpolicyenginesecured"/>
+    <import location="AdapterSubjectDiscoverySecured.xml" namespace="urn:org:alembic:aurion:adaptersubjectdiscoverysecured"/>
+    <import location="AdapterXDRRequestSecured.xml" namespace="urn:org:alembic:aurion:adapterxdrrequestsecured"/>
+    <import location="AdapterXDRRequestSecuredError.xml" namespace="urn:org:alembic:aurion:adapterxdrrequestsecurederror"/>
+    <import location="AdapterXDRResponseSecured.xml" namespace="urn:org:alembic:aurion:adapterxdrresponsesecured"/>
+    <import location="NhincComponentAuditRepositorySecured.xml" namespace="urn:org:alembic:aurion:nhinccomponentauditrepository"/>
+    <import location="NhincComponentPatientCorrelationSecured.xml" namespace="urn:org:alembic:aurion:nhinccomponentpatientcorrelation"/>
+    <import location="AdapterMpiSecured.xml" namespace="urn:org:alembic:aurion:adaptermpi"/>
+    <import location="AdapterDocRetrieveDeferredReqSecured.xml" namespace="urn:org:alembic:aurion:adapterdocretrievedeferredreqsecured"/>
+    <import location="AdapterDocRetrieveDeferredRespSecured.xml" namespace="urn:org:alembic:aurion:adapterdocretrievedeferredrespsecured"/>
+    <import location="AdapterDocRetrieveDeferredReqErrorSecured.xml" namespace="urn:org:alembic:aurion:adapterdocretrievedeferredreqerrorsecured"/>
+    <import location="NhincComponentPatientCorrelationSecured.xml" namespace="urn:org:alembic:aurion:nhinccomponentpatientcorrelation"/>
+    <import location="AdapterXDRSecured.xml" namespace="urn:org:alembic:aurion:adapterxdrsecured"/>
+     <import location="AdapterAdminDistSecured.xml" namespace="urn:org:alembic:aurion:adapteradmindistribution"/>
+     <import location="AdapterSubscriptionManagementSecured.xml" namespace="urn:org:alembic:aurion:adaptersubscriptionmanagementsecured"/>
+     <import location="AdapterNotificationConsumerSecured.xml" namespace="urn:org:alembic:aurion:adapternotificationconsumersecured"/>
+
+</definitions>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/AurionCoreLib"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="var" path="THIRD_PARTY/log4j"/>
+	<classpathentry kind="var" path="THIRD_PARTY/log4j/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/log4j/log4j-1.2.15.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/com.sun.enterprise.jst.server.runtimeTarget/GlassFish v2.1 Java EE 5"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/AurionCommonTypesLib"/>
+	<classpathentry kind="output" path="build/eclipse"/>
+</classpath>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" 
+   xmlns:tns="urn:org:alembic:aurion:entityauditlogquery"
+   xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+   xmlns:iheaudit="http://nhinc.services.com/schema/auditmessage" 
+   xmlns:nccommonentity="urn:org:alembic:aurion:common:nhinccommonentity"
+   xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
+   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
+   xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+   xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization"
+   xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+   xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+   name="EntityAuditLogQuery" 
+   targetNamespace="urn:org:alembic:aurion:entityauditlogquery">
+
+    <wsdl:types>
+        <xsd:schema targetNamespace="http://services.nhin.com/wsdl/auditlogquery">
+            <xsd:import namespace="http://nhinc.services.com/schema/auditmessage"
+                  schemaLocation="../schemas/ihe/auditmessage.xsd"/>
+            <xsd:import namespace="urn:org:alembic:aurion:common:nhinccommonentity"
+                  schemaLocation="../schemas/nhinc/common/NhincCommonEntity.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+
+    <message name="findAuditEventsRequestMessage">
+        <part name="FindAuditEventsRequest"
+          element="nccommonentity:FindAuditEventsRequest"/>
+    </message>
+    <message name="findAuditEventsResponseMessage">
+        <part name="FindAuditEventsResponse"
+          element="iheaudit:FindAuditEventsResponse"/>
+    </message>
+
+    <portType name="EntityAuditLogQueryPortType">
+        <operation name="findAuditEvents">
+            <input name="findAuditEventsRequest"
+             message="tns:findAuditEventsRequestMessage"/>
+            <output name="findAuditEventsResponse"
+              message="tns:findAuditEventsResponseMessage"/>
+        </operation>
+    </portType>
+
+    <binding name="EntityAuditLogQueryBindingSoap"
+           type="tns:EntityAuditLogQueryPortType">
+        <soap:binding style="document"
+                  transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsp:PolicyReference URI="#EntityAuditLogQueryPolicy"/>
+        <operation name="findAuditEvents">
+            <soap:operation soapAction="urn:findAuditEvents"/>
+            <input name="findAuditEventsRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="findAuditEventsResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+
+    <service name="EntityAuditLogQuery">
+        <port name="EntityAuditLogQueryPortSoap"
+          binding="tns:EntityAuditLogQueryBindingSoap">
+            <soap:address
+         location="http://localhost:${NhincHttpPort}/NhinConnect/EntityAuditLogQuery"/>
+        </port>
+    </service>
+
+    <plnk:partnerLinkType name="EntityAuditLogQuery">
+    <!-- A partner link type is automatically generated when a new port type is added. 
+             Partner link types are used by BPEL processes. In a BPEL process, a partner link 
+             represents the interaction between the BPEL process and a partner service. Each 
+             partner link is associated with a partner link type. A partner link type 
+             characterizes the conversational relationship between two services. The partner link 
+             type can have one or two roles.-->
+        <plnk:role name="EntityAuditLogQueryPortTypeRole"
+               portType="tns:EntityAuditLogQueryPortType"/>
+    </plnk:partnerLinkType>
+    <wsp:Policy wsu:Id="EntityAuditLogQueryPolicy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <wsoma:OptimizedMimeSerialization/>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+</definitions>

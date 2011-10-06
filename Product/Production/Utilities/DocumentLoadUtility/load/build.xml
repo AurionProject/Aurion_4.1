@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="DocumentRepositoryLoad" default="copylibs" basedir=".">
+    <description>Copies the required libraries to load documents into the document repository</description>
+
+	<target name="clean">
+		<delete dir="lib"/>
+		<delete dir="config"/>
+	</target>
+
+	<target name="init">
+		<mkdir dir="lib"/>
+		<mkdir dir="log"/>
+		<mkdir dir="config/hibernate"/>
+	</target>
+
+	<target name="copylibs" description="Copy required libraries" depends="clean,init">
+		<copy toDir="lib">
+			<fileset dir="../../../Common/AurionCoreLib/dist/debug">
+				<filename name="AurionCoreLib.jar"/>
+			</fileset>
+			<fileset dir="../../../../../ThirdParty/log4j">
+				<include name="*.jar"/>
+			</fileset>
+			<fileset dir="../../../../../ThirdParty/MySQLDB">
+				<filename name="*.jar"/>
+			</fileset>
+			<fileset dir="../../../../../ThirdParty/HibernateLibraries">
+				<include name="*.jar"/>
+			</fileset>
+			<fileset dir="../../../../../ThirdParty/C3PO">
+				<include name="*.jar"/>
+			</fileset>
+		</copy>
+		<copy toDir="config/hibernate">
+			<fileset dir="../../../Common/Properties/Dev/hibernate">
+				<filename name="docrepo.hibernate.cfg.xml"/>
+			</fileset>
+		</copy>
+	</target>
+
+</project>
+
+

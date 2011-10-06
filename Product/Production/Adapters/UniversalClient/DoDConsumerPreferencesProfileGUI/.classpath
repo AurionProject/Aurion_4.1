@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/AurionCoreLib"/>
+	<classpathentry kind="var" path="THIRD_PARTY/jsf/appbase.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/jsf/errorhandler.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/jsf/jsfcl.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/jsf/webui-jsf-suntheme.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/jsf/webui-jsf.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/log4j/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/log4j/log4j-1.2.15.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/OpenSSO/openssoclientsdk.jar"/>
+	<classpathentry kind="lib" path="src/conf"/>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/com.sun.enterprise.jst.server.runtimeTarget/GlassFish v2.1 Java EE 5"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/AurionCommonTypesLib"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
