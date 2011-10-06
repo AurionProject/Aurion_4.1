@@ -43,7 +43,7 @@
         <property name="minimum.jdk.version.windows-ia64">1.5.0</property>
         <property name="preferred.jdk.version.macosx">1.5.0.13.0</property>
         <property name="maximum.jdk.version">10.0.0</property>
-        <property name="jdk.location">C:\Java\jdk1.6.0_16</property>
+        <property name="jdk.location">C:\Java\jdk1.6.0_27</property>
         <property name="minimum.jdk.version.linux-ppc64">1.5.0</property>
         <property name="minimum.jdk.version.aix">1.5.0</property>
         <property name="installation.timestamp">1254948851099</property>
@@ -87,7 +87,7 @@
     </product>
     <product platform="windows" status="to-be-installed" uid="sjsas" version="2.1.60.20090309.0">
       <properties>
-        <property name="jdk.location">C:\Java\jdk1.6.0_16</property>
+        <property name="jdk.location">C:\Java\jdk1.6.0_27</property>
         <property name="password">adminadmin</property>
         <property name="https.port">8181</property>
         <property name="installation.location">C:\Sun\AppServer</property>

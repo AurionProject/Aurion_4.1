@@ -52,13 +52,13 @@ set ProgramFiles.Default.Path=%ProgramFiles%
 :TheRest
 
 
-SET JAVA_HOME=C:\Java\jdk1.6.0_16
+SET JAVA_HOME=C:\Java\jdk1.6.0_27
 
 SET ANT_HOME=C:\Projects\Aurion\Current\Build\Packages\Ant\Ant
 
 SET ANT_OPTS=-Xmx872m -XX:MaxPermSize=640m "-Dcom.sun.aas.instanceName=server" "-Dlibs.CopyLibs.classpath=C:\PROGRA~1\NETBEA~1.1\java2\ant\extra\org-netbeans-modules-java-j2seproject-copylibstask.jar" "-Dj2ee.platform.classpath=C:\Sun\AppServer\lib\appserv-ws.jar:C:\Sun\AppServer\lib\webservices-rt.jar:C:\Sun\AppServer\lib\webservices-tools.jar:C:\Sun\AppServer\lib\appserv-jstl.jar:C:\Sun\AppServer\lib\mail.jar:C:\Sun\AppServer\lib\appserv-tags.jar:C:\Sun\AppServer\lib\activation.jar:C:\Sun\AppServer\lib\javaee.jar:"
 
-SET JAVAEXE=C:\Java\jdk1.6.0_16\bin\javaw.exe
+SET JAVAEXE=C:\Java\jdk1.6.0_27\bin\javaw.exe
 
 SET CORBERTURA_BIN=C:\Projects\Aurion\Current\Build\Packages\Corbertura\bin
 
@@ -70,5 +70,5 @@ SET Aurion_PROPERTIES_DIR=%AS_HOME%\domains\domain1\config\nhin
 
 SET Common.Directory.Product.Path=C:\Projects\Aurion\Current\Product
 
-SET PATH=C:\Java\jdk1.6.0_16\bin;C:\Java\jdk1.6.0_16;C:\Projects\Aurion\Current\Build\Packages\Ant\Ant\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Projects\Aurion\Current\Build\Tools\Sysinternals;C:\Projects\Aurion\Current\Build\Tools\Sysinternals;C:\Projects\Aurion\Current\Build\Tools\maven\bin;C:\Projects\Aurion\Current\Build\Tools\nxslt;C:\Projects\Aurion\Current\Build\Tools\curl;C:\Projects\Aurion\Current\Build\Tools\nAnt\bin;C:\Projects\Aurion\Current\Build\Tools\Sysinternals;C:\Projects\Aurion\Current\Build\Tools\7-Zip;C:\Program Files\Subversion\bin;C:\Sun\AppServer\bin;C:\Projects\Aurion\Current\ThirdParty\OpenSSO\ssoAdminTools\opensso\bin;C:\Program Files\Klocwork\Klocwork 8.2 Server\bin;
+SET PATH=C:\Java\jdk1.6.0_27\bin;C:\Java\jdk1.6.0_27;C:\Projects\Aurion\Current\Build\Packages\Ant\Ant\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Projects\Aurion\Current\Build\Tools\Sysinternals;C:\Projects\Aurion\Current\Build\Tools\Sysinternals;C:\Projects\Aurion\Current\Build\Tools\maven\bin;C:\Projects\Aurion\Current\Build\Tools\nxslt;C:\Projects\Aurion\Current\Build\Tools\curl;C:\Projects\Aurion\Current\Build\Tools\nAnt\bin;C:\Projects\Aurion\Current\Build\Tools\Sysinternals;C:\Projects\Aurion\Current\Build\Tools\7-Zip;C:\Program Files\Subversion\bin;C:\Sun\AppServer\bin;C:\Projects\Aurion\Current\ThirdParty\OpenSSO\ssoAdminTools\opensso\bin;C:\Program Files\Klocwork\Klocwork 8.2 Server\bin;
         
