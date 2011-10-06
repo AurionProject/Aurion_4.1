@@ -1,5 +1,5 @@
 cd
-set NHINC_SOURCE_DIR=%CD%\Current
+set NHINC_SOURCE_DIR=%CD%\4.1
 set ANT_HOME=%NHINC_SOURCE_DIR%\Build\Packages\Ant\Ant
 set ANT_OPTS=-Xmx872m -XX:MaxPermSize=640m "-Dcom.sun.aas.instanceName=server"
 set AS_HOME=C:\Sun\AppServer
