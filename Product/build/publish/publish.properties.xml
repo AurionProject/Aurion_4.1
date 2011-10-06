@@ -4,10 +4,10 @@
 	<if>
 		<isset property="BUILD_NUMBER" />
 		<then>
-			<property name="publish.release.label.prefix" value="4.0.0.${BUILD_NUMBER}" />
+			<property name="publish.release.label.prefix" value="4.1.0.${BUILD_NUMBER}" />
 		</then>
 		<else>
-			<property name="publish.release.label.prefix" value="4.0.0.DEV" />
+			<property name="publish.release.label.prefix" value="4.1.0.DEV" />
 		</else>
 	</if>
 
