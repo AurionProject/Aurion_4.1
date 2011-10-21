@@ -109,6 +109,10 @@ public class HL7PRPA201306Transforms {
             if (orig.getControlActProcess().getQueryByParameter() != null &&
                     orig.getControlActProcess().getQueryByParameter().getValue() != null) {
                 log.debug("Add Query By Parameter");
+                PRPAMT201306UV02QueryByParameter queryByParam = new PRPAMT201306UV02QueryByParameter();
+                org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
+                JAXBElement<PRPAMT201306UV02QueryByParameter> elementQueryByParameter = factory.createPRPAIN201306UV02MFMIMT700711UV01ControlActProcessQueryByParameter(queryByParam);
+                controlActProcess.setQueryByParameter(elementQueryByParameter);
                 controlActProcess.getQueryByParameter().setValue(orig.getControlActProcess().getQueryByParameter().getValue());
             }
         }
