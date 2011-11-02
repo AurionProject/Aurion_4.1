@@ -45,6 +45,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.LocalizedStringType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
+import org.alembic.aurion.docrepository.adapter.model.CodedElement;
 
 /**
  *
@@ -158,8 +159,7 @@ public class AdapterComponentDocRegistryOrchImpl {
 
         // Collect input values from query.
         String patientId = null;
-        List<String> classCodeValues = null;
-        String classCodeScheme = null;
+        List<CodedElement> classCodeValues = null;
         Date creationTimeFrom = null;
         Date creationTimeTo = null;
         Date serviceStartTimeFrom = null;
@@ -183,7 +183,6 @@ public class AdapterComponentDocRegistryOrchImpl {
 
             patientId = extractPatientIdentifier(slots);
             classCodeValues = extractClassCodes(slots);
-            classCodeScheme = extractClassCodeScheme(slots);
             creationTimeFrom = extractCreationTimeFrom(slots);
             creationTimeTo = extractCreationTimeTo(slots);
             serviceStartTimeFrom = extractServiceStartTimeFrom(slots);
@@ -206,7 +205,6 @@ public class AdapterComponentDocRegistryOrchImpl {
         DocumentQueryParams params = new DocumentQueryParams();
         params.setPatientId(patientId);
         params.setClassCodes(classCodeValues);
-        params.setClassCodeScheme(classCodeScheme);
         params.setCreationTimeFrom(creationTimeFrom);
         params.setCreationTimeTo(creationTimeTo);
         params.setServiceStartTimeFrom(serviceStartTimeFrom);
@@ -266,30 +264,70 @@ public class AdapterComponentDocRegistryOrchImpl {
         return patientId;
     }
 
-    private List<String> extractClassCodes(List<SlotType1> slots)
+    private List<CodedElement> extractClassCodes(List<SlotType1> slots)
     {
+        List<CodedElement> classCodeElements = null;
+        List<String> classCodeSlotValues = extractSlotValues(slots, EBXML_DOCENTRY_CLASS_CODE);
+        List<String> classCodeSchemeSlotValues = extractSlotValues(slots, EBXML_DOCENTRY_CLASS_CODE_SCHEME);
+
+        if(NullChecker.isNotNullish(classCodeSlotValues)) {
+            classCodeElements = new ArrayList<CodedElement>();
+
+            if(NullChecker.isNotNullish(classCodeSchemeSlotValues)) {
+                parseCodeSystemFromSeparateSlots(classCodeElements, classCodeSlotValues, classCodeSchemeSlotValues);
+            } else {
+                parseCodeSystemFromClassCodeSlot(classCodeElements, classCodeSlotValues);
+            }
+        }
         List<String> classCodes = null;
-        List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_CLASS_CODE);
-        if((slotValues != null) && (!slotValues.isEmpty()))
+        if((classCodeSlotValues != null) && (!classCodeSlotValues.isEmpty()))
         {
             classCodes = new ArrayList<String>();
-            for(String slotValue : slotValues)
+            for(String slotValue : classCodeSlotValues)
             {
                 parseParamFormattedString(slotValue, classCodes);
             }
         }
-        return classCodes;
+        return classCodeElements;
     }
 
-    private String extractClassCodeScheme(List<SlotType1> slots)
-    {
-        String classCodeScheme = null;
-        List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_CLASS_CODE_SCHEME);
-        if((slotValues != null) && (!slotValues.isEmpty()))
-        {
-            classCodeScheme = slotValues.get(0);
+    private void parseCodeSystemFromSeparateSlots(List<CodedElement> classCodeElements, List<String> classCodeSlotValues, List<String> classCodeSchemeSlotValues) {
+        if(classCodeSlotValues.size() == classCodeSchemeSlotValues.size()) {
+            for(int i = 0; i < classCodeSlotValues.size(); i++) {
+                CodedElement code = new CodedElement();
+                code.setCode(classCodeSlotValues.get(i));
+                code.setCodeSystem(classCodeSchemeSlotValues.get(i));
+                classCodeElements.add(code);
+            }
+        } else {
+            throw new IllegalArgumentException("Class code and class code scheme slots must have the same number of values.");
         }
-        return classCodeScheme;
+    }
+
+    public void parseCodeSystemFromClassCodeSlot(List<CodedElement> classCodeElements, List<String> classCodeSlotValues) {
+        for(String classCode : classCodeSlotValues) {
+            List<String> codeEntries = new ArrayList<String>();
+            parseParamFormattedString(classCode, codeEntries);
+            for(String codeEntry : codeEntries) {
+                CodedElement codeElement = parseClassCodeElement(codeEntry);
+                if(codeElement != null) {
+                    classCodeElements.add(codeElement);
+                }
+            }
+        }
+    }
+
+    private CodedElement parseClassCodeElement(String classCodeSlotValue) {
+        CodedElement classCodeElement = null;
+        if(NullChecker.isNotNullish(classCodeSlotValue)) {
+            String[] components = classCodeSlotValue.split("\\^");
+            if((components != null) && (components.length > 2)) {
+                classCodeElement = new CodedElement();
+                classCodeElement.setCode(components[0]);
+                classCodeElement.setCodeSystem(components[2]);
+            }
+        }
+        return classCodeElement;
     }
 
     private Date extractCreationTimeFrom(List<SlotType1> slots)
@@ -1117,6 +1155,5 @@ public class AdapterComponentDocRegistryOrchImpl {
         log.debug("DocumentTransforms.CreateSingleValueInternationalStringType() -- End");
         return oName;
     }
-
 
 }

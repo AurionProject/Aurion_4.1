@@ -50,6 +50,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import org.alembic.aurion.docrepository.adapter.model.CodedElement;
 
 /**
  *
@@ -635,7 +636,10 @@ public class AdapterComponentDocRepositoryOrchImpl {
                         //log.debug("requestHasReplacementAssociation is " + requestHasReplacementAssociation + " for document: " + doc.getDocumentUniqueId());
                         if (requestHasReplacementAssociation) {
                             //query for the documentId using the documentUniqueId
-                            long documentid = queryRepositoryByPatientId(doc.getPatientId(), doc.getDocumentUniqueId(), doc.getClassCode(), doc.getStatus(), docService);
+                            CodedElement classCodeElement = new CodedElement();
+                            classCodeElement.setCode(doc.getClassCode());
+                            classCodeElement.setCodeSystem(doc.getClassCodeScheme());
+                            long documentid = queryRepositoryByPatientId(doc.getPatientId(), doc.getDocumentUniqueId(), classCodeElement, doc.getStatus(), docService);
                             doc.setDocumentid(documentid);
                         }
                         //call the DocumentService.save method
@@ -729,14 +733,14 @@ public class AdapterComponentDocRepositoryOrchImpl {
         return replacementAssociationExists;
     }
 
-    private long queryRepositoryByPatientId(String sPatId, String sDocId, String sClassCode, String sStatus, DocumentService docService) {
+    private long queryRepositoryByPatientId(String sPatId, String sDocId, CodedElement classCode, String sStatus, DocumentService docService) {
         long nhincDocRepositoryDocId = 0;
 
         //query for the doc unique id
         DocumentQueryParams params = new DocumentQueryParams();
         params.setPatientId(sPatId);
-        List<String> lClassCodeList = new ArrayList();
-        lClassCodeList.add(sClassCode);
+        List<CodedElement> lClassCodeList = new ArrayList<CodedElement>();
+        lClassCodeList.add(classCode);
         params.setClassCodes(lClassCodeList);
         List<String> lStatus = new ArrayList();
         lStatus.add(sStatus);

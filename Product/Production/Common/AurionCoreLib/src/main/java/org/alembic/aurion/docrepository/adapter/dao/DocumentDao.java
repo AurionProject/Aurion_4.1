@@ -6,12 +6,15 @@
  */
 package org.alembic.aurion.docrepository.adapter.dao;
 
+import org.alembic.aurion.docrepository.adapter.model.CodedElement;
 import org.alembic.aurion.docrepository.adapter.model.Document;
 import org.alembic.aurion.docrepository.adapter.model.DocumentQueryParams;
 import org.alembic.aurion.docrepository.adapter.persistence.HibernateUtil;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.alembic.aurion.nhinclib.NullChecker;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
@@ -277,7 +280,7 @@ public class DocumentDao
 
         String patientId = null;
         List<String> classCodes = null;
-        String classCodeScheme = null;
+        List<String> classCodeSchemes = null;
         Date creationTimeFrom = null;
         Date creationTimeTo = null;
         Date serviceStartTimeFrom = null;
@@ -289,8 +292,9 @@ public class DocumentDao
         if (params != null)
         {
             patientId = params.getPatientId();
-            classCodes = params.getClassCodes();
-            classCodeScheme = params.getClassCodeScheme();
+            classCodes = new ArrayList<String>();
+            classCodeSchemes = new ArrayList<String>();
+            populateClassCodes(params.getClassCodes(), classCodes, classCodeSchemes);
             creationTimeFrom = params.getCreationTimeFrom();
             creationTimeTo = params.getCreationTimeTo();
             serviceStartTimeFrom = params.getServiceStartTimeFrom();
@@ -323,25 +327,27 @@ public class DocumentDao
                         criteria.add(Expression.eq("patientId", patientId));
                     }
 
-                    if ((classCodes != null) && (!classCodes.isEmpty()))
+                    if (NullChecker.isNotNullish(classCodes))
                     {
                         if (log.isDebugEnabled())
                         {
                             for (String classCode : classCodes)
                             {
-                            log.debug("Document query - class code: " + classCode);
+                                log.debug("Document query - class code: " + classCode);
                             }
                         }
                         criteria.add(Expression.in("classCode", classCodes));
                     }
 
-                    if (classCodeScheme != null)
+                    if (NullChecker.isNotNullish(classCodeSchemes))
                     {
                         if (log.isDebugEnabled())
                         {
-                            log.debug("Document query - class code scheme: " + classCodeScheme);
+                            for(String classCodeScheme : classCodeSchemes) {
+                                log.debug("Document query - class code scheme: " + classCodeScheme);
+                            }
                         }
-                        criteria.add(Expression.eq("classCodeScheme", classCodeScheme));
+                        criteria.add(Expression.in("classCodeScheme", classCodeSchemes));
                     }
 
                     if (creationTimeFrom != null)
@@ -453,6 +459,15 @@ public class DocumentDao
             }
         }
         return documents;
+    }
+
+    private void populateClassCodes(List<CodedElement> classcodeElements, List<String> classCodes, List<String> classCodeSchemes) {
+        if((classcodeElements != null) && (!classcodeElements.isEmpty())) {
+            for(CodedElement classCode : classcodeElements) {
+                classCodes.add(classCode.getCode());
+                classCodeSchemes.add(classCode.getCodeSystem());
+            }
+        }
     }
 
 

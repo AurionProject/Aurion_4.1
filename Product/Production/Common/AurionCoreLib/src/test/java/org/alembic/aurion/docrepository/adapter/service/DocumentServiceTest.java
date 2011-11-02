@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import org.alembic.aurion.docrepository.adapter.model.CodedElement;
 import org.apache.commons.logging.Log;
 import org.hibernate.SessionFactory;
 import org.jmock.Expectations;
@@ -515,13 +516,15 @@ public class DocumentServiceTest
         DocumentQueryParams params = new DocumentQueryParams();
 
         params.setPatientId(patientId);
-        if(classCode != null)
+        if((classCode != null) || (classCodeScheme != null))
         {
-            List<String> classCodes = new ArrayList<String>();
-            classCodes.add(classCode);
+            List<CodedElement> classCodes = new ArrayList<CodedElement>();
+            CodedElement code = new CodedElement();
+            code.setCode(classCode);
+            code.setCodeSystem(classCodeScheme);
+            classCodes.add(code);
             params.setClassCodes(classCodes);
         }
-        params.setClassCodeScheme(classCodeScheme);
         params.setCreationTimeFrom(creationTimeFrom);
         params.setCreationTimeTo(creationTimeTo);
         params.setServiceStartTimeFrom(serviceStartTimeFrom);

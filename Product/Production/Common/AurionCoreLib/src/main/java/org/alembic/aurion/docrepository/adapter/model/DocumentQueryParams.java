@@ -17,8 +17,7 @@ import java.util.List;
 public class DocumentQueryParams
 {
     private String patientId;
-    private List<String> classCodes;
-    private String classCodeScheme;
+    private List<CodedElement> classCodes;
     private Date creationTimeFrom;
     private Date creationTimeTo;
     private Date serviceStartTimeFrom;
@@ -29,24 +28,14 @@ public class DocumentQueryParams
     private List<String> documentUniqueIds;
     private List<EventCodeParam> eventCodeParams;
 
-    public List<String> getClassCodes()
+    public List<CodedElement> getClassCodes()
     {
         return classCodes;
     }
 
-    public void setClassCodes(List<String> classCodes)
+    public void setClassCodes(List<CodedElement> classCodes)
     {
         this.classCodes = classCodes;
-    }
-
-    public String getClassCodeScheme()
-    {
-        return classCodeScheme;
-    }
-
-    public void setClassCodeScheme(String classCodeScheme)
-    {
-        this.classCodeScheme = classCodeScheme;
     }
 
     public Date getCreationTimeFrom()
@@ -173,15 +162,6 @@ public class DocumentQueryParams
             return false;
         }
         else if((this.getClassCodes() != null) && (!this.getClassCodes().equals(toCheck.getClassCodes())))
-        {
-            return false;
-        }
-
-        if((this.getClassCodeScheme() == null) && (toCheck.getClassCodeScheme() != null))
-        {
-            return false;
-        }
-        else if((this.getClassCodeScheme() != null) && (!this.getClassCodeScheme().equals(toCheck.getClassCodeScheme())))
         {
             return false;
         }
