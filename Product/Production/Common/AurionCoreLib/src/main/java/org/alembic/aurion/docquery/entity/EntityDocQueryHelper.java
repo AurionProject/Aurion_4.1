@@ -32,6 +32,7 @@ import org.alembic.aurion.common.patientcorrelationfacade.RetrievePatientCorrela
 import org.alembic.aurion.connectmgr.ConnectionManagerCommunityMapping;
 import org.alembic.aurion.properties.PropertyAccessException;
 import org.alembic.aurion.properties.PropertyAccessor;
+import org.hl7.v3.PRPAMT201307UV02DataSource;
 import org.hl7.v3.RetrievePatientCorrelationsResponseType;
 
 /**
@@ -51,6 +52,9 @@ public class EntityDocQueryHelper {
     }
 
     public List<QualifiedSubjectIdentifierType> retreiveCorrelations(List<SlotType1> slotList, CMUrlInfos urlInfoList, AssertionType assertion, boolean isTargeted, String localHomeCommunity) {
+        log.debug("begin: retrieveCorrelations(..)");
+        log.debug("retrieveCorrelations:localHomeCommunity = " + localHomeCommunity);
+
         RetrievePatientCorrelationsResponseType results = null;
         RetrievePatientCorrelationsRequestType patientCorrelationReq = new RetrievePatientCorrelationsRequestType();
         QualifiedSubjectIdentifierType qualSubId = new QualifiedSubjectIdentifierType();
@@ -80,6 +84,7 @@ public class EntityDocQueryHelper {
                     for (CMUrlInfo target : urlInfoList.getUrlInfo()) {
                         if (NullChecker.isNotNullish(target.getHcid())) {
                             patientCorrelationReq.getTargetHomeCommunity().add(target.getHcid());
+                            log.debug("patientCorrelationReq.getTargetHomeCommunity().add(target.getHcid() - Adding: " + target.getHcid());
 
                             if (target.getHcid().equals(localHomeCommunity) &&
                                     isTargeted == true) {
@@ -101,8 +106,52 @@ public class EntityDocQueryHelper {
         PatientCorrelationProxyObjectFactory factory = new PatientCorrelationProxyObjectFactory();
         PatientCorrelationProxy proxy = factory.getPatientCorrelationProxy();
 
+        log.debug("Outputting patientCorrelationReq.getTargetAssigningAuthority(): ");
+        if ((patientCorrelationReq != null) &&
+            (patientCorrelationReq.getTargetAssigningAuthority().size() > 0))
+        {
+            int i = 0;
+            for (String sAssignAuthority : patientCorrelationReq.getTargetAssigningAuthority())
+            {
+                log.debug("AssnAuthority[" + i + "]: " + sAssignAuthority);
+            }
+        }
+
+        log.debug("Outputting patientCorrelationReq.getTargetHomeCommunities(): ");
+        if ((patientCorrelationReq != null) &&
+            (patientCorrelationReq.getTargetHomeCommunity().size() > 0))
+        {
+            int i = 0;
+            for (String sHomeCommunity : patientCorrelationReq.getTargetHomeCommunity())
+            {
+                log.debug("HomeCommunity[" + i + "]: " + sHomeCommunity);
+            }
+        }
+
+
         patientCorrelationReq.setAssertion(assertion);
         PRPAIN201309UV02 patCorrelationRequest = PixRetrieveBuilder.createPixRetrieve(patientCorrelationReq);
+
+        if ((patCorrelationRequest != null) &&
+            (patCorrelationRequest.getControlActProcess() != null) &&
+            (patCorrelationRequest.getControlActProcess().getQueryByParameter() != null) &&
+            (patCorrelationRequest.getControlActProcess().getQueryByParameter().getValue() != null) &&
+            (patCorrelationRequest.getControlActProcess().getQueryByParameter().getValue().getParameterList() != null) &&
+            (patCorrelationRequest.getControlActProcess().getQueryByParameter().getValue().getParameterList().getDataSource().size() > 0))
+        {
+            List<PRPAMT201307UV02DataSource> lTemp = patCorrelationRequest.getControlActProcess().getQueryByParameter().getValue().getParameterList().getDataSource();
+            log.debug("Output the contents of the data sources of rhte RetreivePatientCorrelationsRequestSecured. Right before retrieve call.");
+            for (PRPAMT201307UV02DataSource dataSource : lTemp)
+            {
+                if ((dataSource != null) &&
+                    (dataSource.getValue().size() > 0) &&
+                    (dataSource.getValue().get(0) != null) &&
+                    (dataSource.getValue().get(0).getRoot() != null))
+                {
+                    log.debug("Root: " + dataSource.getValue().get(0).getRoot());
+                }
+            }
+        }
 
         results = proxy.retrievePatientCorrelations(patCorrelationRequest, assertion);
 

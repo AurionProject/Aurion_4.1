@@ -52,7 +52,7 @@ public class DocumentQueryClient {
     private static final String HOME_ID = "urn:oid:2.16.840.1.113883.3.200";
     private static final String ID = "urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d";
     private static final String PATIENT_ID_SLOT_NAME = "$XDSDocumentEntryPatientId";
-    private static final String DOCUMENT_STATUS_SLOT_NAME = "('$XDSDocumentEntryStatus')";
+    private static final String DOCUMENT_STATUS_SLOT_NAME = "$XDSDocumentEntryStatus";
     private static final String CREATION_TIME_FROM_SLOT_NAME = "$XDSDocumentEntryCreationTimeFrom";
     private static final String CREATION_TIME_TO_SLOT_NAME = "$XDSDocumentEntryCreationTimeTo";
     //private static final String HL7_DATE_FORMAT = "yyyyMMddHHmmssZ";
@@ -85,7 +85,7 @@ public class DocumentQueryClient {
 
         ValueListType valueList = new ValueListType();
 
-        valueList.getValue().add("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Approved");
+        valueList.getValue().add("('urn:oasis:names:tc:ebxml-regrep:StatusType:Approved','urn:ihe:iti:2010:StatusType:DeferredCreation')");
 
         slot.setName(DOCUMENT_STATUS_SLOT_NAME);
         slot.setValueList(valueList);

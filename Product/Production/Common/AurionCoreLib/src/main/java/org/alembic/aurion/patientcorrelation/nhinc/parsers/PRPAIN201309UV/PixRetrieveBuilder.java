@@ -40,18 +40,30 @@ public class PixRetrieveBuilder {
 
 
     public static PRPAIN201309UV02 createPixRetrieve(RetrievePatientCorrelationsRequestType retrievePatientCorrelationsRequest) {
-        List<String> targetAssigningAuthorities = extractTargetAssigningAuthorities(retrievePatientCorrelationsRequest);
+        // Les Westberg: Changed this from Assigning authorities to Home Communities.   The PatientCorrelationOrchImpl code
+        // assumes these are home communities and will try to change them to assigning authorities.  When it does that it,
+        // loses all those that have home communities and assigning authorities that are different.
+        //
+        // List<String> targetAssigningAuthorities = extractTargetAssigningAuthorities(retrievePatientCorrelationsRequest);
+        List<String> targetHomeCommunities = extractTargetHomeCommunities(retrievePatientCorrelationsRequest);
         PRPAIN201309UV02 pixRetrieve = createTransmissionWrapper("1.1", null);
 
         PRPAIN201309UV02QUQIMT021001UV01ControlActProcess controlActProcess = createBaseControlActProcess();
 
-        PRPAMT201307UV02QueryByParameter queryByParameter = createQueryByParameter(retrievePatientCorrelationsRequest.getQualifiedPatientIdentifier(), targetAssigningAuthorities);
+        //PRPAMT201307UV02QueryByParameter queryByParameter = createQueryByParameter(retrievePatientCorrelationsRequest.getQualifiedPatientIdentifier(), targetAssigningAuthorities);
+        PRPAMT201307UV02QueryByParameter queryByParameter = createQueryByParameter(retrievePatientCorrelationsRequest.getQualifiedPatientIdentifier(), targetHomeCommunities);
         JAXBElement<PRPAMT201307UV02QueryByParameter> createQueryByParameterElement = createQueryByParameterElement(queryByParameter);
         controlActProcess.setQueryByParameter(createQueryByParameterElement);
 
         pixRetrieve.setControlActProcess(controlActProcess);
 
         return pixRetrieve;
+    }
+
+    private static List<String> extractTargetHomeCommunities(RetrievePatientCorrelationsRequestType retrievePatientCorrelationsRequest) {
+        List<String> targetHomeCommunities = retrievePatientCorrelationsRequest.getTargetHomeCommunity();
+
+        return targetHomeCommunities;
     }
 
     private static List<String> extractTargetAssigningAuthorities(RetrievePatientCorrelationsRequestType retrievePatientCorrelationsRequest) {

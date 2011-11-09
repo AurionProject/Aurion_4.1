@@ -29,6 +29,7 @@ import org.alembic.aurion.common.nhinccommonentity.RespondingGatewayCrossGateway
 import org.alembic.aurion.connectmgr.ConnectionManagerCache;
 import org.alembic.aurion.connectmgr.ConnectionManagerException;
 import org.alembic.aurion.connectmgr.data.CMUrlInfos;
+import org.alembic.aurion.connectmgr.data.CMUrlInfo;
 import org.alembic.aurion.gateway.aggregator.GetAggResultsDocQueryRequestType;
 import org.alembic.aurion.gateway.aggregator.GetAggResultsDocQueryResponseType;
 import org.alembic.aurion.gateway.aggregator.StartTransactionDocQueryRequestType;
@@ -79,12 +80,31 @@ public class EntityDocQueryOrchImpl
                     NullChecker.isNotNullish(targets.getNhinTargetCommunity()))
             {
                 isTargeted = true;
+                log.debug("targets has data.  (is not null)");
+            }
+            else
+            {
+                log.debug("targets is null. ");
             }
 
             // Obtain all the URLs for the targets being sent to
             try
             {
                 urlInfoList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(targets, NhincConstants.DOC_QUERY_SERVICE_NAME);
+                if ((urlInfoList != null) && (urlInfoList.getUrlInfo() != null))
+                {
+                    log.debug("urlInfoList.count = " + urlInfoList.getUrlInfo().size());
+                    int i = 0;
+                    for (CMUrlInfo oUrlInfo : urlInfoList.getUrlInfo())
+                    {
+                        log.debug("Urlinfo[" + i + "]: HomeCommunityId: " + oUrlInfo.getHcid() + ", URL: " +  oUrlInfo.getUrl());
+                        i++;
+                    }
+                }
+                else
+                {
+                    log.debug("urlInfoList is null" );
+                }
             } catch (ConnectionManagerException ex)
             {
                 log.error("Failed to obtain target URLs");
