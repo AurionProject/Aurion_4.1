@@ -303,7 +303,7 @@
 
     <servlet>
         <servlet-name>AdapterAuditLogQueryUnsecured</servlet-name>
-        <servlet-class>org.alembic.aurion.auditquery.adapter.AdapterAuditLogQueryUnsecured</servlet-class>
+        <servlet-class>org.alembic.aurion.auditquery.adapter.AdapterAuditQueryService</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AdapterAuditLogQueryUnsecured</servlet-name>

@@ -150,7 +150,7 @@ public class AuditRepositoryOrchImpl {
             }
         }
 
-        if (null != assertion && null != assertion.getUniquePatientId()) {
+        if ((assertion != null) && (!assertion.getUniquePatientId().isEmpty())) {
             String uniquePatientId = assertion.getUniquePatientId().get(0);
             uniquePatientId = PatientIdFormatUtil.parsePatientId(uniquePatientId);
             auditRec.setSenderPatientId(uniquePatientId);
