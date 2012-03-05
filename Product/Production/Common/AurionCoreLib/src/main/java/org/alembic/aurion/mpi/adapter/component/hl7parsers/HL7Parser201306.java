@@ -16,6 +16,7 @@ import org.alembic.aurion.properties.PropertyAccessor;
 import org.alembic.aurion.transform.subdisc.HL7Constants;
 import org.alembic.aurion.transform.subdisc.HL7DataTransformHelper;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.TimeZone;
 import java.util.GregorianCalendar;
@@ -382,7 +383,20 @@ public class HL7Parser201306 {
         // Set the SSN
         if (patient.getSSN() != null &&
                 patient.getSSN().length() > 0) {
-           person.getAsOtherIDs().add(createOtherIds(patient));
+           person.getAsOtherIDs().add(createSsnId(patient));
+        }
+
+        // Put all of the identifiers into the "OtherIDs" field.
+        //------------------------------------------------------
+        if ((patient.getIdentifiers() != null) &&
+            (patient.getIdentifiers().size() > 0))
+        {
+            List<PRPAMT201310UV02OtherIDs> asOtherIds = createOtherIds(patient);
+            if ((asOtherIds != null) &&
+                (asOtherIds.size() > 0))
+            {
+                person.getAsOtherIDs().addAll(asOtherIds);
+            }
         }
         
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
@@ -441,8 +455,53 @@ public class HL7Parser201306 {
         
         return address;
     }
+
+    /**
+     * This method returns all of the identifiers in a way that they can be 
+     * added into the AsOtherIdentifiers list.  
+     * 
+     * @param patient The retrieved information for the patient.
+     * @return The list of OtherIds that was constructed.
+     */
+    private static List<PRPAMT201310UV02OtherIDs> createOtherIds (Patient patient)
+    {
+        ArrayList<PRPAMT201310UV02OtherIDs> listIds = new ArrayList<PRPAMT201310UV02OtherIDs>();
+
+        if ((patient != null) &&
+            (patient.getIdentifiers() != null) &&
+            (patient.getIdentifiers().size() > 0))
+        {
+            for (Identifier singleId : patient.getIdentifiers())
+            {
+                if ((singleId.getOrganizationId() != null) &&
+                    (singleId.getOrganizationId().length() > 0) &&
+                    (singleId.getId() != null) &&
+                    (singleId.getId().length() > 0))
+                {
+                    PRPAMT201310UV02OtherIDs asOtherId = new PRPAMT201310UV02OtherIDs();
+
+                    // TODO: Temporary assignment until actual value can be determined
+                    asOtherId.getClassCode().add("SD");
+                    II ii = new II();
+                    asOtherId.getId().add(ii);
+                    ii.setRoot(singleId.getOrganizationId());
+                    ii.setExtension(singleId.getId());
+                    COCTMT150002UV01Organization scopingOrg = new COCTMT150002UV01Organization();
+                    II scopingOrgIi = new II();
+                    scopingOrgIi.setRoot(ii.getRoot());
+                    scopingOrg.getId().add(scopingOrgIi);
+                    asOtherId.setScopingOrganization(scopingOrg);
+                    listIds.add(asOtherId);
+                    log.debug("HL7Parser201306.createOtherIds: Added 'otherId' with root:" + ii.getRoot() + ", Extension: " + ii.getExtension());
+                }
+            }   // for (Identifier singleId : patient.getIdentifiers())
+        }   // if ((patient != null) && ...
+        
+        return listIds;
+    }
+
     
-    private static PRPAMT201310UV02OtherIDs createOtherIds (Patient patient) {
+    private static PRPAMT201310UV02OtherIDs createSsnId (Patient patient) {
         PRPAMT201310UV02OtherIDs  otherIds = new PRPAMT201310UV02OtherIDs();
         
         // TODO: Temporary assignment until actual value can be determined
