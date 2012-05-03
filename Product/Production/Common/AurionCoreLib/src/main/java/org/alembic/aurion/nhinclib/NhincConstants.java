@@ -115,6 +115,8 @@ public class NhincConstants {
     public static final String NS_ADDRESSING_2005 = "http://www.w3.org/2005/08/addressing";
     public static final String HEADER_MESSAGEID = "MessageID";
     public static final String HEADER_RELATESTO = "RelatesTo";
+    public static final String HEADER_TO = "To";
+    
     // Audit Logging Constants
     public static final String AUDIT_REPO_SERVICE_NAME = "auditrepository";
     public static final String AUDIT_REPO_SECURE_SERVICE_NAME = "auditrepositorysecured";

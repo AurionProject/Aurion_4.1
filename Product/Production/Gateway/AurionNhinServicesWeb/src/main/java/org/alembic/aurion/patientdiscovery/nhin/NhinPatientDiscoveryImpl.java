@@ -31,6 +31,12 @@ public class NhinPatientDiscoveryImpl {
     public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, WebServiceContext context) {
         log.debug("Entering NhinPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02");
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+
+        if (assertion != null) {
+            AsyncMessageIdExtractor wsAddrExtractor = new AsyncMessageIdExtractor();
+            assertion.setToUrl(wsAddrExtractor.GetToURL(context));
+        }
+        
         NhinPatientDiscoveryOrchImpl oOrchestrator = new NhinPatientDiscoveryOrchImpl();
         String interfaceName = getServiceNameFromContext(context);
         AuditPerformance oAuditPerformance = PerformanceMonitorUtil.buildAuditPerfromance(0, interfaceName, AsyncMessageIdExtractor.GetAsyncMessageId(context), NhincConstants.SERVICE_REQUEST_STRING);

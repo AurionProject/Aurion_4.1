@@ -31,8 +31,11 @@
     <import location="AdapterDocRetrieveDeferredReqErrorSecured.xml" namespace="urn:org:alembic:aurion:adapterdocretrievedeferredreqerrorsecured"/>
     <import location="NhincComponentPatientCorrelationSecured.xml" namespace="urn:org:alembic:aurion:nhinccomponentpatientcorrelation"/>
     <import location="AdapterXDRSecured.xml" namespace="urn:org:alembic:aurion:adapterxdrsecured"/>
-     <import location="AdapterAdminDistSecured.xml" namespace="urn:org:alembic:aurion:adapteradmindistribution"/>
-     <import location="AdapterSubscriptionManagementSecured.xml" namespace="urn:org:alembic:aurion:adaptersubscriptionmanagementsecured"/>
-     <import location="AdapterNotificationConsumerSecured.xml" namespace="urn:org:alembic:aurion:adapternotificationconsumersecured"/>
+    <import location="AdapterAdminDistSecured.xml" namespace="urn:org:alembic:aurion:adapteradmindistribution"/>
+    <import location="AdapterSubscriptionManagementSecured.xml" namespace="urn:org:alembic:aurion:adaptersubscriptionmanagementsecured"/>
+    <import location="AdapterNotificationConsumerSecured.xml" namespace="urn:org:alembic:aurion:adapternotificationconsumersecured"/>
+    <import location="NhinDocRetrieve.xml" namespace="urn:ihe:iti:xds-b:2007"/>
+    <import location="NhinDocQuery.xml" namespace="urn:ihe:iti:xds-b:2007"/>
+    <import location="NhinPatientDiscovery.xml" namespace="urn:ihe:iti:xcpd:2009"/>
 
 </definitions>

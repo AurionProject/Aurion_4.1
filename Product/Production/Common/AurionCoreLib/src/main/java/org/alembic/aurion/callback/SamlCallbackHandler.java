@@ -307,8 +307,9 @@ public class SamlCallbackHandler implements CallbackHandler {
 	 * @return a String representation of a UUID with the dashes removed
 	 */
     private String createAssertionId() {
-    	return UUID.randomUUID().toString().replaceAll("-", "");
-	}
+    	String id = "_" + UUID.randomUUID().toString().replaceAll("-", "");
+        return id;
+    }
 
 	/**
      * Both the Issuer and the Subject elements have a NameID element which is
@@ -740,7 +741,7 @@ public class SamlCallbackHandler implements CallbackHandler {
 
         List evAsserts = new ArrayList();
         try {
-            String evAssertionID = String.valueOf(UUID.randomUUID());
+            String evAssertionID = createAssertionId();
             if (tokenVals.containsKey(SamlConstants.EVIDENCE_ID_PROP) &&
                     tokenVals.get(SamlConstants.EVIDENCE_ID_PROP) != null) {
                 evAssertionID = tokenVals.get(SamlConstants.EVIDENCE_ID_PROP).toString();

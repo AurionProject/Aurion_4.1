@@ -76,4 +76,24 @@ public class AsyncMessageIdExtractor
         }
         return relatesToId;
     }
+
+    public static String GetToURL(WebServiceContext context)
+    {
+        String toURL = null;
+
+        if (context != null && context.getMessageContext() != null)
+        {
+            Object oList = context.getMessageContext().get(JAXWSProperties.INBOUND_HEADER_LIST_PROPERTY);
+            if (oList instanceof HeaderList)
+            {
+                HeaderList hlist = (HeaderList) oList;
+                Header header = hlist.get(NhincConstants.NS_ADDRESSING_2005, NhincConstants.HEADER_TO, false);
+                if (header != null)
+                {
+                    toURL = header.getStringContent();
+                }
+            }
+        }
+        return toURL;
+    }
 }
