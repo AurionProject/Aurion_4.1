@@ -257,7 +257,7 @@ public class EntityPatientDiscoverySecuredImplTest
         }
     }
 
-    @Test
+    @Ignore
     public void testRespondingGatewayPRPAIN201305UV02NullProcessor()
     {
         try
