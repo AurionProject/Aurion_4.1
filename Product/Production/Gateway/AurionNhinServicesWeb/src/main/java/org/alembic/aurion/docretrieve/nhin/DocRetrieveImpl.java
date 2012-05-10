@@ -34,6 +34,11 @@ class DocRetrieveImpl {
 
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
 
+        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
+        if (assertion != null) {
+            assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
+        }
+
         NhinDocRetrieveOrchImpl oOrchestrator = new NhinDocRetrieveOrchImpl();
         String interfaceName = getServiceNameFromContext(context);
         AuditPerformance oAuditPerformance = PerformanceMonitorUtil.buildAuditPerfromance(0, interfaceName, AsyncMessageIdExtractor.GetAsyncMessageId(context), NhincConstants.SERVICE_REQUEST_STRING);

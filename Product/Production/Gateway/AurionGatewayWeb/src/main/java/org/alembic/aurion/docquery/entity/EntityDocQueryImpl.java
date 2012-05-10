@@ -24,6 +24,7 @@ import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -43,12 +44,22 @@ class EntityDocQueryImpl {
         return new WebServiceHelper();
     }
 
+    protected void setMessageID(AssertionType assertion, final WebServiceContext context) {
+        if (assertion != null) {
+            assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
+        }
+    }
+
     AdhocQueryResponse respondingGatewayCrossGatewayQuerySecured(RespondingGatewayCrossGatewayQuerySecuredRequestType request, WebServiceContext context) {
         log.info("Begin respondingGatewayCrossGatewayQuerySecured(RespondingGatewayCrossGatewayQuerySecuredRequestType, WebServiceContext)");
         WebServiceHelper oHelper = createWebServiceHelper();
         EntityDocQueryOrchImpl implOrch = createEntityDocQueryOrchImpl();
         AdhocQueryResponse response = null;
         String interfaceName = getServiceNameFromContext(context);
+
+        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+        setMessageID (assertion, context);
+
         try {
             if (request != null) {
                 AdhocQueryRequest adhocQueryRequest = request.getAdhocQueryRequest();
@@ -75,6 +86,7 @@ class EntityDocQueryImpl {
         EntityDocQueryOrchImpl implOrch = createEntityDocQueryOrchImpl();
         AdhocQueryResponse response = null;
         String interfaceName = getServiceNameFromContext(context);
+        setMessageID (request.getAssertion(), context);
         try {
             if (request != null) {
                 

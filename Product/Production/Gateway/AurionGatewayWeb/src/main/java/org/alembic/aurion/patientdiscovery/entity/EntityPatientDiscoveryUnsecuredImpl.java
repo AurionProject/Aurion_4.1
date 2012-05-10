@@ -13,6 +13,7 @@ import org.alembic.aurion.performance.monitor.PerformanceMonitorUtil;
 import javax.xml.namespace.QName;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
+import org.alembic.aurion.common.nhinccommon.AssertionType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
@@ -41,9 +42,17 @@ public class EntityPatientDiscoveryUnsecuredImpl
         return new EntityPatientDiscoveryOrchImpl();
     }
 
+    protected void setMessageID(AssertionType assertion, final WebServiceContext context) {
+        if (assertion != null) {
+            assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
+        }
+    }
+
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(RespondingGatewayPRPAIN201305UV02RequestType respondingGatewayPRPAIN201305UV02Request, WebServiceContext context)
     {
         RespondingGatewayPRPAIN201306UV02ResponseType response = null;
+
+        setMessageID (respondingGatewayPRPAIN201305UV02Request.getAssertion(), context);
 
         if(respondingGatewayPRPAIN201305UV02Request == null)
         {

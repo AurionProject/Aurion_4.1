@@ -30,6 +30,7 @@ public class AsyncMessageIdExtractor
     public static String GetAsyncMessageId(WebServiceContext context)
     {
         String messageId = null;
+        String tempMsgId = null;
 
         if (context != null && context.getMessageContext() != null)
         {
@@ -40,15 +41,24 @@ public class AsyncMessageIdExtractor
                 Header header = hlist.get(NhincConstants.NS_ADDRESSING_2005, NhincConstants.HEADER_MESSAGEID, false);
                 if (header != null)
                 {
-                    messageId = header.getStringContent();
+                    tempMsgId = header.getStringContent();
                 }
             }
         }
 
-        if (messageId == null)
+        if (tempMsgId == null)
         {
-            messageId = UUID.randomUUID().toString();
+            tempMsgId = UUID.randomUUID().toString();
         }
+
+        // Check for the presence of uuid
+        if (!(tempMsgId.contains("uuid"))) {
+            messageId = "urn:uuid:" + tempMsgId;
+        }
+        else {
+            messageId = tempMsgId;
+        }
+
         return messageId;
     }
 

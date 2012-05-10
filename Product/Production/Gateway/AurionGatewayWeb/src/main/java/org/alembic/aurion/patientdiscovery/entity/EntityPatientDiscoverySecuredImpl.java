@@ -40,6 +40,12 @@ public class EntityPatientDiscoverySecuredImpl {
         return new EntityPatientDiscoveryOrchImpl();
     }
 
+    protected void setMessageID(AssertionType assertion, final WebServiceContext context) {
+        if (assertion != null) {
+            assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
+        }
+    }
+
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(RespondingGatewayPRPAIN201305UV02RequestType request, WebServiceContext context) {
         log.debug("Entering EntityPatientDiscoverySecuredImpl.respondingGatewayPRPAIN201305UV02...");
         RespondingGatewayPRPAIN201306UV02ResponseType response = null;
@@ -51,6 +57,7 @@ public class EntityPatientDiscoverySecuredImpl {
             return null;
         } else {
             AssertionType assertion = extractAssertion(context);
+            setMessageID (assertion, context);
 
             EntityPatientDiscoveryOrchImpl processor = getEntityPatientDiscoveryProcessor();
             if (processor != null) {

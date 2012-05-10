@@ -30,6 +30,8 @@ public class EntityDocRetreiveImpl {
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayQuery(ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body, final WebServiceContext context) {
         String interfaceName = getServiceNameFromContext(context);
         AssertionType assertion = getAssertion(context, null);
+        setMessageID (assertion, context);
+
         AuditPerformance oAuditPerformance = PerformanceMonitorUtil.buildAuditPerfromance(0, interfaceName, AsyncMessageIdExtractor.GetAsyncMessageId(context), NhincConstants.SERVICE_REQUEST_STRING);
         PerformanceMonitorUtil.getPerformanceProxy().logPerformance(oAuditPerformance);
         RetrieveDocumentSetResponseType oResponse = this.respondingGatewayCrossGatewayQuery(body, assertion);
@@ -41,6 +43,7 @@ public class EntityDocRetreiveImpl {
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayQuery(ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body, AssertionType assertion, final WebServiceContext context) {
         String interfaceName = getServiceNameFromContext(context);
         AssertionType assertionWithId = getAssertion(context, assertion);
+        setMessageID (assertionWithId, context);
         AuditPerformance oAuditPerformance = PerformanceMonitorUtil.buildAuditPerfromance(0, interfaceName, AsyncMessageIdExtractor.GetAsyncMessageId(context), NhincConstants.SERVICE_REQUEST_STRING);
         PerformanceMonitorUtil.getPerformanceProxy().logPerformance(oAuditPerformance);
         RetrieveDocumentSetResponseType oResponse = this.respondingGatewayCrossGatewayQuery(body, assertionWithId);
@@ -55,6 +58,12 @@ public class EntityDocRetreiveImpl {
 
     protected EntityDocRetrieveOrchImpl getEntityOrchImpl() {
         return new EntityDocRetrieveOrchImpl();
+    }
+
+    protected void setMessageID(AssertionType assertion, final WebServiceContext context) {
+        if (assertion != null) {
+            assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
+        }
     }
 
     private AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {

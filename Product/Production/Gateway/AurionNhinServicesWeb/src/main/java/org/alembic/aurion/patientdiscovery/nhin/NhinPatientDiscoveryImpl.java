@@ -35,6 +35,7 @@ public class NhinPatientDiscoveryImpl {
         if (assertion != null) {
             AsyncMessageIdExtractor wsAddrExtractor = new AsyncMessageIdExtractor();
             assertion.setToUrl(wsAddrExtractor.GetToURL(context));
+            assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
         }
         
         NhinPatientDiscoveryOrchImpl oOrchestrator = new NhinPatientDiscoveryOrchImpl();
@@ -62,4 +63,5 @@ public class NhinPatientDiscoveryImpl {
         }
         return interfaceName;
     }
+    
 }
