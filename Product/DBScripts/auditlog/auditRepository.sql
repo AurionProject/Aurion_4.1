@@ -11,6 +11,7 @@ CREATE TABLE auditrepository
 	receiverPatientId VARCHAR(100),
 	senderPatientId VARCHAR(100),
 	communityId VARCHAR(255),
+	purposeOfUse VARCHAR (32),
 	messageType VARCHAR(100) NOT NULL,
 	message LONGBLOB,
 	PRIMARY KEY (id),

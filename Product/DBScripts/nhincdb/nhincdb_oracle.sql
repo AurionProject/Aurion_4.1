@@ -40,6 +40,7 @@ CREATE TABLE nhincuser.auditrepository
 	receiverPatientId varchar2(100),
 	senderPatientId varchar2(100),
 	communityId varchar2(255),
+	purposeOfUse VARCHAR (32),
 	messageType varchar2(100) NOT NULL,
 	message BLOB,
 	PRIMARY KEY (id)

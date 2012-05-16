@@ -1,4 +1,4 @@
-﻿-- create application user
+-- create application user
 CREATE USER nhincuser IDENTIFIED BY 'nhincpass';
 
 -- begin aggregator creation
@@ -53,6 +53,7 @@ CREATE TABLE auditrepo.auditrepository
 	receiverPatientId VARCHAR(100),
 	senderPatientId VARCHAR(100),
 	communityId VARCHAR(255),
+	purposeOfUse VARCHAR (32),
 	messageType VARCHAR(100) NOT NULL,
 	message LONGBLOB,
 	PRIMARY KEY (id),
