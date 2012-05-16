@@ -30,6 +30,7 @@ public class AuditRepositoryRecord {
     private String senderPatientId = null;
     private String communityId = null;
     private String messageType = null;
+    private String purposeOfUse = null;
     private Blob message = null;
     
     public AuditRepositoryRecord() {
@@ -129,6 +130,14 @@ public class AuditRepositoryRecord {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getPurposeOfUse() {
+        return purposeOfUse;
+    }
+
+    public void setPurposeOfUse(String purposeOfUse) {
+        this.purposeOfUse = purposeOfUse;
     }
 
 }

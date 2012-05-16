@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?> 
-<java version="1.6.0_24" class="java.beans.XMLDecoder"> 
+<java version="1.6.0_20" class="java.beans.XMLDecoder"> 
  <object class="org.alembic.aurion.mpilib.Patients"> 
   <void method="add"> 
    <object class="org.alembic.aurion.mpilib.Patient"> 

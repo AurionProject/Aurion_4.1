@@ -40,6 +40,9 @@
     <property name="communityId">
       <column name="communityId"/>
     </property>
+    <property name="purposeOfUse">
+      <column name="purposeOfUse"/>
+    </property>
     <property name="messageType">
       <column name="messageType"/>
     </property>

@@ -43,6 +43,7 @@ import com.services.nhinc.schema.auditmessage.*;
 import com.services.nhinc.schema.auditmessage.AuditMessageType.ActiveParticipant;
 import org.alembic.aurion.common.auditlog.LogEventSecureRequestType;
 import org.alembic.aurion.common.nhinccommon.AssertionType;
+import org.alembic.aurion.nhinclib.NullChecker;
 import org.alembic.aurion.transform.marshallers.JAXBContextHandler;
 import org.alembic.aurion.util.format.PatientIdFormatUtil;
 
@@ -84,6 +85,7 @@ public class AuditRepositoryOrchImpl {
         String eventPatientID = null;
         int eventParticipationTypeCode = 0;
         int eventParticipationTypeCodeRole = 0;
+        String eventPurposeOfUse = null;
 
         List<ActiveParticipant> activeParticipantList = mess.getAuditMessage().getActiveParticipant();
         EventIdentificationType eventIdentification = mess.getAuditMessage().getEventIdentification();
@@ -150,11 +152,21 @@ public class AuditRepositoryOrchImpl {
             }
         }
 
-        if ((assertion != null) && (!assertion.getUniquePatientId().isEmpty())) {
-            String uniquePatientId = assertion.getUniquePatientId().get(0);
-            uniquePatientId = PatientIdFormatUtil.parsePatientId(uniquePatientId);
-            auditRec.setSenderPatientId(uniquePatientId);
+        if (assertion != null) {
+            if (!assertion.getUniquePatientId().isEmpty()) {
+                String uniquePatientId = assertion.getUniquePatientId().get(0);
+                uniquePatientId = PatientIdFormatUtil.parsePatientId(uniquePatientId);
+                auditRec.setSenderPatientId(uniquePatientId);
+            }
+
+            if (assertion.getPurposeOfDisclosureCoded() != null &&
+                    NullChecker.isNotNullish(assertion.getPurposeOfDisclosureCoded().getCode())) {
+                eventPurposeOfUse = assertion.getPurposeOfDisclosureCoded().getCode();
+                auditRec.setPurposeOfUse(eventPurposeOfUse);
+            }
         }
+
+
 
         List<AuditRepositoryRecord> auditRecList = new ArrayList();
         auditRecList.add(auditRec);
