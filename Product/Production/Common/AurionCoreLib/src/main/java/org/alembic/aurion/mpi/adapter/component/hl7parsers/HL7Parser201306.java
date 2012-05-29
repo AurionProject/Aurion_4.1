@@ -226,6 +226,10 @@ public class HL7Parser201306 {
         II id = new II();
         id.setRoot(patient.getIdentifiers().get(0).getOrganizationId());       
         assignedEntity.getId().add(id);
+        CE ce = new CE();
+        ce.setCode("NotHealthDataLocator");
+        ce.setCodeSystem("1.3.6.1.4.1.19376.1.2.27.2");
+        assignedEntity.setCode(ce);
         
         return assignedEntity;
     }
