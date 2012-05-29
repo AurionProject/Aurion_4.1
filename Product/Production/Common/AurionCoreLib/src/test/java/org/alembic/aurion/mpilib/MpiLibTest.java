@@ -455,18 +455,18 @@ public class MpiLibTest {
 //        assertEquals(0, searchresults.size());
 //    }
 //
-//    @Test
-//    public void PersistPatientList() {
-//        System.out.println("PersistPatientList");
-//        MiniMpi mpi;
-//
-//        mpi = loadStockMpi();
-//        int PatientListSize = mpi.getPatients().size();
-//
-//        mpi = MiniMpi.GetMpiInstance("testMPI.xml");
-//
-//        assertEquals(PatientListSize, mpi.getPatients().size());
-//    }
+    @Test
+    public void PersistPatientList() {
+        System.out.println("PersistPatientList");
+        MiniMpi mpi;
+
+        mpi = loadStockMpi();
+        int PatientListSize = mpi.getPatients().size();
+
+        mpi = MiniMpi.GetMpiInstance("testMPI.xml");
+
+        assertEquals(PatientListSize, mpi.getPatients().size());
+    }
 ////    @Test
 ////    public void LoadCustomFile()
 ////    {
@@ -1027,59 +1027,59 @@ public class MpiLibTest {
 //
 //        return mpi;
 //    }
-//    private MiniMpi loadStockMpi() {
-//        MiniMpi mpi;
-//        mpi = MiniMpi.GetMpiInstance("testMPI.xml");
-//        mpi.Reset();
-//
-//        Patient patient;
-//
-//        patient = new Patient();
-//        patient.getName().setLastName("ADAMS");
-//        patient.getName().setFirstName("ADAM");
-//        System.out.println("loading identifier");
-//        patient.getIdentifiers().add("MRN-123", "GeneralHospital-OID");
-//        mpi.AddUpdate(patient);
-//
-//        patient = new Patient();
-//        patient.getName().setLastName("BUSTER");
-//        patient.getName().setFirstName("BIGS");
-//        patient.getIdentifiers().add("MRN-124", "GeneralHospital-OID");
-//        mpi.AddUpdate(patient);
-//
-//        patient = new Patient();
-//        patient.getName().setLastName("CHARLIE");
-//        patient.getName().setFirstName("CHAPLAN");
-//        patient.getIdentifiers().add("MRN-134", "GeneralHospital-OID");
-//        mpi.AddUpdate(patient);
-//
-//        patient = new Patient();
-//        patient.getName().setLastName("DONNIE");
-//        patient.getName().setFirstName("DARKO");
-//        patient.getIdentifiers().add("MRN-135", "GeneralHospital-OID");
-//        mpi.AddUpdate(patient);
-//
-//        patient = new Patient();
-//        patient.getName().setLastName("EASTER");
-//        patient.getName().setFirstName("EGG");
-//        patient.getIdentifiers().add("MRN-200", "GeneralHospital-OID");
-//        patient.getIdentifiers().add("e123", "Healthcare-r-us-OID");
-//        mpi.AddUpdate(patient);
-//
-//        patient = new Patient();
-//        patient.getName().setLastName("EASTER");
-//        patient.getName().setFirstName("BUNNY");
-//        patient.getIdentifiers().add("b7", "Healthcare-r-us-OID");
-//        mpi.AddUpdate(patient);
-//
-//        patient = new Patient();
-//        patient.getName().setLastName("CHARLE");
-//        patient.getName().setFirstName("BROWN");
-//        patient.setOptedIn(false);
-//        patient.getIdentifiers().add("MRN-224", "Healthcare-r-us-OID");
-//        mpi.AddUpdate(patient);
-//
-//        return mpi;
-//    }
+    private MiniMpi loadStockMpi() {
+        MiniMpi mpi;
+        mpi = MiniMpi.GetMpiInstance("testMPI.xml");
+        mpi.Reset();
+
+        Patient patient;
+
+        patient = new Patient();
+        patient.getName().setLastName("ADAMS");
+        patient.getName().setFirstName("ADAM");
+        System.out.println("loading identifier");
+        patient.getIdentifiers().add("MRN-123", "GeneralHospital-OID");
+        mpi.AddUpdate(patient);
+
+        patient = new Patient();
+        patient.getName().setLastName("BUSTER");
+        patient.getName().setFirstName("BIGS");
+        patient.getIdentifiers().add("MRN-124", "GeneralHospital-OID");
+        mpi.AddUpdate(patient);
+
+        patient = new Patient();
+        patient.getName().setLastName("CHARLIE");
+        patient.getName().setFirstName("CHAPLAN");
+        patient.getIdentifiers().add("MRN-134", "GeneralHospital-OID");
+        mpi.AddUpdate(patient);
+
+        patient = new Patient();
+        patient.getName().setLastName("DONNIE");
+        patient.getName().setFirstName("DARKO");
+        patient.getIdentifiers().add("MRN-135", "GeneralHospital-OID");
+        mpi.AddUpdate(patient);
+
+        patient = new Patient();
+        patient.getName().setLastName("EASTER");
+        patient.getName().setFirstName("EGG");
+        patient.getIdentifiers().add("MRN-200", "GeneralHospital-OID");
+        patient.getIdentifiers().add("e123", "Healthcare-r-us-OID");
+        mpi.AddUpdate(patient);
+
+        patient = new Patient();
+        patient.getName().setLastName("EASTER");
+        patient.getName().setFirstName("BUNNY");
+        patient.getIdentifiers().add("b7", "Healthcare-r-us-OID");
+        mpi.AddUpdate(patient);
+
+        patient = new Patient();
+        patient.getName().setLastName("CHARLE");
+        patient.getName().setFirstName("BROWN");
+        patient.setOptedIn(false);
+        patient.getIdentifiers().add("MRN-224", "Healthcare-r-us-OID");
+        mpi.AddUpdate(patient);
+
+        return mpi;
+    }
     
 }
