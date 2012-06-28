@@ -220,11 +220,14 @@ public class EntityPatientDiscoveryOrchImpl {
                         log.debug("Collecting response from thread");
                         tempThread.join(120000);
 
-                        resultFromNhin = new PRPAIN201306UV02();
                         resultFromNhin = (PRPAIN201306UV02) fanoutIterator.next().getResponse();
+                        ProxyPRPAIN201305UVProxySecuredRequestType originalRequest = msgIterator.next();
+                        if (resultFromNhin == null) {
+                            resultFromNhin = new HL7PRPA201306Transforms().createPRPA201306ForErrors(originalRequest.getPRPAIN201305UV02(), NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE);
+                        }
 
                         params.assertion = assertion;
-                        params.origRequest = msgIterator.next();
+                        params.origRequest = originalRequest;
                         params.response = resultFromNhin;
                         resultFromNhin = new ResponseFactory().getResponseMode().processResponse(params);
 
