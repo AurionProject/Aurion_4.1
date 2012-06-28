@@ -179,8 +179,11 @@ public class PatientDiscovery201305ProcessorTest {
         PRPAIN201305UV02 request = HL7PRPA201305Transforms.createPRPA201305(patient, "1.1", "2.2", "1.1.1");
 
         PRPAIN201305UV02 result = instance.createNewRequest(request, targetCommunityId);
-        
+                
         TestHelper.assertReceiverEquals(targetCommunityId, result);
+        
+        // Verify that we did not get back the original request
+        assertNotSame(request, result);
     }
 
     /**

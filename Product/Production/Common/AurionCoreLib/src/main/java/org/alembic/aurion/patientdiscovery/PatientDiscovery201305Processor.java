@@ -18,6 +18,7 @@ import org.alembic.aurion.nhinclib.NullChecker;
 import org.alembic.aurion.patientcorrelation.nhinc.proxy.PatientCorrelationProxy;
 import org.alembic.aurion.patientcorrelation.nhinc.proxy.PatientCorrelationProxyObjectFactory;
 import org.alembic.aurion.transform.subdisc.HL7PRPA201301Transforms;
+import org.alembic.aurion.transform.subdisc.HL7PRPA201305Transforms;
 import org.alembic.aurion.transform.subdisc.HL7PRPA201306Transforms;
 import org.alembic.aurion.transform.subdisc.HL7ReceiverTransforms;
 import org.apache.commons.logging.Log;
@@ -239,20 +240,30 @@ public class PatientDiscovery201305Processor {
         return patId;
     }
 
-    public PRPAIN201305UV02 createNewRequest(PRPAIN201305UV02 request, String targetCommunityId) {
-        PRPAIN201305UV02 newRequest = new PRPAIN201305UV02();
-        newRequest = request;
-
+    /**
+     * Creates a new 201305 request based on the values of an existing one. The new request 
+     * will have a different receiver based on the provided target community ID. 
+     * 
+     * @param request the request to use as the basis for the new request.
+     * @param targetCommunityId the target community ID to use for the new receiver.
+     * 
+     * @return a copy of the original request with a new receiver for the provided target 
+     *         community ID, or <code>null</code> if either the request or target community
+     *         ID were <code>null</code>.
+     */
+    public PRPAIN201305UV02 createNewRequest(final PRPAIN201305UV02 request, String targetCommunityId) {
+        PRPAIN201305UV02 newRequest = null;
+        
         if (request != null &&
                 NullChecker.isNotNullish(targetCommunityId)) {
             //the new request will have the target community as the only receiver
-            newRequest.getReceiver().clear();
+            newRequest = HL7PRPA201305Transforms.clonePRPA201305(request);
+        	newRequest.getReceiver().clear();
             MCCIMT000100UV01Receiver oNewReceiver = HL7ReceiverTransforms.createMCCIMT000100UV01Receiver(targetCommunityId);
             newRequest.getReceiver().add(oNewReceiver);
             log.debug("Created a new request for target communityId: " + targetCommunityId);
         } else {
             log.error("A null input paramter was passed to the method: createNewRequest in class: PatientDiscovery201305Processor");
-            return null;
         }
 
         return newRequest;

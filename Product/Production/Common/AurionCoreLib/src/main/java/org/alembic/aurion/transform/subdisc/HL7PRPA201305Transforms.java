@@ -12,6 +12,7 @@
 package org.alembic.aurion.transform.subdisc;
 
 import javax.xml.bind.JAXBElement;
+import org.alembic.aurion.nhinclib.NullChecker;
 import org.hl7.v3.*;
         
 /**
@@ -70,6 +71,110 @@ public class HL7PRPA201305Transforms {
 
         return controlActProcess;
     }
-    
-    
+
+    /**
+     * Creates a clone (shallow copy) of the provided HL7 201305 request message. 
+     * 
+     * @param request the HL7 201305 message to be cloned (must not be <code>null</code>).
+     * 
+     * @return a shallow copy of the provided HL7 201305 message. 
+     * 
+     * @throws NullPointerException if <code>request</code> is <code>null</code>.
+     */
+    public static PRPAIN201305UV02 clonePRPA201305 (PRPAIN201305UV02 request) {
+        
+    	if (request == null) {
+    		throw new NullPointerException("request argument cannot be null");
+    	}
+    	
+    	PRPAIN201305UV02 newRequest = new PRPAIN201305UV02();
+
+        // Clone the non-list fields of the 201305 first
+        if (request.getAcceptAckCode() != null) {
+            newRequest.setAcceptAckCode(request.getAcceptAckCode());
+        }
+
+        if (request.getControlActProcess() != null) {
+            newRequest.setControlActProcess(request.getControlActProcess());
+        }
+
+        if (request.getCreationTime() != null) {
+            newRequest.setCreationTime(request.getCreationTime());
+        }
+
+        if (request.getITSVersion() != null) {
+            newRequest.setITSVersion(request.getITSVersion());
+        }
+
+        if (request.getId() != null) {
+            newRequest.setId(request.getId());
+        }
+
+        if (request.getInteractionId() != null) {
+            newRequest.setInteractionId(request.getInteractionId());
+        }
+
+        if (request.getProcessingCode() != null) {
+            newRequest.setProcessingCode(request.getProcessingCode());
+        }
+
+        if (request.getProcessingModeCode() != null) {
+            newRequest.setProcessingModeCode(request.getProcessingModeCode());
+        }
+
+        if (request.getSecurityText() != null) {
+            newRequest.setSecurityText(request.getSecurityText());
+        }
+
+        if (request.getSender() != null) {
+            newRequest.setSender(request.getSender());
+        }
+
+        if (request.getSequenceNumber() != null) {
+            newRequest.setSequenceNumber(request.getSequenceNumber());
+        }
+
+        if (request.getTypeId() != null) {
+            newRequest.setTypeId(request.getTypeId());
+        }
+
+        if (request.getVersionCode() != null) {
+            newRequest.setVersionCode(request.getVersionCode());
+        }
+
+        // Clone the list fields of the 201305 first
+        if (NullChecker.isNotNullish(request.getAttachmentText())) {
+            newRequest.getAttachmentText().addAll(request.getAttachmentText());
+        }
+
+        if (NullChecker.isNotNullish(request.getAttentionLine())) {
+            newRequest.getAttentionLine().addAll(request.getAttentionLine());
+        }
+
+        if (NullChecker.isNotNullish(request.getNullFlavor())) {
+            newRequest.getNullFlavor().addAll(request.getNullFlavor());
+        }
+
+        if (NullChecker.isNotNullish(request.getReceiver())) {
+            newRequest.getReceiver().addAll(request.getReceiver());
+        }
+
+        if (NullChecker.isNotNullish(request.getRespondTo())) {
+            newRequest.getRespondTo().addAll(request.getRespondTo());
+        }
+        
+        if (NullChecker.isNotNullish(request.getTemplateId())) {
+     	    newRequest.getTemplateId().addAll(request.getTemplateId());
+        }
+        
+        if (NullChecker.isNotNullish(request.getRealmCode())) {
+            newRequest.getRealmCode().addAll(request.getRealmCode());
+        }
+        
+        if (NullChecker.isNotNullish(request.getProfileId())) {
+            newRequest.getProfileId().addAll(request.getProfileId());
+        }
+
+        return newRequest;
+    }
 }
