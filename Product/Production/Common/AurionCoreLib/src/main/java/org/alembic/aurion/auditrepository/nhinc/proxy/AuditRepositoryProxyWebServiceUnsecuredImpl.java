@@ -90,15 +90,16 @@ public class AuditRepositoryProxyWebServiceUnsecuredImpl implements AuditReposit
         log.debug("Entering AuditRepositoryProxyWebServiceUnsecuredImpl.auditLog(...)");
         String url = null;
         AcknowledgementType result = new AcknowledgementType();
-//        LogEventSecureRequestType secureRequest = new LogEventSecureRequestType();
+
         if(request.getAuditMessage() == null)
         {
             log.error("Audit Request is null");
         }
-//        secureRequest.setAuditMessage(request.getAuditMessage());
-//        secureRequest.setAssertion(assertion);
-//        secureRequest.setDirection(request.getDirection());
-//        secureRequest.setInterface(request.getInterface());
+
+        if (request.getAssertion() == null)
+        {
+            request.setAssertion(assertion);
+        }
 
         try
         {
