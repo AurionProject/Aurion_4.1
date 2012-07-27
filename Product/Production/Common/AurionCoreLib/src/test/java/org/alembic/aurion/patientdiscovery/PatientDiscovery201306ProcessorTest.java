@@ -5,6 +5,8 @@
 
 package org.alembic.aurion.patientdiscovery;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.alembic.aurion.common.connectionmanager.dao.AssigningAuthorityHomeCommunityMappingDAO;
 import org.alembic.aurion.transform.subdisc.HL7PRPA201305Transforms;
 import org.alembic.aurion.transform.subdisc.HL7PRPA201306Transforms;
@@ -147,9 +149,11 @@ public class PatientDiscovery201306ProcessorTest {
                     return "hcid";
                 }
                 @Override
-                protected String getAssigningAuthority(PRPAIN201306UV02 request)
+                protected List <String> getAssigningAuthority(PRPAIN201306UV02 request)
                 {
-                    return "aa";
+                    List <String> aaList = new ArrayList<String>();
+                    aaList.add("aa");
+                    return aaList;
                 }
             };
             context.checking(new Expectations()
@@ -192,9 +196,11 @@ public class PatientDiscovery201306ProcessorTest {
                     return null;
                 }
                 @Override
-                protected String getAssigningAuthority(PRPAIN201306UV02 request)
+                protected List <String> getAssigningAuthority(PRPAIN201306UV02 request)
                 {
-                    return "aa";
+                    List <String> aaList = new ArrayList<String>();
+                    aaList.add("aa");
+                    return aaList;
                 }
             };
             context.checking(new Expectations()
@@ -238,7 +244,7 @@ public class PatientDiscovery201306ProcessorTest {
                     return "hcid";
                 }
                 @Override
-                protected String getAssigningAuthority(PRPAIN201306UV02 request)
+                protected List <String> getAssigningAuthority(PRPAIN201306UV02 request)
                 {
                     return null;
                 }
@@ -284,9 +290,11 @@ public class PatientDiscovery201306ProcessorTest {
                     return "hcid";
                 }
                 @Override
-                protected String getAssigningAuthority(PRPAIN201306UV02 request)
+                protected List <String> getAssigningAuthority(PRPAIN201306UV02 request)
                 {
-                    return "aa";
+                    List <String> aaList = new ArrayList<String>();
+                    aaList.add("aa");
+                    return aaList;
                 }
             };
             context.checking(new Expectations()
@@ -338,9 +346,11 @@ public class PatientDiscovery201306ProcessorTest {
                     return "hcid";
                 }
                 @Override
-                protected String getAssigningAuthority(PRPAIN201306UV02 request)
+                protected List <String> getAssigningAuthority(PRPAIN201306UV02 request)
                 {
-                    return "aa";
+                    List <String> aaList = new ArrayList<String>();
+                    aaList.add("aa");
+                    return aaList;
                 }
             };
             context.checking(new Expectations()
@@ -881,9 +891,9 @@ public class PatientDiscovery201306ProcessorTest {
             assignedDevice.getId().add(id);
             id.setRoot("test_aa");
 
-            String aa = storage.getAssigningAuthority(request);
-            assertNotNull("AssigningAuthority was null", aa);
-            assertEquals("AssigningAuthority incorrect", "test_aa", aa);
+            List <String> aa = storage.getAssigningAuthority(request);
+            assertNotNull("AssigningAuthority was null", aa.get(0));
+            assertEquals("AssigningAuthority incorrect", "test_aa", aa.get(0));
         }
         catch(Throwable t)
         {
@@ -925,9 +935,9 @@ public class PatientDiscovery201306ProcessorTest {
             assignedDevice.getId().add(id);
             id.setRoot("test_aa");
 
-            String aa = storage.getAssigningAuthority(request);
-            assertNotNull("AssigningAuthority was null", aa);
-            assertFalse("HCID incorrect", "test_aa_no_match".equals(aa));
+            List <String> aa = storage.getAssigningAuthority(request);
+            assertNotNull("AssigningAuthority was null", aa.get(0));
+            assertFalse("HCID incorrect", "test_aa_no_match".equals(aa.get(0)));
         }
         catch(Throwable t)
         {
@@ -968,7 +978,7 @@ public class PatientDiscovery201306ProcessorTest {
             II id = new II();
             assignedDevice.getId().add(id);
 
-            String aa = storage.getAssigningAuthority(request);
+            List <String> aa = storage.getAssigningAuthority(request);
             assertNull("AssigningAuthority was not null", aa);
         }
         catch(Throwable t)
@@ -1010,7 +1020,7 @@ public class PatientDiscovery201306ProcessorTest {
             II id = null;
             assignedDevice.getId().add(id);
 
-            String aa = storage.getAssigningAuthority(request);
+            List <String> aa = storage.getAssigningAuthority(request);
             assertNull("AssigningAuthority was not null", aa);
         }
         catch(Throwable t)
@@ -1050,7 +1060,7 @@ public class PatientDiscovery201306ProcessorTest {
             COCTMT090300UV01AssignedDevice assignedDevice = new COCTMT090300UV01AssignedDevice();
             authorOrPerformer.setAssignedDevice(hl7OjbFactory.createMFMIMT700701UV01AuthorOrPerformerAssignedDevice(assignedDevice));
 
-            String aa = storage.getAssigningAuthority(request);
+            List <String> aa = storage.getAssigningAuthority(request);
             assertNull("AssigningAuthority was not null", aa);
         }
         catch(Throwable t)
@@ -1090,7 +1100,7 @@ public class PatientDiscovery201306ProcessorTest {
             COCTMT090300UV01AssignedDevice assignedDevice = null;
             authorOrPerformer.setAssignedDevice(hl7OjbFactory.createMFMIMT700701UV01AuthorOrPerformerAssignedDevice(assignedDevice));
 
-            String aa = storage.getAssigningAuthority(request);
+            List <String> aa = storage.getAssigningAuthority(request);
             assertNull("AssigningAuthority was not null", aa);
         }
         catch(Throwable t)
@@ -1127,7 +1137,7 @@ public class PatientDiscovery201306ProcessorTest {
             MFMIMT700711UV01AuthorOrPerformer authorOrPerformer = new MFMIMT700711UV01AuthorOrPerformer();
             controlActProcess.getAuthorOrPerformer().add(authorOrPerformer);
 
-            String aa = storage.getAssigningAuthority(request);
+            List <String> aa = storage.getAssigningAuthority(request);
             assertNull("AssigningAuthority was not null", aa);
         }
         catch(Throwable t)
@@ -1164,7 +1174,7 @@ public class PatientDiscovery201306ProcessorTest {
             MFMIMT700711UV01AuthorOrPerformer authorOrPerformer = null;
             controlActProcess.getAuthorOrPerformer().add(authorOrPerformer);
 
-            String aa = storage.getAssigningAuthority(request);
+            List <String> aa = storage.getAssigningAuthority(request);
             assertNull("AssigningAuthority was not null", aa);
         }
         catch(Throwable t)
@@ -1199,7 +1209,7 @@ public class PatientDiscovery201306ProcessorTest {
             PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
             request.setControlActProcess(controlActProcess);
 
-            String aa = storage.getAssigningAuthority(request);
+            List <String> aa = storage.getAssigningAuthority(request);
             assertNull("AssigningAuthority was not null", aa);
         }
         catch(Throwable t)
@@ -1232,7 +1242,7 @@ public class PatientDiscovery201306ProcessorTest {
 
             PRPAIN201306UV02 request = new PRPAIN201306UV02();
 
-            String aa = storage.getAssigningAuthority(request);
+            List <String> aa = storage.getAssigningAuthority(request);
             assertNull("AssigningAuthority was not null", aa);
         }
         catch(Throwable t)
@@ -1265,7 +1275,7 @@ public class PatientDiscovery201306ProcessorTest {
 
             PRPAIN201306UV02 request = null;
 
-            String aa = storage.getAssigningAuthority(request);
+            List <String> aa = storage.getAssigningAuthority(request);
             assertNull("AssigningAuthority was not null", aa);
         }
         catch(Throwable t)

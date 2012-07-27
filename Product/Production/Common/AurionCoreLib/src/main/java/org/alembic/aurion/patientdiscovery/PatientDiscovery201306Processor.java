@@ -10,6 +10,8 @@
  */
 package org.alembic.aurion.patientdiscovery;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.alembic.aurion.common.connectionmanager.dao.AssigningAuthorityHomeCommunityMappingDAO;
 import org.alembic.aurion.nhinclib.NullChecker;
 import org.alembic.aurion.transform.subdisc.HL7ReceiverTransforms;
@@ -17,6 +19,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.MCCIMT000300UV01Receiver;
 import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
 
 /**
  *
@@ -57,11 +60,11 @@ public class PatientDiscovery201306Processor {
     public void storeMapping(PRPAIN201306UV02 request) {
         log.debug("Begin storeMapping");
         String hcid = getHcid(request);
-        String assigningAuthority = getAssigningAuthority(request);
+        List <String> assigningAuthorityList = getAssigningAuthority(request);
 
         if (NullChecker.isNullish(hcid)) {
             log.warn("HCID null or empty. Mapping was not stored.");
-        } else if (NullChecker.isNullish(assigningAuthority)) {
+        } else if (NullChecker.isNotNullish(assigningAuthorityList)) {
             log.warn("Assigning authority null or empty. Mapping was not stored.");
         } else {
             AssigningAuthorityHomeCommunityMappingDAO mappingDao = getAssigningAuthorityHomeCommunityMappingDAO();
@@ -69,8 +72,10 @@ public class PatientDiscovery201306Processor {
             if (mappingDao == null) {
                 log.warn("AssigningAuthorityHomeCommunityMappingDAO was null. Mapping was not stored.");
             } else {
-                if (!mappingDao.storeMapping(hcid, assigningAuthority)) {
-                    log.warn("Failed to store home community - assigning authority mapping");
+                for (String AA : assigningAuthorityList) {
+                    if (!mappingDao.storeMapping(hcid, AA)) {
+                        log.warn("Failed to store home community - assigning authority mapping");
+                    }
                 }
             }
         }
@@ -95,19 +100,24 @@ public class PatientDiscovery201306Processor {
         return hcid;
     }
 
-    protected String getAssigningAuthority(PRPAIN201306UV02 request) {
-        String assigningAuthority = null;
+    protected List <String> getAssigningAuthority(PRPAIN201306UV02 request) {
+        List <String> assigningAuthority = new ArrayList <String>();
 
         if ((request != null) &&
                 (request.getControlActProcess() != null) &&
-                (NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer())) &&
-                (request.getControlActProcess().getAuthorOrPerformer().get(0) != null) &&
-                (request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice() != null) &&
-                (request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue() != null) &&
-                (NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId())) &&
-                (request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0) != null) &&
-                (NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0).getRoot()))) {
-            assigningAuthority = request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0).getRoot();
+                (NullChecker.isNotNullish(request.getControlActProcess().getSubject()))) {
+            for (PRPAIN201306UV02MFMIMT700711UV01Subject1 tempSubject : request.getControlActProcess().getSubject()) {
+                if (tempSubject != null &&
+                        tempSubject.getRegistrationEvent() != null &&
+                        tempSubject.getRegistrationEvent().getSubject1() != null &&
+                        tempSubject.getRegistrationEvent().getSubject1().getPatient() != null &&
+                        NullChecker.isNotNullish(tempSubject.getRegistrationEvent().getSubject1().getPatient().getId()) &&
+                        tempSubject.getRegistrationEvent().getSubject1().getPatient().getId().get(0) != null &&
+                        NullChecker.isNotNullish(tempSubject.getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot())) {
+                    assigningAuthority.add(tempSubject.getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot());
+                }
+            }
+            
         }
         return assigningAuthority;
     }

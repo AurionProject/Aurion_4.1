@@ -77,7 +77,7 @@ public class TrustMode implements ResponseMode {
 
         for (PRPAIN201306UV02MFMIMT700711UV01Subject1 subject : response.getControlActProcess().getSubject()) {
             PRPAIN201306UV02 tempResp = HL7PRPA201306Transforms.createPRPA201306(subject, getReceiverCommunityId(response), getSenderCommunityId(response), response);
-            II remotePatId = getPatientId(response);
+            II remotePatId = getPatientId(tempResp);
 
             try {
                 if (localPatId != null &&
