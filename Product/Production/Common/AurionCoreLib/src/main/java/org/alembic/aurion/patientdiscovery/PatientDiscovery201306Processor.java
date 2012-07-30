@@ -64,7 +64,7 @@ public class PatientDiscovery201306Processor {
 
         if (NullChecker.isNullish(hcid)) {
             log.warn("HCID null or empty. Mapping was not stored.");
-        } else if (NullChecker.isNotNullish(assigningAuthorityList)) {
+        } else if (NullChecker.isNullish(assigningAuthorityList)) {
             log.warn("Assigning authority null or empty. Mapping was not stored.");
         } else {
             AssigningAuthorityHomeCommunityMappingDAO mappingDao = getAssigningAuthorityHomeCommunityMappingDAO();
