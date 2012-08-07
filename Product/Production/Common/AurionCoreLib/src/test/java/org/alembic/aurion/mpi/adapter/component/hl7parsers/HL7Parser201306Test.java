@@ -15,8 +15,15 @@ import org.alembic.aurion.mpi.adapter.component.TestHelper;
 import org.hl7.v3.*;
 import org.alembic.aurion.mpilib.*;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
+import java.util.TimeZone;
 import javax.xml.bind.JAXBElement;
 
 /**
@@ -364,4 +371,56 @@ public class HL7Parser201306Test {
         return result;
     }
 
+    /**
+     * Test method for {@link HL7Parser201306#BuildMessageFromMpiPatient(org.alembic.aurion.mpilib.Patient, org.hl7.v3.PRPAIN201305UV02)}
+     * that ensures that the creation date is properly formatted.
+     */
+    @Test
+    public void testBuildMessageFromMpiPatientValidCreationTime() {
+        System.out.println("BuildMessageFromMpiPatientValidCreationTime");
+        II subjectId = new II();
+        subjectId.setRoot("2.16.840.1.113883.3.200");
+        subjectId.setExtension("1234");
+
+        String firstExpectedName = "Joe";
+        String lastExpectedName = "Smith";
+        String middleExpectedName = "Middle";
+
+        PRPAIN201305UV02 query = TestHelper.build201305(firstExpectedName,
+                lastExpectedName, "M", "March 1, 1956", subjectId);
+
+        Identifier patId = new Identifier();
+        patId.setId("1234");
+        patId.setOrganizationId("2.16.840.1.113883.3.200");
+        Patient patient = TestHelper.createMpiPatient(firstExpectedName,
+                lastExpectedName, middleExpectedName, "M", "March 1, 1956", patId);
+
+        PRPAIN201306UV02 result = HL7Parser201306.BuildMessageFromMpiPatient(patient, query);
+
+        final DateFormat CREATION_DATE_FORMAT = new SimpleDateFormat(
+            "yyyyMMddHHmmss");
+        CREATION_DATE_FORMAT.setTimeZone(TimeZone.getTimeZone("GMT"));
+
+        try
+        {
+            Date responseCreationDate = CREATION_DATE_FORMAT.parse(result
+                .getCreationTime().getValue());
+            GregorianCalendar comparisonTime = new GregorianCalendar(TimeZone
+                .getTimeZone("GMT"));
+
+            // The following code verifies that the request was within a two
+            // minute
+            // range of this check
+            comparisonTime.add(Calendar.MINUTE, -2);
+            assertTrue(comparisonTime.getTime().before(responseCreationDate));
+
+            comparisonTime.add(Calendar.MINUTE, 4);
+            assertTrue(comparisonTime.getTime().after(responseCreationDate));
+        }
+        catch (ParseException pe)
+        {
+            fail("Creation time format did not match expected creation time format: "
+                + result.getCreationTime().getValue());
+        }
+    }
 }

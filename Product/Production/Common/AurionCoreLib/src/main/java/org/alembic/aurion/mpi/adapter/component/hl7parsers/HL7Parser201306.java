@@ -10,23 +10,72 @@
  */
 package org.alembic.aurion.mpi.adapter.component.hl7parsers;
 
-import org.alembic.aurion.mpilib.*;
+import java.math.BigInteger;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.TimeZone;
+
+import javax.xml.bind.JAXBElement;
+
+import org.alembic.aurion.mpilib.Address;
+import org.alembic.aurion.mpilib.Identifier;
+import org.alembic.aurion.mpilib.Patient;
+import org.alembic.aurion.mpilib.PersonName;
+import org.alembic.aurion.mpilib.PhoneNumber;
 import org.alembic.aurion.nhinclib.NullChecker;
 import org.alembic.aurion.properties.PropertyAccessor;
 import org.alembic.aurion.transform.subdisc.HL7Constants;
 import org.alembic.aurion.transform.subdisc.HL7DataTransformHelper;
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.TimeZone;
-import java.util.GregorianCalendar;
-//import javax.xml.datatype.XMLGregorianCalendar;
-//import javax.xml.datatype.DatatypeFactory;
-import javax.xml.bind.JAXBElement;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import org.hl7.v3.*;
+import org.hl7.v3.ADExplicit;
+import org.hl7.v3.ActClassControlAct;
+import org.hl7.v3.AdxpExplicitCity;
+import org.hl7.v3.AdxpExplicitPostalCode;
+import org.hl7.v3.AdxpExplicitState;
+import org.hl7.v3.AdxpExplicitStreetAddressLine;
+import org.hl7.v3.CD;
+import org.hl7.v3.CE;
+import org.hl7.v3.COCTMT090003UV01AssignedEntity;
+import org.hl7.v3.COCTMT090300UV01AssignedDevice;
+import org.hl7.v3.COCTMT150002UV01Organization;
+import org.hl7.v3.COCTMT150003UV03Organization;
+import org.hl7.v3.CS;
+import org.hl7.v3.CommunicationFunctionType;
+import org.hl7.v3.EntityClassDevice;
+import org.hl7.v3.II;
+import org.hl7.v3.INT;
+import org.hl7.v3.MCCIMT000100UV01Receiver;
+import org.hl7.v3.MCCIMT000100UV01Sender;
+import org.hl7.v3.MCCIMT000300UV01Acknowledgement;
+import org.hl7.v3.MCCIMT000300UV01Agent;
+import org.hl7.v3.MCCIMT000300UV01Device;
+import org.hl7.v3.MCCIMT000300UV01Organization;
+import org.hl7.v3.MCCIMT000300UV01Receiver;
+import org.hl7.v3.MCCIMT000300UV01Sender;
+import org.hl7.v3.MFMIMT700711UV01AuthorOrPerformer;
+import org.hl7.v3.MFMIMT700711UV01Custodian;
+import org.hl7.v3.MFMIMT700711UV01QueryAck;
+import org.hl7.v3.PNExplicit;
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01ControlActProcess;
+import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent;
+import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
+import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject2;
+import org.hl7.v3.PRPAMT201310UV02OtherIDs;
+import org.hl7.v3.PRPAMT201310UV02Patient;
+import org.hl7.v3.PRPAMT201310UV02Person;
+import org.hl7.v3.PRPAMT201310UV02QueryMatchObservation;
+import org.hl7.v3.PRPAMT201310UV02Subject;
+import org.hl7.v3.ParticipationTargetSubject;
+import org.hl7.v3.TELExplicit;
+import org.hl7.v3.TSExplicit;
+import org.hl7.v3.XActMoodIntentEvent;
+import org.hl7.v3.XParticipationAuthorPerformer;
 
 
 /**
@@ -41,6 +90,9 @@ public class HL7Parser201306 {
     private static final String DEFAULT_AA_OID = "1.1";
 
     public static PRPAIN201306UV02 BuildMessageFromMpiPatient(Patient patient, PRPAIN201305UV02 query) {
+        final DateFormat CREATION_DATE_FORMAT = new SimpleDateFormat("yyyyMMddHHmmss");
+        CREATION_DATE_FORMAT.setTimeZone(TimeZone.getTimeZone("GMT"));
+        
         log.debug("Entering HL7Parser201306.BuildMessageFromMpiPatient method...");
 
         PRPAIN201306UV02 msg = new PRPAIN201306UV02();
@@ -59,20 +111,7 @@ public class HL7Parser201306 {
         msg.setId(id);
 
         // Set up the creation time string
-        String timestamp = "";
-        try {
-            GregorianCalendar today = new GregorianCalendar(TimeZone.getTimeZone("GMT"));
-    
-            timestamp = String.valueOf(today.get(GregorianCalendar.YEAR)) +
-                        String.valueOf(today.get(GregorianCalendar.MONTH)+1) +
-                        String.valueOf(today.get(GregorianCalendar.DAY_OF_MONTH)) +
-                        String.valueOf(today.get(GregorianCalendar.HOUR_OF_DAY)) +
-                        String.valueOf(today.get(GregorianCalendar.MINUTE)) +
-                        String.valueOf(today.get(GregorianCalendar.SECOND));
-        } catch (Exception e) {
-            log.error("Exception when creating XMLGregorian Date");
-            log.error(" message: " + e.getMessage());
-        }
+        String timestamp = CREATION_DATE_FORMAT.format(new Date());
         
         TSExplicit creationTime = new TSExplicit();
         creationTime.setValue(timestamp);
@@ -227,7 +266,7 @@ public class HL7Parser201306 {
         id.setRoot(patient.getIdentifiers().get(0).getOrganizationId());       
         assignedEntity.getId().add(id);
         CE ce = new CE();
-        ce.setCode("NotHealthDataLocator");
+        ce.setCode("NoHealthDataLocator");
         ce.setCodeSystem("1.3.6.1.4.1.19376.1.2.27.2");
         assignedEntity.setCode(ce);
         
