@@ -44,7 +44,6 @@
 	<classpathentry kind="var" path="THIRD_PARTY/JUnit/junit-4.5.jar"/>
 	<classpathentry kind="var" path="THIRD_PARTY/MySQLDB/mysql-connector-java-5.1.8-bin.jar"/>
 	<classpathentry kind="var" path="THIRD_PARTY/OpenSSO/openssoclientsdk.jar"/>
-	<classpathentry kind="var" path="THIRD_PARTY/SpringFramework/spring.jar"/>
 	<classpathentry kind="var" path="THIRD_PARTY/Xerces/resolver.jar"/>
 	<classpathentry kind="var" path="THIRD_PARTY/Xerces/serializer.jar"/>
 	<classpathentry kind="var" path="THIRD_PARTY/Xerces/xercesImpl.jar"/>
@@ -67,10 +66,9 @@
 	<classpathentry kind="var" path="THIRD_PARTY/XStream/xstream-benchmark-1.3.jar"/>
 	<classpathentry kind="lib" path="src/main/resources"/>
 	<classpathentry kind="lib" path="src/test/resources"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/AurionCommonTypesLib"/>
 	<classpathentry kind="var" path="THIRD_PARTY"/>
 	<classpathentry kind="var" path="THIRD_PARTY/Mockito/mockito-all-1.8.5.jar"/>
-	<classpathentry kind="var" path="AGITAR_MOCK_OBJECTS"/>
-	<classpathentry kind="var" path="AGITAR_TEST_LIB"/>
+	<classpathentry kind="var" path="THIRD_PARTY/SpringFramework/spring-2.5.6.SEC03.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/AurionCommonTypesLib"/>
 	<classpathentry kind="output" path="build/eclipse"/>
 </classpath>
