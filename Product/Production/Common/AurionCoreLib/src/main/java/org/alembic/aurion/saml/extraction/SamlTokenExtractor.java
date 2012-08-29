@@ -44,6 +44,7 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.ws.WebServiceContext;
+import org.alembic.aurion.common.nhinccommon.SamlAuthzDecisionStatementAttributeAssertionType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Node;
@@ -401,7 +402,11 @@ public class SamlTokenExtractor {
                             assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setInstanceAccessConsentPolicy(sInstAccessConsentId);
                             log.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.InstanceAccessConsentPolicy = " + sInstAccessConsentId);
                         } else {
-                            log.warn("Unrecognized Name Attribute: " + nameAttr);
+                            log.warn("Generic Name Attribute Found: " + nameAttr);
+                            SamlAuthzDecisionStatementAttributeAssertionType attr = new SamlAuthzDecisionStatementAttributeAssertionType();
+                            attr.setName(nameAttr);
+                            attr.setValue(extractAttributeValueString(attrib));
+                            assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAttribute().add(attr);
                         }
                     } else {
                         log.warn("Improperly formed Name Attribute: " + nameAttr);
