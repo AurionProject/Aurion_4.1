@@ -45,6 +45,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.ws.WebServiceContext;
 import org.alembic.aurion.common.nhinccommon.SamlAuthzDecisionStatementAttributeAssertionType;
+import org.alembic.aurion.common.nhinccommon.SamlAuthzDecisionStatementAttributeStatementAssertionType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Node;
@@ -362,6 +363,7 @@ public class SamlTokenExtractor {
         log.debug("Entering SamlTokenExtractor.extractAttributeInfo...");
 
         List attribs = statement.getAttributeOrEncryptedAttribute();
+        SamlAuthzDecisionStatementAttributeStatementAssertionType attrStatement = new SamlAuthzDecisionStatementAttributeStatementAssertionType();
 
         if (attribs != null && !attribs.isEmpty()) {
             for (int idx = 0; idx < attribs.size(); idx++) {
@@ -406,7 +408,8 @@ public class SamlTokenExtractor {
                             SamlAuthzDecisionStatementAttributeAssertionType attr = new SamlAuthzDecisionStatementAttributeAssertionType();
                             attr.setName(nameAttr);
                             attr.setValue(extractAttributeValueString(attrib));
-                            assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAttribute().add(attr);
+                            attrStatement.getAttribute().add(attr);
+                            
                         }
                     } else {
                         log.warn("Improperly formed Name Attribute: " + nameAttr);
@@ -415,6 +418,10 @@ public class SamlTokenExtractor {
             }
         } else {
             log.error("Expected Attributes are missing.");
+        }
+
+        if (NullChecker.isNotNullish(attrStatement.getAttribute())) {
+            assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAttributeStatement().add(attrStatement);
         }
 
         log.debug("Exiting SamlTokenExtractor.extractAttributeInfo...");

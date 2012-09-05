@@ -95,10 +95,16 @@
 			<xsd:element name="conditions" type="tns:SamlAuthzDecisionStatementEvidenceConditionsType" minOccurs="0"/>
 			<xsd:element name="accessConsentPolicy" type="xsd:string" minOccurs="0"/>
 			<xsd:element name="instanceAccessConsentPolicy" type="xsd:string" minOccurs="0"/>
-                        <xsd:element name="attribute" type="tns:SamlAuthzDecisionStatementAttributeAssertionType" minOccurs="0" maxOccurs="unbounded"/>
+                        <xsd:element name="attributeStatement" type="tns:SamlAuthzDecisionStatementAttributeStatementAssertionType" minOccurs="0" maxOccurs="unbounded"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="SamlAuthzDecisionStatementEvidenceAssertion" type="tns:SamlAuthzDecisionStatementEvidenceAssertionType"/>
+        <xsd:complexType name="SamlAuthzDecisionStatementAttributeStatementAssertionType">
+		<xsd:sequence>
+			<xsd:element name="attribute" type="tns:SamlAuthzDecisionStatementAttributeAssertionType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+        <xsd:element name="SamlAuthzDecisionStatementAttributeStatementAssertion" type="tns:SamlAuthzDecisionStatementAttributeStatementAssertionType"/>
         <xsd:complexType name="SamlAuthzDecisionStatementAttributeAssertionType">
 		<xsd:sequence>
 			<xsd:element name="name" type="xsd:string" minOccurs="0"/>

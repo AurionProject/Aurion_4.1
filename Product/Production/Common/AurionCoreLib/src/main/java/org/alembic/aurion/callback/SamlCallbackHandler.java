@@ -35,6 +35,7 @@ import javax.security.auth.x500.X500Principal;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import org.alembic.aurion.common.nhinccommon.SamlAuthzDecisionStatementAttributeAssertionType;
+import org.alembic.aurion.common.nhinccommon.SamlAuthzDecisionStatementAttributeStatementAssertionType;
 import org.alembic.aurion.nhinclib.NullChecker;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -901,27 +902,40 @@ public class SamlCallbackHandler implements CallbackHandler {
 
         attributes.add(factory.createAttribute("InstanceAccessConsentPolicy", NHIN_NS, attributeValues2));
 
-        List <SamlAuthzDecisionStatementAttributeAssertionType> genAttributeValues;
-        if (tokenVals.containsKey(NhincConstants.EVIDENCE_ATTRS_PROP) &&
-                tokenVals.get(NhincConstants.EVIDENCE_ATTRS_PROP) != null) {
-            log.debug("Setting General Evidence Attributes");
-            genAttributeValues = (List <SamlAuthzDecisionStatementAttributeAssertionType>)tokenVals.get(NhincConstants.EVIDENCE_ATTRS_PROP);
+        if (!attributes.isEmpty()) {
+            statements.add(factory.createAttributeStatement(attributes));
+        }
+
+        List <SamlAuthzDecisionStatementAttributeStatementAssertionType> genAttributeValues;
+        if (tokenVals.containsKey(NhincConstants.EVIDENCE_ATTRS_STATEMENT_PROP) &&
+                tokenVals.get(NhincConstants.EVIDENCE_ATTRS_STATEMENT_PROP) != null) {
+            log.debug("Setting General Evidence Attribute Statements");
+            genAttributeValues = (List <SamlAuthzDecisionStatementAttributeStatementAssertionType>)tokenVals.get(NhincConstants.EVIDENCE_ATTRS_STATEMENT_PROP);
 
             log.debug("There are " + genAttributeValues.size() + "general attributes defined");
 
             if (NullChecker.isNotNullish(genAttributeValues)) {
-                for (SamlAuthzDecisionStatementAttributeAssertionType temp : genAttributeValues) {
-                    log.debug("ATTRIBUTE NAME: " + temp.getName() + ", ATTRIBUTE VALUE: " + temp.getValue());
-                    List<String> attrValueList = new ArrayList();
-                    attrValueList.add(temp.getValue());
-                    attributes.add(factory.createAttribute(temp.getName(), NHIN_NS, attrValueList));
+                for (SamlAuthzDecisionStatementAttributeStatementAssertionType temp : genAttributeValues) {
+                    List attrList = new ArrayList();
+
+                    if (NullChecker.isNotNullish(temp.getAttribute())) {
+                        for (SamlAuthzDecisionStatementAttributeAssertionType tempAttr : temp.getAttribute()) {
+                            log.debug("ATTRIBUTE NAME: " + tempAttr.getName() + ", ATTRIBUTE VALUE: " + tempAttr.getValue());
+                            List<String> attrValueList = new ArrayList();
+                            attrValueList.add(tempAttr.getValue());
+                            attrList.add(factory.createAttribute(tempAttr.getName(), NHIN_NS, attrValueList));
+                        }
+
+                        statements.add(factory.createAttributeStatement(attrList));
+                    }
                 }
             }
         }
-
-        if (!attributes.isEmpty()) {
-            statements.add(factory.createAttributeStatement(attributes));
+        else {
+            log.debug("No General SAML Attributes were specified");
         }
+
+        
 
         log.debug("SamlCallbackHandler.createEvidenceStatements() -- End");
         return statements;

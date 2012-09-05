@@ -187,8 +187,8 @@ public class SamlTokenCreator {
                         log.error("Error: samlSendOperation input assertion AuthzDecisionStatement Evidence Conditions is null");
                     }
 
-                    if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAttribute())) {
-                        requestContext.put(NhincConstants.EVIDENCE_ATTRS_PROP, assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAttribute());
+                    if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAttributeStatement())) {
+                        requestContext.put(NhincConstants.EVIDENCE_ATTRS_STATEMENT_PROP, assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAttributeStatement());
                     }
                 } else {
                     log.error("Error: samlSendOperation input assertion AuthzDecisionStatement Evidence is null");
