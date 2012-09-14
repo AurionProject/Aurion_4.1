@@ -65,6 +65,7 @@ public class NhincConstants {
     public static final String EVIDENCE_ACCESS_CONSENT_PROP = "evidenceAccessConsent";
     public static final String EVIDENCE_INST_ACCESS_CONSENT_PROP = "evidenceInstanceAccessConsent";
     public static final String EVIDENCE_ATTRS_STATEMENT_PROP = "attributeStatements";
+    public static final String GENERIC_ATTRS_PROP = "genericAttributes";
     public static final String AUDIT_QUERY_ACTION = "queryAuditLog";
     public static final String NOTIFY_ACTION = "notify";
     public static final String SUBSCRIBE_ACTION = "subscribe";

@@ -44,8 +44,7 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.ws.WebServiceContext;
-import org.alembic.aurion.common.nhinccommon.SamlAuthzDecisionStatementAttributeAssertionType;
-import org.alembic.aurion.common.nhinccommon.SamlAuthzDecisionStatementAttributeStatementAssertionType;
+import org.alembic.aurion.common.nhinccommon.SamlAttributeAssertionType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Node;
@@ -363,7 +362,9 @@ public class SamlTokenExtractor {
         log.debug("Entering SamlTokenExtractor.extractAttributeInfo...");
 
         List attribs = statement.getAttributeOrEncryptedAttribute();
-        SamlAuthzDecisionStatementAttributeStatementAssertionType attrStatement = new SamlAuthzDecisionStatementAttributeStatementAssertionType();
+        // JAH - COMMENTING OUT UNTIL A LATER DATE WHEN A MORE ELEGENT SOLUTION CAN BE FOUND TO HAVE GENERIC ATTRIBUTES IN TWO PLACES
+        // SamlAuthzDecisionStatementAttributeStatementAssertionType attrStatement = new SamlAuthzDecisionStatementAttributeStatementAssertionType();
+
 
         if (attribs != null && !attribs.isEmpty()) {
             for (int idx = 0; idx < attribs.size(); idx++) {
@@ -405,11 +406,16 @@ public class SamlTokenExtractor {
                             log.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.InstanceAccessConsentPolicy = " + sInstAccessConsentId);
                         } else {
                             log.warn("Generic Name Attribute Found: " + nameAttr);
-                            SamlAuthzDecisionStatementAttributeAssertionType attr = new SamlAuthzDecisionStatementAttributeAssertionType();
+                                                        SamlAttributeAssertionType attr = new SamlAttributeAssertionType();
                             attr.setName(nameAttr);
                             attr.setValue(extractAttributeValueString(attrib));
-                            attrStatement.getAttribute().add(attr);
-                            
+                            assertOut.getSamlAttributeAssertion().add(attr);
+
+                            // JAH - COMMENTING OUT UNTIL A LATER DATE WHEN A MORE ELEGENT SOLUTION CAN BE FOUND TO HAVE GENERIC ATTRIBUTES IN TWO PLACES
+//                            SamlAuthzDecisionStatementAttributeAssertionType attr = new SamlAuthzDecisionStatementAttributeAssertionType();
+//                            attr.setName(nameAttr);
+//                            attr.setValue(extractAttributeValueString(attrib));
+//                            attrStatement.getAttribute().add(attr);                         
                         }
                     } else {
                         log.warn("Improperly formed Name Attribute: " + nameAttr);
@@ -420,9 +426,10 @@ public class SamlTokenExtractor {
             log.error("Expected Attributes are missing.");
         }
 
-        if (NullChecker.isNotNullish(attrStatement.getAttribute())) {
-            assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAttributeStatement().add(attrStatement);
-        }
+                // JAH - COMMENTING OUT UNTIL A LATER DATE WHEN A MORE ELEGENT SOLUTION CAN BE FOUND TO HAVE GENERIC ATTRIBUTES IN TWO PLACES
+//        if (NullChecker.isNotNullish(attrStatement.getAttribute())) {
+//            assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAttributeStatement().add(attrStatement);
+//        }
 
         log.debug("Exiting SamlTokenExtractor.extractAttributeInfo...");
     }

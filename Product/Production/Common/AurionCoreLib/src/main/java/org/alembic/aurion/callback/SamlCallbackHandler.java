@@ -34,9 +34,7 @@ import java.text.SimpleDateFormat;
 import javax.security.auth.x500.X500Principal;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
-import org.alembic.aurion.common.nhinccommon.SamlAuthzDecisionStatementAttributeAssertionType;
-import org.alembic.aurion.common.nhinccommon.SamlAuthzDecisionStatementAttributeStatementAssertionType;
-import org.alembic.aurion.nhinclib.NullChecker;
+import org.alembic.aurion.common.nhinccommon.SamlAttributeAssertionType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -689,9 +687,9 @@ public class SamlCallbackHandler implements CallbackHandler {
             attributeValues4.add(elemPFUAttr);
             attributes.add(factory.createAttribute(SamlConstants.PURPOSE_ROLE_ATTR, attributeValues4));
 
-            if (!attributes.isEmpty()) {
-                statements.add(factory.createAttributeStatement(attributes));
-            }
+            //            if (!attributes.isEmpty()) {
+//                statements.add(factory.createAttributeStatement(attributes));
+//            }
         } catch (ParserConfigurationException ex) {
             log.debug("Unable to create an XML Document to set Attributes" + ex.getMessage());
             throw new SAMLException("SAML: Unable to create an XML Document to set Attributes" + ex.getMessage());
@@ -706,6 +704,26 @@ public class SamlCallbackHandler implements CallbackHandler {
             attributes.add(factory.createAttribute(SamlConstants.PATIENT_ID_ATTR, attributeValues7));
         } else {
             log.warn("No information provided to fill in patient ID attribute");
+        }
+
+        // Set any User Defined attributes
+        if (tokenVals.containsKey(NhincConstants.GENERIC_ATTRS_PROP) &&
+                tokenVals.get(NhincConstants.GENERIC_ATTRS_PROP) != null) {
+            log.debug("There are user defined attributes");
+            List<SamlAttributeAssertionType> userDefAttrs = (List<SamlAttributeAssertionType>)tokenVals.get(NhincConstants.GENERIC_ATTRS_PROP);
+
+            for (SamlAttributeAssertionType tempAttr : userDefAttrs) {
+               List<String> attrValueList = new ArrayList();
+               attrValueList.add(tempAttr.getValue());
+               attributes.add(factory.createAttribute(tempAttr.getName(), NHIN_NS, attrValueList));
+            }
+
+        } else {
+            log.debug("No User Defined Attributes were specified");
+        }
+
+        if (!attributes.isEmpty()) {
+            statements.add(factory.createAttributeStatement(attributes));
         }
 
         log.debug("SamlCallbackHandler.addAssertStatements() -- End");
@@ -906,36 +924,35 @@ public class SamlCallbackHandler implements CallbackHandler {
             statements.add(factory.createAttributeStatement(attributes));
         }
 
-        List <SamlAuthzDecisionStatementAttributeStatementAssertionType> genAttributeValues;
-        if (tokenVals.containsKey(NhincConstants.EVIDENCE_ATTRS_STATEMENT_PROP) &&
-                tokenVals.get(NhincConstants.EVIDENCE_ATTRS_STATEMENT_PROP) != null) {
-            log.debug("Setting General Evidence Attribute Statements");
-            genAttributeValues = (List <SamlAuthzDecisionStatementAttributeStatementAssertionType>)tokenVals.get(NhincConstants.EVIDENCE_ATTRS_STATEMENT_PROP);
-
-            log.debug("There are " + genAttributeValues.size() + "general attributes defined");
-
-            if (NullChecker.isNotNullish(genAttributeValues)) {
-                for (SamlAuthzDecisionStatementAttributeStatementAssertionType temp : genAttributeValues) {
-                    List attrList = new ArrayList();
-
-                    if (NullChecker.isNotNullish(temp.getAttribute())) {
-                        for (SamlAuthzDecisionStatementAttributeAssertionType tempAttr : temp.getAttribute()) {
-                            log.debug("ATTRIBUTE NAME: " + tempAttr.getName() + ", ATTRIBUTE VALUE: " + tempAttr.getValue());
-                            List<String> attrValueList = new ArrayList();
-                            attrValueList.add(tempAttr.getValue());
-                            attrList.add(factory.createAttribute(tempAttr.getName(), NHIN_NS, attrValueList));
-                        }
-
-                        statements.add(factory.createAttributeStatement(attrList));
-                    }
-                }
-            }
-        }
-        else {
-            log.debug("No General SAML Attributes were specified");
-        }
-
-        
+        // JAH - COMMENTING OUT UNTIL A LATER DATE WHEN A MORE ELEGENT SOLUTION CAN BE FOUND TO HAVE GENERIC ATTRIBUTES IN TWO PLACES
+//        List <SamlAuthzDecisionStatementAttributeStatementAssertionType> genAttributeValues;
+//        if (tokenVals.containsKey(NhincConstants.EVIDENCE_ATTRS_STATEMENT_PROP) &&
+//                tokenVals.get(NhincConstants.EVIDENCE_ATTRS_STATEMENT_PROP) != null) {
+//            log.debug("Setting General Evidence Attribute Statements");
+//            genAttributeValues = (List <SamlAuthzDecisionStatementAttributeStatementAssertionType>)tokenVals.get(NhincConstants.EVIDENCE_ATTRS_STATEMENT_PROP);
+//
+//            log.debug("There are " + genAttributeValues.size() + "general attributes defined");
+//
+//            if (NullChecker.isNotNullish(genAttributeValues)) {
+//                for (SamlAuthzDecisionStatementAttributeStatementAssertionType temp : genAttributeValues) {
+//                    List attrList = new ArrayList();
+//
+//                    if (NullChecker.isNotNullish(temp.getAttribute())) {
+//                        for (SamlAuthzDecisionStatementAttributeAssertionType tempAttr : temp.getAttribute()) {
+//                            log.debug("ATTRIBUTE NAME: " + tempAttr.getName() + ", ATTRIBUTE VALUE: " + tempAttr.getValue());
+//                            List<String> attrValueList = new ArrayList();
+//                            attrValueList.add(tempAttr.getValue());
+//                            attrList.add(factory.createAttribute(tempAttr.getName(), NHIN_NS, attrValueList));
+//                        }
+//
+//                        statements.add(factory.createAttributeStatement(attrList));
+//                    }
+//                }
+//            }
+//        }
+//        else {
+//            log.debug("No General SAML Attributes were specified");
+//        }
 
         log.debug("SamlCallbackHandler.createEvidenceStatements() -- End");
         return statements;

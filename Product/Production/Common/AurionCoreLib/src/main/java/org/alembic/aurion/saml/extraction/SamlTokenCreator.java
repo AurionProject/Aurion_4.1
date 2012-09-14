@@ -6,8 +6,6 @@
  */
 package org.alembic.aurion.saml.extraction;
 
-import com.sun.xml.wss.XWSSecurityException;
-import com.sun.xml.wss.saml.SAMLException;
 import org.alembic.aurion.common.nhinccommon.AssertionType;
 import org.alembic.aurion.nhinclib.NhincConstants;
 import org.alembic.aurion.nhinclib.NullChecker;
@@ -124,6 +122,12 @@ public class SamlTokenCreator {
                     }
                 }
             }
+
+            // Check to see if any generic attributes are specified
+            if (NullChecker.isNotNullish(assertion.getSamlAttributeAssertion())) {
+                requestContext.put(NhincConstants.GENERIC_ATTRS_PROP, assertion.getSamlAttributeAssertion());
+            }
+            
             if (assertion.getSamlAuthnStatement() != null) {
                 if (NullChecker.isNotNullish(assertion.getSamlAuthnStatement().getAuthInstant())) {
                     requestContext.put(NhincConstants.AUTHN_INSTANT_PROP, assertion.getSamlAuthnStatement().getAuthInstant());
@@ -187,9 +191,10 @@ public class SamlTokenCreator {
                         log.error("Error: samlSendOperation input assertion AuthzDecisionStatement Evidence Conditions is null");
                     }
 
-                    if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAttributeStatement())) {
-                        requestContext.put(NhincConstants.EVIDENCE_ATTRS_STATEMENT_PROP, assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAttributeStatement());
-                    }
+// JAH - COMMENTING OUT UNTIL A LATER DATE WHEN A MORE ELEGENT SOLUTION CAN BE FOUND TO HAVE GENERIC ATTRIBUTES IN TWO PLACES
+//                    if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAttributeStatement())) {
+//                        requestContext.put(NhincConstants.EVIDENCE_ATTRS_STATEMENT_PROP, assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAttributeStatement());
+//                    }
                 } else {
                     log.error("Error: samlSendOperation input assertion AuthzDecisionStatement Evidence is null");
                 }
