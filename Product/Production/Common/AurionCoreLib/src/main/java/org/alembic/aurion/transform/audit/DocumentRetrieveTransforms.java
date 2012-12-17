@@ -30,6 +30,8 @@ import org.alembic.aurion.common.auditlog.LogDocRetrieveRequestType;
 import org.alembic.aurion.common.auditlog.LogDocRetrieveResultRequestType;
 import org.alembic.aurion.common.auditlog.LogEventRequestType;
 
+import org.alembic.aurion.properties.PropertyAccessException;
+import org.alembic.aurion.properties.PropertyAccessor;
 import org.alembic.aurion.transform.marshallers.JAXBContextHandler;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 /**
@@ -37,6 +39,9 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
  * @author MFLYNN02
  */
 public class DocumentRetrieveTransforms {
+    private static final String DOCUMENT_RETRIEVE_RESPONSE_MESSAGE_CONTENT_REDACTED_MESSAGE = "Document retrieve response message content redacted.";
+    private static final String PROPERTY_KEY_AUDIT_DOC_RETRIEVE_RESPONSE_REDACTION = "audit.doc.retrieve.response.redaction";
+    private static final String GATEWAY_PROPERTY_FILE = "gateway";
     private static Log log = LogFactory.getLog(DocumentRetrieveTransforms.class);
 
     public static LogEventRequestType transformDocRetrieveReq2AuditMsg(LogDocRetrieveRequestType message) {
@@ -129,6 +134,10 @@ public class DocumentRetrieveTransforms {
     }
     
     public static LogEventRequestType transformDocRetrieveResp2AuditMsg(LogDocRetrieveResultRequestType message) {
+        return transformDocRetrieveResp2AuditMsg(message, null);
+    }
+    
+    protected static LogEventRequestType transformDocRetrieveResp2AuditMsg(LogDocRetrieveResultRequestType message, Boolean redactionStatusProvided) {
         AuditMessageType auditMsg = new AuditMessageType();
         LogEventRequestType response = new LogEventRequestType();
         response.setDirection(message.getDirection());
@@ -196,22 +205,8 @@ public class DocumentRetrieveTransforms {
         }
 
         // Fill in the message field with the contents of the event message
-        try {
-            JAXBContextHandler oHandler = new JAXBContextHandler();
-            JAXBContext jc = oHandler.getJAXBContext("ihe.iti.xds_b._2007");
-            Marshaller marshaller = jc.createMarshaller();
-            ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
-            baOutStrm.reset();
-            ihe.iti.xds_b._2007.ObjectFactory factory = new ihe.iti.xds_b._2007.ObjectFactory();
-            JAXBElement oJaxbElement = factory.createRetrieveDocumentSetResponse(message.getMessage().getRetrieveDocumentSetResponse());
-            marshaller.marshal(oJaxbElement, baOutStrm);
-            log.debug("Done marshalling the message.");
+        partObjId.setParticipantObjectQuery(serializeDocumentRetrieveResponseBody(message, redactionStatusProvided));
 
-            partObjId.setParticipantObjectQuery(baOutStrm.toByteArray());
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException();
-        }
         auditMsg.getParticipantObjectIdentification().add(partObjId);
 
         log.info("******************************************************************");
@@ -220,6 +215,54 @@ public class DocumentRetrieveTransforms {
 
         response.setAuditMessage(auditMsg);
         return response;
+    }
+    
+    private static byte[] serializeDocumentRetrieveResponseBody(LogDocRetrieveResultRequestType message, Boolean redactionStatusProvided) {
+        log.debug("Begin serializeDocumentRetrieveResponseBody(...)");
+        byte [] serializedBody = null;
+        if(isDocRetrieveResponseBodyRedactionEnabled(redactionStatusProvided)) {
+            log.debug("Document retrieve response redaction enabled - returning redacted content.");
+            serializedBody = DOCUMENT_RETRIEVE_RESPONSE_MESSAGE_CONTENT_REDACTED_MESSAGE.getBytes();
+        } else {
+            try {
+                JAXBContextHandler oHandler = new JAXBContextHandler();
+                JAXBContext jc = oHandler.getJAXBContext("ihe.iti.xds_b._2007");
+                Marshaller marshaller = jc.createMarshaller();
+                ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
+                baOutStrm.reset();
+                ihe.iti.xds_b._2007.ObjectFactory factory = new ihe.iti.xds_b._2007.ObjectFactory();
+                @SuppressWarnings("rawtypes")
+                JAXBElement oJaxbElement = factory.createRetrieveDocumentSetResponse(message.getMessage().getRetrieveDocumentSetResponse());
+                marshaller.marshal(oJaxbElement, baOutStrm);
+                log.debug("Done marshalling the message.");
+    
+                serializedBody = baOutStrm.toByteArray();
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException();
+            }
+        }
+        log.debug("End serializeDocumentRetrieveResponseBody(...)");
+        return serializedBody;
+    }
+
+    private static boolean isDocRetrieveResponseBodyRedactionEnabled(Boolean redactionStatusProvided) {
+        log.debug("Begin isDocRetrieveResponseBodyRedactionEnabled(...) - status provided (for unit test usage only): " + redactionStatusProvided);
+        boolean redactionEnabled = false;
+        if(redactionStatusProvided == null) {
+            try {
+                log.debug("Obtaining doc retrieve response audit redaction flag (" + PROPERTY_KEY_AUDIT_DOC_RETRIEVE_RESPONSE_REDACTION + 
+                        ") from " + GATEWAY_PROPERTY_FILE + ".properties");
+                redactionEnabled = PropertyAccessor.getPropertyBoolean(GATEWAY_PROPERTY_FILE, PROPERTY_KEY_AUDIT_DOC_RETRIEVE_RESPONSE_REDACTION);
+            } catch (PropertyAccessException e) {
+                // Defaults to false - ignore exception
+                log.error("Error reading properties file for doc retrieve response audit bypass: " + e.getMessage(), e);
+            }
+        } else {
+            redactionEnabled = redactionStatusProvided.booleanValue();
+        }
+        log.debug("End isDocRetrieveResponseBodyRedactionEnabled(...) - returning: " + redactionEnabled);
+        return redactionEnabled;
     }
 
 }

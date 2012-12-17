@@ -175,7 +175,7 @@ public class DocumentRetrieveTransformsTest {
         LogEventRequestType expected = new LogEventRequestType();
         expected.setAuditMessage(expResult);
         
-        LogEventRequestType result = DocumentRetrieveTransforms.transformDocRetrieveResp2AuditMsg(logMessage);
+        LogEventRequestType result = DocumentRetrieveTransforms.transformDocRetrieveResp2AuditMsg(logMessage, Boolean.FALSE);
         
         assertEquals(expected.getAuditMessage().getActiveParticipant().get(0).getUserName(), result.getAuditMessage().getActiveParticipant().get(0).getUserName());
 //        assertEquals(expected.getAuditMessage().getAuditSourceIdentification().get(0).getAuditEnterpriseSiteID(), result.getAuditMessage().getAuditSourceIdentification().get(0).getAuditEnterpriseSiteID());
