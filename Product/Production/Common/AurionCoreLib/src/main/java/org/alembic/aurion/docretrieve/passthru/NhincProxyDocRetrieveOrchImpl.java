@@ -17,6 +17,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.alembic.aurion.nhinclib.NhincConstants;
+import org.alembic.aurion.nhinclib.NullChecker;
 import org.alembic.aurion.properties.PropertyAccessException;
 import org.alembic.aurion.properties.PropertyAccessor;
 import org.apache.commons.logging.Log;
@@ -28,6 +29,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class NhincProxyDocRetrieveOrchImpl
 {
+    private static final String HOME_COMMUNITY_PREFIX = "urn:oid:";
     private Log log = null;
 
     public NhincProxyDocRetrieveOrchImpl()
@@ -56,7 +58,7 @@ public class NhincProxyDocRetrieveOrchImpl
         {
             log.debug("Creating NHIN doc retrieve proxy");
             NhinDocRetrieveProxyObjectFactory objFactory = new NhinDocRetrieveProxyObjectFactory();
-            NhinDocRetrieveProxy docRetrieveProxy = objFactory.getNhinDocRetrieveProxy();
+            NhinDocRetrieveProxy docRetrieveProxy = objFactory.getNhinDocRetrieveProxy(extractHomeCommunityId(request));
 
             log.debug("Calling doc retrieve proxy");
             response = docRetrieveProxy.respondingGatewayCrossGatewayRetrieve(request, assertion, targetSystem);
@@ -85,6 +87,21 @@ public class NhincProxyDocRetrieveOrchImpl
 
         log.debug("End NhincProxyDocRetrieveOrchImpl.respondingGatewayCrossGatewayRetrieve(...)");
         return response;
+    }
+
+    private String extractHomeCommunityId(RetrieveDocumentSetRequestType request) {
+        String homeCommunityId = null;
+        if((request != null) && (!request.getDocumentRequest().isEmpty())) {
+            String formattedHomeCommunityId = request.getDocumentRequest().get(0).getHomeCommunityId();
+            if(NullChecker.isNotNullish(formattedHomeCommunityId)) {
+                if(formattedHomeCommunityId.startsWith(HOME_COMMUNITY_PREFIX) && (formattedHomeCommunityId.length() > HOME_COMMUNITY_PREFIX.length())) {
+                    homeCommunityId = formattedHomeCommunityId.substring(HOME_COMMUNITY_PREFIX.length());
+                } else {
+                    homeCommunityId = formattedHomeCommunityId;
+                }
+            }
+        }
+        return homeCommunityId;
     }
 
     /**

@@ -35,6 +35,7 @@
     <import location="AdapterSubscriptionManagementSecured.xml" namespace="urn:org:alembic:aurion:adaptersubscriptionmanagementsecured"/>
     <import location="AdapterNotificationConsumerSecured.xml" namespace="urn:org:alembic:aurion:adapternotificationconsumersecured"/>
     <import location="NhinDocRetrieve.xml" namespace="urn:ihe:iti:xds-b:2007"/>
+    <import location="NhinDocRetrieveNoMTOM.xml" namespace="urn:ihe:iti:xds-b:2007"/>
     <import location="NhinDocQuery.xml" namespace="urn:ihe:iti:xds-b:2007"/>
     <import location="NhinPatientDiscovery.xml" namespace="urn:ihe:iti:xcpd:2009"/>
 

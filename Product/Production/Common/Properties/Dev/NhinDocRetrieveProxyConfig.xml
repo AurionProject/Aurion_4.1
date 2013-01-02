@@ -7,7 +7,7 @@
 	The beans available in this file must be identified in the "description" element for the Spring configuration application. Beans are listed between braces 
 	in the description separated with a comma like the following sample: {somebean,anotherbean}
 -->
-	<description>Beans included in this file: {nhindocretrieve}</description>
+	<description>Beans included in this file: {nhindocretrieve, nhindocretrievenomtom}</description>
 
 	<!-- No-op Implementation -->
 	<bean class="org.alembic.aurion.docretrieve.nhin.proxy.NhinDocRetrieveProxyNoOpImpl" id="nhindocretrievenoop" name="nhindocretrievenoop"> 
@@ -16,6 +16,19 @@
 
 	<!-- Secured web service Implementation -->
     <bean class="org.alembic.aurion.docretrieve.nhin.proxy.NhinDocRetrieveProxyWebServiceSecuredImpl" id="nhindocretrieve" name="nhindocretrievewssecured"> 
+		<meta key="impltype" value="wssecured"/>
+		<meta key="default" value="true"/>
+	</bean> 
+
+
+
+	<!-- No-op No MTOM Implementation -->
+	<bean class="org.alembic.aurion.docretrieve.nhin.proxy.NhinDocRetrieveProxyNoOpImpl" id="nhindocretrievenomtomnoop" name="nhindocretrievenomtomnoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+
+	<!-- Secured No MTOM web service Implementation -->
+	<bean class="org.alembic.aurion.docretrieve.nhin.proxy.NhinDocRetrieveProxyNoMTOMWebServiceSecuredImpl" id="nhindocretrievenomtom" name="nhindocretrievenomtom"> 
 		<meta key="impltype" value="wssecured"/>
 		<meta key="default" value="true"/>
 	</bean> 

@@ -6,6 +6,9 @@
  */
 package org.alembic.aurion.docretrieve.nhin.proxy;
 
+import org.alembic.aurion.nhinclib.NullChecker;
+import org.alembic.aurion.properties.PropertyAccessException;
+import org.alembic.aurion.properties.PropertyAccessor;
 import org.alembic.aurion.proxy.ComponentProxyObjectFactory;
 
 /**
@@ -37,6 +40,7 @@ public class NhinDocRetrieveProxyObjectFactory extends ComponentProxyObjectFacto
 {
     private static final String CONFIG_FILE_NAME = "NhinDocRetrieveProxyConfig.xml";
     private static final String BEAN_NAME = "nhindocretrieve";
+    private static final String NO_MTOM_BEAN_NAME = "nhindocretrievenomtom";
 
     /**
      * Returns the name of the config file.
@@ -55,7 +59,38 @@ public class NhinDocRetrieveProxyObjectFactory extends ComponentProxyObjectFacto
      */
     public NhinDocRetrieveProxy getNhinDocRetrieveProxy()
     {
-        return getBean(BEAN_NAME, NhinDocRetrieveProxy.class);
+        return getNhinDocRetrieveProxy(null);
+    }
+
+    /**
+     * Return an instance of the NhinDocRetrieveProxy class for a target home community.
+     *
+     * @return An instance of the NhinDocRetrieveProxy class.
+     */
+    public NhinDocRetrieveProxy getNhinDocRetrieveProxy(String homeCommunityId)
+    {
+        String beanName = getBeanName(homeCommunityId);
+        return getBean(beanName, NhinDocRetrieveProxy.class);
+    }
+
+    private String getBeanName(String homeCommunityId) {
+        String beanName = BEAN_NAME;
+        if(NullChecker.isNotNullish(homeCommunityId)) {
+            String noMTOMSoapHeadersHCIDList = null;
+            try {
+                noMTOMSoapHeadersHCIDList = PropertyAccessor.getProperty("gateway", "noMTOMSoapHeadersHCIDList");
+                log.debug("No MTOM HCID List: " + noMTOMSoapHeadersHCIDList);
+                if(noMTOMSoapHeadersHCIDList != null && noMTOMSoapHeadersHCIDList.contains(homeCommunityId)) {
+                    log.debug("Found home community in No MTOM list - using No MTOM version of the proxy.");
+                    beanName = NO_MTOM_BEAN_NAME;
+                }
+            }
+            catch(PropertyAccessException ex) {
+                log.error("Error obtaining the No MTOM home community id list for document retrieve: " + ex.getMessage(), ex);
+            }
+        }
+        
+        return beanName;
     }
 
 }

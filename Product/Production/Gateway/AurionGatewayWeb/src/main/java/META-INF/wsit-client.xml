@@ -7,6 +7,7 @@
  >
     <import location="NhinDocQuery.xml" namespace="urn:ihe:iti:xds-b:2007"/>
     <import location="NhinDocRetrieve.xml" namespace="urn:ihe:iti:xds-b:2007"/>
+    <import location="NhinDocRetrieveNoMTOM.xml" namespace="urn:ihe:iti:xds-b:2007"/>
     <import location="NhincComponentAuditRepositorySecured.xml" namespace="urn:org:alembic:aurion:nhinccomponentauditrepository"/>
     <import location="AdapterPolicyEngineSecured.xml" namespace="urn:org:alembic:aurion:adapterpolicyenginesecured"/>
     <import location="AdapterAuditLogQuerySaml.xml" namespace="urn:org:alembic:aurion:adapterauditlogquerysaml"/>
