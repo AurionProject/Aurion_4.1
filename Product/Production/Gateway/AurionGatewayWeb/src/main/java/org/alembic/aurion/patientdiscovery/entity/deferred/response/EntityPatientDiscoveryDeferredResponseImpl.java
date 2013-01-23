@@ -16,6 +16,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02SecuredRequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
 import org.hl7.v3.MCCIIN000002UV01;
 import javax.xml.ws.WebServiceContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -43,6 +44,7 @@ public class EntityPatientDiscoveryDeferredResponseImpl
         log.debug("Begin EntityPatientDiscoveryDeferredResponseImpl.processPatientDiscoveryAsyncResp(secured)");
         MCCIIN000002UV01 response = null;
         AssertionType assertion = getAssertion(context, null);
+        getSoapLogger().logRawAssertion(assertion);
         PRPAIN201306UV02 body = null;
         NhinTargetCommunitiesType target = null;
         if(request != null)
@@ -66,6 +68,7 @@ public class EntityPatientDiscoveryDeferredResponseImpl
         {
             body = request.getPRPAIN201306UV02();
             assertion = request.getAssertion();
+            getSoapLogger().logRawAssertion(assertion);
             target = request.getNhinTargetCommunities();
         }
         assertion = getAssertion(context, assertion);
@@ -99,4 +102,9 @@ public class EntityPatientDiscoveryDeferredResponseImpl
 
         return assertion;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

@@ -7,6 +7,7 @@
 package org.alembic.aurion.patientcorrelation.nhinc;
 
 import javax.annotation.Resource;
+import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -16,6 +17,7 @@ import javax.xml.ws.WebServiceContext;
  */
 @WebService(serviceName = "PatientCorrelationServiceSecured", portName = "PatientCorrelationSecuredPort", endpointInterface = "org.alembic.aurion.nhinccomponentpatientcorrelation.PatientCorrelationSecuredPortType", targetNamespace = "urn:org:alembic:aurion:nhinccomponentpatientcorrelation", wsdlLocation = "WEB-INF/wsdl/PatientCorrelationServiceSecured/NhincComponentPatientCorrelationSecured.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file = "PatientCorrelationServiceSoapHeaderHandler.xml")
 public class PatientCorrelationServiceSecured {
 
     @Resource

@@ -14,6 +14,7 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 import org.alembic.aurion.common.nhinccommon.AssertionType;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
@@ -52,6 +53,7 @@ public class EntityPatientDiscoveryUnsecuredImpl
     {
         RespondingGatewayPRPAIN201306UV02ResponseType response = null;
 
+        getSoapLogger().logRawAssertion(respondingGatewayPRPAIN201305UV02Request.getAssertion());
         setMessageID (respondingGatewayPRPAIN201305UV02Request.getAssertion(), context);
 
         if(respondingGatewayPRPAIN201305UV02Request == null)
@@ -114,4 +116,9 @@ public class EntityPatientDiscoveryUnsecuredImpl
         }
         return interfaceName;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

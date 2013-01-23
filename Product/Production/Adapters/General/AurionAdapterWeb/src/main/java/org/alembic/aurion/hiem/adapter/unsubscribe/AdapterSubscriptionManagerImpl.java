@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.alembic.aurion.hiem.adapter.unsubscribe;
 
 import org.alembic.aurion.async.AsyncMessageIdExtractor;
@@ -13,6 +8,7 @@ import org.alembic.aurion.hiem.consumerreference.ReferenceParametersHelper;
 import org.alembic.aurion.nhinclib.NhincConstants;
 import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
 import javax.xml.ws.WebServiceContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.oasis_open.docs.wsn.b_2.Unsubscribe;
 import org.oasis_open.docs.wsn.b_2.UnsubscribeResponse;
 
@@ -23,6 +19,7 @@ import org.oasis_open.docs.wsn.b_2.UnsubscribeResponse;
 public class AdapterSubscriptionManagerImpl {
     public UnsubscribeResponse unsubscribe(UnsubscribeRequestType unsubscribeRequest, WebServiceContext context) {
         AssertionType assertion = getAssertion(context, unsubscribeRequest.getAssertion());
+        getSoapLogger().logRawAssertion(assertion);
         ReferenceParametersElements refParams = getRefParams(context);
 
         return new AdapterHiemUnsubscribeOrchImpl().unsubscribe(unsubscribeRequest.getUnsubscribe(), refParams, assertion);
@@ -30,6 +27,7 @@ public class AdapterSubscriptionManagerImpl {
 
     public UnsubscribeResponse unsubscribe(Unsubscribe unsubscribeRequest, WebServiceContext context) {
         AssertionType assertion = getAssertion(context, null);
+        getSoapLogger().logRawAssertion(assertion);
         ReferenceParametersElements refParams = getRefParams(context);
 
         return new AdapterHiemUnsubscribeOrchImpl().unsubscribe(unsubscribeRequest, refParams, assertion);
@@ -54,6 +52,10 @@ public class AdapterSubscriptionManagerImpl {
         ReferenceParametersHelper referenceParametersHelper = new ReferenceParametersHelper();
         ReferenceParametersElements referenceParametersElements = referenceParametersHelper.createReferenceParameterElements(context, NhincConstants.HTTP_REQUEST_ATTRIBUTE_SOAPMESSAGE);
         return referenceParametersElements;
+    }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
     }
 
 }

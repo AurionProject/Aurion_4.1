@@ -17,6 +17,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import javax.xml.namespace.QName;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -33,6 +34,7 @@ class DocRetrieveImpl {
         log.debug("Entering DocRetrieveImpl.respondingGatewayCrossGatewayRetrieve");
 
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+        getSoapLogger().logRawAssertion(assertion);
 
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
         if (assertion != null) {
@@ -64,4 +66,9 @@ class DocRetrieveImpl {
         }
         return interfaceName;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

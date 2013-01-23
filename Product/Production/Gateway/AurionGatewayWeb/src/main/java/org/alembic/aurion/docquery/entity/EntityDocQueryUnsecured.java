@@ -8,6 +8,7 @@ package org.alembic.aurion.docquery.entity;
 
 import org.alembic.aurion.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
 import javax.annotation.Resource;
+import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -16,6 +17,7 @@ import javax.xml.ws.soap.Addressing;
 
 @WebService(serviceName = "EntityDocQuery", portName = "EntityDocQueryPortSoap", endpointInterface = "org.alembic.aurion.entitydocquery.EntityDocQueryPortType", targetNamespace = "urn:org:alembic:aurion:entitydocquery", wsdlLocation = "WEB-INF/wsdl/EntityDocQueryUnsecured/EntityDocQuery.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file = "EntityDocQuerySoapHeaderHandler.xml")
 @Addressing(enabled=true)
 public class EntityDocQueryUnsecured
 {

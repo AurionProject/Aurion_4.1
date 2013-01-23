@@ -12,6 +12,7 @@ import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
 import javax.xml.ws.WebServiceContext;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+import org.alembic.aurion.util.soap.SoapLogger;
 
 /**
  *
@@ -29,11 +30,16 @@ public class NhinDocSubmissionDeferredRequestImpl {
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
 
         if (assertion != null) {
+            getSoapLogger().logRawAssertion(assertion);
             AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
             assertion.setMessageId(msgIdExtractor.GetAsyncMessageId(context));
         }
 
         return new NhinDocSubmissionDeferredRequestOrchImpl().provideAndRegisterDocumentSetBRequest(body, assertion);
+    }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
     }
 
 }

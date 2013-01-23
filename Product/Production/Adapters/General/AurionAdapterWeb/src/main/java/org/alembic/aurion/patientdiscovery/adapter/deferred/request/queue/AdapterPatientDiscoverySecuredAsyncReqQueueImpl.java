@@ -4,16 +4,12 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.alembic.aurion.patientdiscovery.adapter.deferred.request.queue;
 
 import org.alembic.aurion.async.AsyncMessageIdExtractor;
 import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
-import org.alembic.aurion.transform.subdisc.HL7AckTransforms;
 import javax.xml.ws.WebServiceContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02SecuredRequestType;
@@ -52,7 +48,13 @@ public class AdapterPatientDiscoverySecuredAsyncReqQueueImpl
 
     public MCCIIN000002UV01 addPatientDiscoveryAsyncReq(RespondingGatewayPRPAIN201305UV02RequestType request)
     {
+        getSoapLogger().logRawAssertion(request.getAssertion());
         AdapterPatientDiscoveryAsyncReqQueueProxyOrchImpl oOrchestrator = new AdapterPatientDiscoveryAsyncReqQueueProxyOrchImpl();
         return oOrchestrator.addPatientDiscoveryAsyncReq(request);
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

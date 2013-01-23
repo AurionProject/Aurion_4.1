@@ -18,6 +18,7 @@ import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import javax.xml.namespace.QName;
 import javax.xml.ws.handler.MessageContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 
 /**
  *
@@ -33,6 +34,7 @@ public class NhincProxyDocRetrieveImpl {
 
         if (body != null) {
             AssertionType assertion = getAssertion(context, null);
+            getSoapLogger().logRawAssertion(assertion);
             NhincProxyDocRetrieveOrchImpl orchImpl = new NhincProxyDocRetrieveOrchImpl();
             String interfaceName = getServiceNameFromContext(context);
             AuditPerformance oAuditPerformance = PerformanceMonitorUtil.buildAuditPerfromance(0, interfaceName, AsyncMessageIdExtractor.GetAsyncMessageId(context), NhincConstants.SERVICE_REQUEST_STRING);
@@ -50,6 +52,7 @@ public class NhincProxyDocRetrieveImpl {
 
         if (body != null) {
             AssertionType assertion = getAssertion(context, body.getAssertion());
+            getSoapLogger().logRawAssertion(assertion);
             NhincProxyDocRetrieveOrchImpl orchImpl = new NhincProxyDocRetrieveOrchImpl();
             String interfaceName = getServiceNameFromContext(context);
             AuditPerformance oAuditPerformance = PerformanceMonitorUtil.buildAuditPerfromance(0, interfaceName, AsyncMessageIdExtractor.GetAsyncMessageId(context), NhincConstants.SERVICE_REQUEST_STRING);
@@ -90,4 +93,9 @@ public class NhincProxyDocRetrieveImpl {
         }
         return interfaceName;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

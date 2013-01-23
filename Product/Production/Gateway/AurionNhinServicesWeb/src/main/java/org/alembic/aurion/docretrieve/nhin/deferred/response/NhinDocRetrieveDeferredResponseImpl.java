@@ -4,11 +4,6 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.alembic.aurion.docretrieve.nhin.deferred.response;
 
 import org.alembic.aurion.async.AsyncMessageIdExtractor;
@@ -19,6 +14,7 @@ import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import java.util.List;
 import javax.xml.ws.WebServiceContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 
 /**
  *
@@ -30,6 +26,7 @@ public class NhinDocRetrieveDeferredResponseImpl {
 
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
         if (assertion != null) {
+            getSoapLogger().logRawAssertion(assertion);
             AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
             assertion.setMessageId(msgIdExtractor.GetAsyncMessageId(context));
             List<String> relatesToList = AsyncMessageIdExtractor.GetAsyncRelatesTo(context);
@@ -39,6 +36,10 @@ public class NhinDocRetrieveDeferredResponseImpl {
         }
 
         return new NhinDocRetrieveDeferredRespOrchImpl().sendToRespondingGateway(body, assertion);
+    }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
     }
 
 }

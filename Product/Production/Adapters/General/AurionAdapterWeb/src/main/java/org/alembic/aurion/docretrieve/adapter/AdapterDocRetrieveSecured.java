@@ -7,6 +7,7 @@
 package org.alembic.aurion.docretrieve.adapter;
 
 import javax.annotation.Resource;
+import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -17,6 +18,7 @@ import javax.xml.ws.WebServiceContext;
  */
 @WebService(serviceName = "AdapterDocRetrieveSecured", portName = "AdapterDocRetrieveSecuredPortSoap", endpointInterface = "org.alembic.aurion.adapterdocretrievesecured.AdapterDocRetrieveSecuredPortType", targetNamespace = "urn:org:alembic:aurion:adapterdocretrievesecured", wsdlLocation = "WEB-INF/wsdl/AdapterDocRetrieveSecured/AdapterDocRetrieveSecured.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file = "AdapterDocRetrieveSoapHandler.xml")
 public class AdapterDocRetrieveSecured {
 
     @Resource

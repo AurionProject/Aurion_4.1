@@ -6,6 +6,7 @@
  */
 package org.alembic.aurion.adapter.subjectdiscovery;
 
+import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 
@@ -15,6 +16,7 @@ import javax.xml.ws.BindingType;
  */
 @WebService(serviceName = "AdapterSubjectDiscovery", portName = "AdapterSubjectDiscoveryPortSoap", endpointInterface = "org.alembic.aurion.adaptersubjectdiscovery.AdapterSubjectDiscoveryPortType", targetNamespace = "urn:org:alembic:aurion:adaptersubjectdiscovery", wsdlLocation = "WEB-INF/wsdl/AdapterSubjectDiscovery/AdapterSubjectDiscovery.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file = "AdapterSubjectDiscoverySoapHeaderHandler.xml")
 public class AdapterSubjectDiscovery
 {
 

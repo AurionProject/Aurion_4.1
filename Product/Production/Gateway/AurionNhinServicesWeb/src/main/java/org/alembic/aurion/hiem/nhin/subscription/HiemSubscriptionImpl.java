@@ -12,6 +12,7 @@ import org.alembic.aurion.dte.WebServiceContextHelper;
 import org.alembic.aurion.hiem.nhin.subscribe.NhinHiemSubscriptionOrchImpl;
 import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
 import javax.xml.ws.WebServiceContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.wsn.b_2.Subscribe;
@@ -39,10 +40,9 @@ public class HiemSubscriptionImpl {
 
         NhinHiemSubscriptionOrchImpl subscribeOrchImpl = new NhinHiemSubscriptionOrchImpl();
         AssertionType assertion = getAssertion(context, null);
-
+        getSoapLogger().logRawAssertion(assertion);
         
         SubscribeResponse response = subscribeOrchImpl.subscribe(subscribeRequest, soapMessage, assertion);
-        
 
         log.debug("Exiting HiemSubscriptionImpl.subscribe");
         return response;
@@ -63,4 +63,9 @@ public class HiemSubscriptionImpl {
 
         return assertion;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

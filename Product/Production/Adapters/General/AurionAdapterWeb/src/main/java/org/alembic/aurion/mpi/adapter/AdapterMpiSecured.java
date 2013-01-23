@@ -4,13 +4,10 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.alembic.aurion.mpi.adapter;
 
 import javax.annotation.Resource;
+import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -24,6 +21,7 @@ import org.hl7.v3.PRPAIN201305UV02;
  */
 @WebService(serviceName = "AdapterMpiSecuredService", portName = "AdapterMpiSecuredPortType", endpointInterface = "org.alembic.aurion.adaptermpi.AdapterMpiSecuredPortType", targetNamespace = "urn:org:alembic:aurion:adaptermpi", wsdlLocation = "WEB-INF/wsdl/AdapterMpiSecured/AdapterMpiSecured.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file = "AdapterMpiSoapHandler.xml")
 public class AdapterMpiSecured
 {
     @Resource

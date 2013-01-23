@@ -1,11 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.alembic.aurion.hiem.adapter.notify;
 
 import javax.annotation.Resource;
+import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -17,6 +13,7 @@ import javax.xml.ws.soap.Addressing;
  */
 @WebService(serviceName = "AdapterNotificationConsumer", portName = "AdapterNotificationConsumerPortSoap", endpointInterface = "org.alembic.aurion.adapternotificationconsumer.AdapterNotificationConsumerPortType", targetNamespace = "urn:org:alembic:aurion:adapternotificationconsumer", wsdlLocation = "WEB-INF/wsdl/AdapterNotificationConsumerUnsecured/AdapterNotificationConsumer.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file = "AdapterNotificationConsumerSoapHandler.xml")
 @Addressing(enabled = true)
 public class AdapterNotificationConsumerUnsecured {
     @Resource

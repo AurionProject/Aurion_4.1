@@ -17,6 +17,7 @@ import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -40,6 +41,7 @@ public class DocQueryImpl {
         log.debug("Entering DocQueryImpl.respondingGatewayCrossGatewayQuery");
 
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+        getSoapLogger().logRawAssertion(assertion);
 
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
         if (assertion != null) {
@@ -67,4 +69,9 @@ public class DocQueryImpl {
         }
         return interfaceName;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

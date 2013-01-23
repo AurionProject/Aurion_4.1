@@ -17,6 +17,7 @@ import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import java.util.List;
 import javax.xml.ws.WebServiceContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 
 /**
  *
@@ -32,6 +33,7 @@ public class EntityDocRetrieveDeferredRequestImpl {
      */
     protected DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(RespondingGatewayCrossGatewayRetrieveSecuredRequestType body, WebServiceContext context) {
         AssertionType assertion = extractAssertionFromContext(context, null);
+        getSoapLogger().logRawAssertion(assertion);
         RetrieveDocumentSetRequestType message = body.getRetrieveDocumentSetRequest();
         NhinTargetCommunitiesType target = body.getNhinTargetCommunities();
         return new EntityDocRetrieveDeferredReqOrchImpl().crossGatewayRetrieveRequest(message, assertion, target);
@@ -47,6 +49,7 @@ public class EntityDocRetrieveDeferredRequestImpl {
         RetrieveDocumentSetRequestType message = crossGatewayRetrieveRequest.getRetrieveDocumentSetRequest();
         NhinTargetCommunitiesType target = crossGatewayRetrieveRequest.getNhinTargetCommunities();
         AssertionType assertion = extractAssertionFromContext(context, crossGatewayRetrieveRequest.getAssertion());
+        getSoapLogger().logRawAssertion(assertion);
         return new EntityDocRetrieveDeferredReqOrchImpl().crossGatewayRetrieveRequest(message, assertion, target);
     }
 
@@ -75,4 +78,9 @@ public class EntityDocRetrieveDeferredRequestImpl {
 
         return assertion;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

@@ -6,14 +6,13 @@
  */
 package org.alembic.aurion.patientdiscovery.nhin.deferred.response;
 
-
-
 import org.alembic.aurion.async.AsyncMessageIdExtractor;
 import org.alembic.aurion.common.nhinccommon.AssertionType;
 import org.alembic.aurion.nhinclib.NullChecker;
 import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
 import java.util.List;
 import javax.xml.ws.WebServiceContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.MCCIIN000002UV01;
@@ -34,6 +33,7 @@ public class NhinPatientDiscoveryAsyncRespImpl
 
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
         if (assertion != null) {
+            getSoapLogger().logRawAssertion(assertion);
             AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
             assertion.setMessageId(msgIdExtractor.GetAsyncMessageId(context));
             List<String> relatesToList = AsyncMessageIdExtractor.GetAsyncRelatesTo(context);
@@ -43,5 +43,10 @@ public class NhinPatientDiscoveryAsyncRespImpl
         }
 
         return new NhinPatientDiscoveryDeferredRespOrchImpl().respondingGatewayPRPAIN201306UV02Orch(body, assertion);
-    }    
+    }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

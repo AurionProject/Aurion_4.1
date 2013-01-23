@@ -17,6 +17,7 @@ import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import java.util.List;
 import javax.xml.ws.WebServiceContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 
 /**
  *
@@ -32,6 +33,7 @@ public class PassthruDocRetrieveDeferredResponseImpl {
      */
     protected DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RespondingGatewayCrossGatewayRetrieveSecuredResponseType body, WebServiceContext context) {
         AssertionType assertion = extractAssertionInfo(context, null);
+        getSoapLogger().logRawAssertion(assertion);
         RetrieveDocumentSetResponseType retrieveDocumentSetResponse = body.getRetrieveDocumentSetResponse();
         NhinTargetSystemType nhinTargetSystem = body.getNhinTargetSystem();
         return new NhincProxyDocRetrieveDeferredRespOrchImpl().crossGatewayRetrieveResponse(retrieveDocumentSetResponse, assertion, nhinTargetSystem);
@@ -45,6 +47,7 @@ public class PassthruDocRetrieveDeferredResponseImpl {
      */
     protected DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RespondingGatewayCrossGatewayRetrieveResponseType crossGatewayRetrieveResponse, WebServiceContext context) {
         AssertionType assertion = extractAssertionInfo(context, crossGatewayRetrieveResponse.getAssertion());
+        getSoapLogger().logRawAssertion(assertion);
         RetrieveDocumentSetResponseType retrieveDocumentSetResponse = crossGatewayRetrieveResponse.getRetrieveDocumentSetResponse();
         NhinTargetSystemType nhinTargetSystem = crossGatewayRetrieveResponse.getNhinTargetSystem();
         return new NhincProxyDocRetrieveDeferredRespOrchImpl().crossGatewayRetrieveResponse(retrieveDocumentSetResponse, assertion, nhinTargetSystem);
@@ -74,4 +77,9 @@ public class PassthruDocRetrieveDeferredResponseImpl {
 
         return assertion;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

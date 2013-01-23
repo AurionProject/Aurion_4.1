@@ -10,6 +10,7 @@ import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.annotation.Resource;
+import javax.jws.HandlerChain;
 
 /**
  *
@@ -17,6 +18,7 @@ import javax.annotation.Resource;
  */
 @WebService(serviceName = "AdapterComponentMpiService", portName = "AdapterComponentMpiPort", endpointInterface = "org.alembic.aurion.adaptercomponentmpi.AdapterComponentMpiPortType", targetNamespace = "urn:org:alembic:aurion:adaptercomponentmpi", wsdlLocation = "WEB-INF/wsdl/AdapterComponentMpi/AdapterComponentMpi.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file = "AdapterComponentMpiSoapHandler.xml")
 public class AdapterComponentMpi
 {
     @Resource

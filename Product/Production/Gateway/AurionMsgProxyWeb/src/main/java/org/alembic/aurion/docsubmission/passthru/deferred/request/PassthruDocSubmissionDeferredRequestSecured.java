@@ -4,14 +4,10 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.alembic.aurion.docsubmission.passthru.deferred.request;
 
 import javax.annotation.Resource;
+import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -23,6 +19,7 @@ import javax.xml.ws.soap.Addressing;
  */
 @WebService(serviceName = "ProxyXDRSecuredAsyncRequest_Service", portName = "ProxyXDRSecuredAsyncRequest_Port", endpointInterface = "org.alembic.aurion.nhincproxyxdrsecured.async.request.ProxyXDRSecuredAsyncRequestPortType", targetNamespace = "urn:org:alembic:aurion:nhincproxyxdrsecured:async:request", wsdlLocation = "WEB-INF/wsdl/PassthruDocSubmissionDeferredRequestSecured/NhincProxyXDRSecuredRequest.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file = "PassthruDocSubmissionDeferredRequestSoapHeaderHandler.xml")
 @Addressing(enabled=true)
 public class PassthruDocSubmissionDeferredRequestSecured {
     @Resource

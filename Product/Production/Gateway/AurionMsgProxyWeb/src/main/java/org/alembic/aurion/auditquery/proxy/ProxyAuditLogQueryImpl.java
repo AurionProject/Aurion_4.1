@@ -4,10 +4,6 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.alembic.aurion.auditquery.proxy;
 
 import com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType;
@@ -20,6 +16,7 @@ import org.alembic.aurion.nhinauditquery.proxy.NhinAuditQueryProxy;
 import org.alembic.aurion.nhinauditquery.proxy.NhinAuditQueryProxyObjectFactory;
 import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
 import javax.xml.ws.WebServiceContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -50,6 +47,9 @@ public class ProxyAuditLogQueryImpl {
     public FindAuditEventsResponseType findAuditEvents(FindAuditEventsRequestType findAuditEventsRequest) {
         log.debug("Entering ProxyAuditLogQueryImpl.findAuditEvents...");      
 
+        if(findAuditEventsRequest != null) {
+            getSoapLogger().logRawAssertion(findAuditEventsRequest.getAssertion());
+        }
         // Audit the Audit Log Query Request Message sent on the Nhin Interface
         EntityAuditLog auditLog = new EntityAuditLog();
         AcknowledgementType ack = auditLog.audit(findAuditEventsRequest);
@@ -59,6 +59,10 @@ public class ProxyAuditLogQueryImpl {
 
         log.debug("Exiting ProxyAuditLogQueryImpl.findAuditEvents...");
         return proxy.auditQuery(findAuditEventsRequest);
+    }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
     }
 
 }

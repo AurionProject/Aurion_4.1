@@ -4,24 +4,18 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.alembic.aurion.auditrepository.nhinc;
 
 import javax.xml.ws.WebServiceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.alembic.aurion.common.nhinccommon.AssertionType;
-import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
-import org.alembic.aurion.auditrepository.nhinc.AuditRepositoryOrchImpl;
 import org.alembic.aurion.common.auditlog.LogEventRequestType;
 import org.alembic.aurion.common.auditlog.LogEventSecureRequestType;
 import org.alembic.aurion.common.nhinccommon.AcknowledgementType;
 import org.alembic.aurion.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType;
 import org.alembic.aurion.common.nhinccommonadapter.FindCommunitiesAndAuditEventsRequestType;
+import org.alembic.aurion.util.soap.SoapLogger;
 /**
  *
  * @author mflynn02
@@ -55,6 +49,7 @@ public class AuditRepositoryUnsecuredImpl {
             if (processor != null) {
                 try {
                     AssertionType assertion = logEventRequest.getAssertion();
+                    getSoapLogger().logRawAssertion(assertion);
                     loadAssertion(assertion, context);
 
                     LogEventSecureRequestType secureRequest = new LogEventSecureRequestType();
@@ -88,6 +83,7 @@ public class AuditRepositoryUnsecuredImpl {
             if (processor != null) {
                 try {
                     AssertionType assertion = queryAuditEventsRequest.getAssertion();
+                    getSoapLogger().logRawAssertion(assertion);
                     loadAssertion(assertion, context);
 
                     response = processor.findAudit(queryAuditEventsRequest.getFindAuditEvents(), assertion);
@@ -105,6 +101,10 @@ public class AuditRepositoryUnsecuredImpl {
         log.info("Exiting AuditRepositoryUnsecuredImpl.queryAuditEvents");
         return response;
 
+    }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
     }
 
 }

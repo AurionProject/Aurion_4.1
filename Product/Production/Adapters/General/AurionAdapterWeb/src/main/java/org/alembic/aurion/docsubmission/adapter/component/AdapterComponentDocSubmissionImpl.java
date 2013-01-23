@@ -4,10 +4,6 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.alembic.aurion.docsubmission.adapter.component;
 
 import org.alembic.aurion.async.AsyncMessageIdExtractor;
@@ -16,8 +12,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.alembic.aurion.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestType;
 import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-import org.alembic.aurion.docsubmission.adapter.component.AdapterComponentDocSubmissionOrchImpl;
 import javax.xml.ws.WebServiceContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 
 /**
  *
@@ -27,12 +23,14 @@ public class AdapterComponentDocSubmissionImpl {
 
     public RegistryResponseType provideAndRegisterDocumentSetb(AdapterProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
         AssertionType assertion = getAssertion(context, body.getAssertion());
+        getSoapLogger().logRawAssertion(assertion);
 
         return new AdapterComponentDocSubmissionOrchImpl().provideAndRegisterDocumentSetB(body.getProvideAndRegisterDocumentSetRequest(), assertion);
     }
 
     public RegistryResponseType provideAndRegisterDocumentSetb(ProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
         AssertionType assertion = getAssertion(context, null);
+        getSoapLogger().logRawAssertion(assertion);
 
         return new AdapterComponentDocSubmissionOrchImpl().provideAndRegisterDocumentSetB(body, assertion);
     }
@@ -52,4 +50,9 @@ public class AdapterComponentDocSubmissionImpl {
 
         return assertion;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

@@ -4,10 +4,6 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.alembic.aurion.docsubmission.passthru;
 
 import org.alembic.aurion.async.AsyncMessageIdExtractor;
@@ -22,6 +18,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
 import javax.xml.namespace.QName;
 import javax.xml.ws.handler.MessageContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 
 /**
  *
@@ -32,6 +29,7 @@ public class PassthruDocSubmissionImpl {
     public RegistryResponseType provideAndRegisterDocumentSetB(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType body, WebServiceContext context) {
         // Create an assertion class from the contents of the SAML token
         AssertionType assertion = extractAssertionFromContext(context, null);
+        getSoapLogger().logRawAssertion(assertion);
         String interfaceName = getServiceNameFromContext(context);
         AuditPerformance oAuditPerformance = PerformanceMonitorUtil.buildAuditPerfromance(0, interfaceName, AsyncMessageIdExtractor.GetAsyncMessageId(context), NhincConstants.SERVICE_REQUEST_STRING);
         PerformanceMonitorUtil.getPerformanceProxy().logPerformance(oAuditPerformance);
@@ -43,6 +41,7 @@ public class PassthruDocSubmissionImpl {
 
     public RegistryResponseType provideAndRegisterDocumentSetB(RespondingGatewayProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
         AssertionType assertion = extractAssertionFromContext(context, body.getAssertion());
+        getSoapLogger().logRawAssertion(assertion);
         String interfaceName = getServiceNameFromContext(context);
         AuditPerformance oAuditPerformance = PerformanceMonitorUtil.buildAuditPerfromance(0, interfaceName, AsyncMessageIdExtractor.GetAsyncMessageId(context), NhincConstants.SERVICE_REQUEST_STRING);
         PerformanceMonitorUtil.getPerformanceProxy().logPerformance(oAuditPerformance);
@@ -80,4 +79,9 @@ public class PassthruDocSubmissionImpl {
         }
         return interfaceName;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

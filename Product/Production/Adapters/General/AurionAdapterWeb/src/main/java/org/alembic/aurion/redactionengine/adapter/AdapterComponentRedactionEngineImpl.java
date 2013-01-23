@@ -17,6 +17,7 @@ import org.apache.commons.logging.LogFactory;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import org.alembic.aurion.util.soap.SoapLogger;
 
 /**
  *
@@ -38,6 +39,7 @@ public class AdapterComponentRedactionEngineImpl {
         log.debug("Begin filterDocQueryResults");
         FilterDocQueryResultsResponseType response = null;
         AssertionType assertion = getAssertion(context);
+        getSoapLogger().logRawAssertion(assertion);
 
         if (filterDocQueryResultsRequest == null) {
             log.warn("FilterDocQueryResultsRequestType was null");
@@ -53,6 +55,7 @@ public class AdapterComponentRedactionEngineImpl {
     public FilterDocRetrieveResultsResponseType filterDocRetrieveResults(FilterDocRetrieveResultsRequestType filterDocRetrieveResultsRequest, WebServiceContext context) {
         FilterDocRetrieveResultsResponseType response = null;
         AssertionType assertion = getAssertion(context);
+        getSoapLogger().logRawAssertion(assertion);
         
         if (filterDocRetrieveResultsRequest == null) {
             log.warn("FilterDocRetrieveResultsRequestType was null");
@@ -85,4 +88,9 @@ public class AdapterComponentRedactionEngineImpl {
 
         return retrieveDocSetResponse;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

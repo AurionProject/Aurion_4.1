@@ -14,6 +14,7 @@ import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
 import javax.xml.ws.WebServiceContext;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import java.util.List;
+import org.alembic.aurion.util.soap.SoapLogger;
 
 /**
  *
@@ -25,6 +26,7 @@ public class EntityDocSubmissionDeferredResponseImpl
     public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType provideAndRegisterDocumentSetSecuredResponseRequest, WebServiceContext context)
     {
         AssertionType assertion = extractAssertionFromContext(context, null);
+        getSoapLogger().logRawAssertion(assertion);
 
         XDRAcknowledgementType response = new EntityDocSubmissionDeferredResponseOrchImpl().provideAndRegisterDocumentSetBAsyncResponse(provideAndRegisterDocumentSetSecuredResponseRequest.getRegistryResponse(), assertion, provideAndRegisterDocumentSetSecuredResponseRequest.getNhinTargetCommunities());
 
@@ -33,6 +35,7 @@ public class EntityDocSubmissionDeferredResponseImpl
 
     public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncResponse(org.alembic.aurion.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType provideAndRegisterDocumentSetAsyncRespRequest, WebServiceContext context) {
         AssertionType assertion = extractAssertionFromContext(context, provideAndRegisterDocumentSetAsyncRespRequest.getAssertion());
+        getSoapLogger().logRawAssertion(assertion);
 
         XDRAcknowledgementType response = new EntityDocSubmissionDeferredResponseOrchImpl().provideAndRegisterDocumentSetBAsyncResponse(provideAndRegisterDocumentSetAsyncRespRequest.getRegistryResponse(), assertion, provideAndRegisterDocumentSetAsyncRespRequest.getNhinTargetCommunities());
 
@@ -58,5 +61,8 @@ public class EntityDocSubmissionDeferredResponseImpl
         return assertion;
     }
 
-    
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

@@ -4,10 +4,6 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.alembic.aurion.docsubmission.adapter.component.deferred.request;
 
 import org.alembic.aurion.common.nhinccommon.AssertionType;
@@ -15,6 +11,7 @@ import org.alembic.aurion.common.nhinccommonadapter.AdapterProvideAndRegisterDoc
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import javax.xml.ws.WebServiceContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -58,6 +55,7 @@ public class AdapterComponentXDRRequestImpl
             assertion = body.getAssertion();
             url = body.getUrl();
         }
+        getSoapLogger().logRawAssertion(assertion);
 
         // Load any information from the web service context into the assertion.
         //----------------------------------------------------------------------
@@ -70,4 +68,9 @@ public class AdapterComponentXDRRequestImpl
         log.debug("Exiting AdapterComponentXDRRequestImpl.provideAndRegisterDocumentSetBRequest");
         return response;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

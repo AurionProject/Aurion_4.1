@@ -6,6 +6,7 @@
  */
 package org.alembic.aurion.auditquery.adapter;
 
+import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.soap.Addressing;
@@ -16,6 +17,7 @@ import javax.xml.ws.soap.Addressing;
  */
 @WebService(serviceName = "AdapterAuditLogQuery", portName = "AdapterAuditLogQueryPortSoap", endpointInterface = "org.alembic.aurion.adapterauditlogquery.AdapterAuditLogQueryPortType", targetNamespace = "urn:org:alembic:aurion:adapterauditlogquery", wsdlLocation = "WEB-INF/wsdl/AdapterAuditQueryService/AdapterAuditLogQuery.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file = "AdapterAuditQueryServiceSoapHeaderHandler.xml")
 @Addressing(enabled=true)
 public class AdapterAuditQueryService {
 

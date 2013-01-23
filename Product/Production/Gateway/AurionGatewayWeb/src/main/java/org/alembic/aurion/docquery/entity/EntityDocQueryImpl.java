@@ -4,10 +4,6 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.alembic.aurion.docquery.entity;
 
 import org.alembic.aurion.async.AsyncMessageIdExtractor;
@@ -25,6 +21,7 @@ import javax.xml.ws.handler.MessageContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -58,6 +55,7 @@ class EntityDocQueryImpl {
         String interfaceName = getServiceNameFromContext(context);
 
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+        getSoapLogger().logRawAssertion(assertion);
         setMessageID (assertion, context);
 
         try {
@@ -89,7 +87,7 @@ class EntityDocQueryImpl {
         setMessageID (request.getAssertion(), context);
         try {
             if (request != null) {
-                
+                getSoapLogger().logRawAssertion(request.getAssertion());
                 AuditPerformance oAuditPerformance = PerformanceMonitorUtil.buildAuditPerfromance(0, interfaceName, AsyncMessageIdExtractor.GetAsyncMessageId(context), NhincConstants.SERVICE_REQUEST_STRING);
                 PerformanceMonitorUtil.getPerformanceProxy().logPerformance(oAuditPerformance);
                 AdhocQueryRequest adhocQueryRequest = request.getAdhocQueryRequest();
@@ -125,4 +123,9 @@ class EntityDocQueryImpl {
         }
         return interfaceName;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

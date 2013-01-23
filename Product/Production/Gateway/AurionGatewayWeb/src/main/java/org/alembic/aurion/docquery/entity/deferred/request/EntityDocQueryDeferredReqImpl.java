@@ -13,6 +13,7 @@ import org.alembic.aurion.common.nhinccommonentity.RespondingGatewayCrossGateway
 import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
 import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import javax.xml.ws.WebServiceContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 
 /**
  * This abstract class contains business logic common to Entity Secured and Unsecured services for Document Query Deferred Request message
@@ -50,10 +51,11 @@ public abstract class EntityDocQueryDeferredReqImpl {
    * @return
    */
   protected DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(
-          final RespondingGatewayCrossGatewayQueryRequestType body, final WebServiceContext context) {
-    AssertionType assertion = body.getAssertion();
-    setMessageID(assertion, context);
-    return getOrchImpl().respondingGatewayCrossGatewayQuery(
+        final RespondingGatewayCrossGatewayQueryRequestType body, final WebServiceContext context) {
+        AssertionType assertion = body.getAssertion();
+        getSoapLogger().logRawAssertion(assertion);
+        setMessageID(assertion, context);
+        return getOrchImpl().respondingGatewayCrossGatewayQuery(
             body.getAdhocQueryRequest(), assertion, body.getNhinTargetCommunities());
   }
 
@@ -66,6 +68,7 @@ public abstract class EntityDocQueryDeferredReqImpl {
   protected DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(
           final RespondingGatewayCrossGatewayQuerySecuredRequestType body, final WebServiceContext context) {
     AssertionType assertion = extractAssertion(context);
+    getSoapLogger().logRawAssertion(assertion);
     setMessageID(assertion, context);
     return getOrchImpl().respondingGatewayCrossGatewayQuery(
             body.getAdhocQueryRequest(), assertion, body.getNhinTargetCommunities());
@@ -81,4 +84,9 @@ public abstract class EntityDocQueryDeferredReqImpl {
     }
     return orchImpl;
   }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

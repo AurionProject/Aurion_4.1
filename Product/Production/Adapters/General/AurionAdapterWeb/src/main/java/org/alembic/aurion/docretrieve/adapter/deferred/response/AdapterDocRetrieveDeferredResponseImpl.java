@@ -4,11 +4,6 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.alembic.aurion.docretrieve.adapter.deferred.response;
 
 import org.alembic.aurion.async.AsyncMessageIdExtractor;
@@ -20,6 +15,7 @@ import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import java.util.List;
 import javax.xml.ws.WebServiceContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 
 /**
  *
@@ -29,12 +25,14 @@ public class AdapterDocRetrieveDeferredResponseImpl {
 
     public DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RespondingGatewayCrossGatewayRetrieveResponseType crossGatewayRetrieveResponse, WebServiceContext context) {
         AssertionType assertion = getAssertion(context, crossGatewayRetrieveResponse.getAssertion());
+        getSoapLogger().logRawAssertion(assertion);
 
         return new AdapterDocRetrieveDeferredRespOrchImpl().respondingGatewayCrossGatewayRetrieve(crossGatewayRetrieveResponse.getRetrieveDocumentSetResponse(), assertion);
     }
     
     public DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RespondingGatewayCrossGatewayRetrieveSecuredResponseType body, WebServiceContext context) {
         AssertionType assertion = getAssertion(context, null);
+        getSoapLogger().logRawAssertion(assertion);
 
         return new AdapterDocRetrieveDeferredRespOrchImpl().respondingGatewayCrossGatewayRetrieve(body.getRetrieveDocumentSetResponse(), assertion);
     }
@@ -57,6 +55,10 @@ public class AdapterDocRetrieveDeferredResponseImpl {
         }
 
         return assertion;
+    }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
     }
 
 }

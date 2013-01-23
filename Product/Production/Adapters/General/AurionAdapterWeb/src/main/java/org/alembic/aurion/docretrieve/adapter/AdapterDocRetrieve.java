@@ -4,15 +4,12 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.alembic.aurion.docretrieve.adapter;
 
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.annotation.Resource;
+import javax.jws.HandlerChain;
 import javax.xml.ws.WebServiceContext;
 
 /**
@@ -21,6 +18,7 @@ import javax.xml.ws.WebServiceContext;
  */
 @WebService(serviceName = "AdapterDocRetrieve", portName = "AdapterDocRetrievePortSoap", endpointInterface = "org.alembic.aurion.adapterdocretrieve.AdapterDocRetrievePortType", targetNamespace = "urn:org:alembic:aurion:adapterdocretrieve", wsdlLocation = "WEB-INF/wsdl/AdapterDocRetrieve/AdapterDocRetrieve.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file = "AdapterDocRetrieveSoapHandler.xml")
 public class AdapterDocRetrieve
 {
     @Resource

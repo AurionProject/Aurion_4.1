@@ -10,6 +10,7 @@ import org.alembic.aurion.common.nhinccommon.AssertionType;
 import org.alembic.aurion.common.nhinccommon.NhinTargetCommunitiesType;
 import org.alembic.aurion.service.WebServiceHelper;
 import javax.xml.ws.WebServiceContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.MCCIIN000002UV01;
@@ -77,6 +78,7 @@ class EntityPatientDiscoveryDeferredRequestImpl
                 PRPAIN201305UV02 msg = request.getPRPAIN201305UV02();
                 NhinTargetCommunitiesType targets = request.getNhinTargetCommunities();
                 AssertionType assertIn = request.getAssertion();
+                getSoapLogger().logRawAssertion(assertIn);
                 response = (MCCIIN000002UV01) oHelper.invokeUnsecureWebService(implOrch, implOrch.getClass(), "processPatientDiscoveryAsyncReq", msg, assertIn, targets, context);
             } else
             {
@@ -94,4 +96,9 @@ class EntityPatientDiscoveryDeferredRequestImpl
     {
         return new EntityPatientDiscoveryDeferredRequestOrchImpl();
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

@@ -10,6 +10,7 @@ import org.alembic.aurion.async.AsyncMessageIdExtractor;
 import org.alembic.aurion.common.nhinccommon.AssertionType;
 import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
 import javax.xml.ws.WebServiceContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.MCCIIN000002UV01;
@@ -28,6 +29,7 @@ public class NhinPatientDiscoveryAsyncReqImpl {
 
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
         if (assertion != null) {
+            getSoapLogger().logRawAssertion(assertion);
             AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
             assertion.setMessageId(msgIdExtractor.GetAsyncMessageId(context));
         }
@@ -35,5 +37,10 @@ public class NhinPatientDiscoveryAsyncReqImpl {
         MCCIIN000002UV01 resp = new NhinPatientDiscoveryDeferredReqOrchImpl().respondingGatewayPRPAIN201305UV02(request, assertion);
 
         return resp;
-    }    
+    }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

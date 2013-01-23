@@ -6,6 +6,7 @@
  */
 package org.alembic.aurion.adaptermpimanager;
 
+import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 
@@ -15,6 +16,7 @@ import javax.xml.ws.BindingType;
  */
 @WebService(serviceName = "AdapterMpiManagerService", portName = "AdapterMpiManagerPortTypeBindingPort", endpointInterface = "org.alembic.aurion.adaptermpimanager.AdapterMpiManagerPortType", targetNamespace = "urn:org:alembic:aurion:adaptermpimanager", wsdlLocation = "WEB-INF/wsdl/MpiManager/AdapterMpiManager.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file = "MpiManagerSoapHeaderHandler.xml")
 public class MpiManager {
 
     public org.hl7.v3.MCCIIN000002UV01 addPatient(org.hl7.v3.PRPAIN201301UV02 addPatientRequest) {

@@ -4,17 +4,13 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.alembic.aurion.patientcorrelation.nhinc;
 
 import org.alembic.aurion.async.AsyncMessageIdExtractor;
 import org.alembic.aurion.common.nhinccommon.AssertionType;
-import org.alembic.aurion.patientcorrelation.nhinc.PatientCorrelationOrchImpl;
 import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
 import javax.xml.ws.WebServiceContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.hl7.v3.*;
 
 /**
@@ -28,6 +24,7 @@ public class PatientCorrelationServiceSecuredImpl {
     public RetrievePatientCorrelationsSecuredResponseType retrievePatientCorrelations(RetrievePatientCorrelationsSecuredRequestType retrievePatientCorrelationsRequest, WebServiceContext context) {
         RetrievePatientCorrelationsSecuredResponseType response = new RetrievePatientCorrelationsSecuredResponseType();
         AssertionType assertion = createAssertion(context);
+        getSoapLogger().logRawAssertion(assertion);
 
         log.info("Calling the Patient Correlation Retrieve Correlations Orch Impl");
         RetrievePatientCorrelationsResponseType unsecureResp = new PatientCorrelationOrchImpl().retrievePatientCorrelations(retrievePatientCorrelationsRequest.getPRPAIN201309UV02(), assertion);
@@ -42,6 +39,7 @@ public class PatientCorrelationServiceSecuredImpl {
     public AddPatientCorrelationSecuredResponseType addPatientCorrelation(AddPatientCorrelationSecuredRequestType addPatientCorrelationRequest, WebServiceContext context) {
         AddPatientCorrelationSecuredResponseType response = new AddPatientCorrelationSecuredResponseType();
         AssertionType assertion = createAssertion(context);
+        getSoapLogger().logRawAssertion(assertion);
 
         log.info("Calling the Patient Correlation Add Correlations Orch Impl");
         AddPatientCorrelationResponseType unsecureResp = new PatientCorrelationOrchImpl().addPatientCorrelation(addPatientCorrelationRequest.getPRPAIN201301UV02(), assertion);
@@ -66,4 +64,8 @@ public class PatientCorrelationServiceSecuredImpl {
         return assertion;
     }
     
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

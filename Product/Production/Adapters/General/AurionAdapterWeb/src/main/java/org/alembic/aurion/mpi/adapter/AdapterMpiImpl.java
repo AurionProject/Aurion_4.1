@@ -4,28 +4,16 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.alembic.aurion.mpi.adapter;
 
-import org.alembic.aurion.adaptermpi.AdapterMpiSecuredPortType;
-import org.alembic.aurion.adaptermpi.AdapterMpiSecuredService;
 import org.alembic.aurion.common.nhinccommon.AssertionType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.PRPAIN201306UV02;
 
-import org.alembic.aurion.nhinclib.NhincConstants;
-import org.alembic.aurion.saml.extraction.SamlTokenCreator;
-import java.util.Map;
-import javax.xml.ws.BindingProvider;
-import org.alembic.aurion.connectmgr.ConnectionManagerCache;
 import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
 import javax.xml.ws.WebServiceContext;
-import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.hl7.v3.PRPAIN201305UV02;
 
 /**
@@ -62,6 +50,7 @@ public class AdapterMpiImpl {
         {
             assertion = new AssertionType();
         }
+        getSoapLogger().logRawAssertion(assertion);
 
         AdapterMpiOrchImpl oOrchestrator = new AdapterMpiOrchImpl();
         PRPAIN201306UV02 response = oOrchestrator.query(findCandidatesRequest, assertion);
@@ -69,6 +58,10 @@ public class AdapterMpiImpl {
         // Send response back to the initiating Gateway
         log.debug("Exiting AdapterMpiImpl.findCandidates");
         return response;
+    }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
     }
 
 }

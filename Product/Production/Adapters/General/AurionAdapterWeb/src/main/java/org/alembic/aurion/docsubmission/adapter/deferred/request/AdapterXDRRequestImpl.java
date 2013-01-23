@@ -13,6 +13,7 @@ import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import javax.xml.ws.WebServiceContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -49,6 +50,7 @@ public class AdapterXDRRequestImpl
             assertion = body.getAssertion();
         }
         assertion = getAssertion(context, assertion);
+        getSoapLogger().logRawAssertion(assertion);
 
         response = provideAndRegisterDocumentSetBRequest(request, liftURL, assertion);
         log.debug("End AdapterXDRRequestImpl.provideAndRegisterDocumentSetBRequest(unsecure)");
@@ -69,6 +71,7 @@ public class AdapterXDRRequestImpl
             liftURL = body.getUrl();
         }
         assertion = getAssertion(context, assertion);
+        getSoapLogger().logRawAssertion(assertion);
 
         response = provideAndRegisterDocumentSetBRequest(request, liftURL, assertion);
         log.debug("End AdapterXDRRequestImpl.provideAndRegisterDocumentSetBRequest(secure)");
@@ -99,4 +102,9 @@ public class AdapterXDRRequestImpl
     {
         return new AdapterDocSubmissionDeferredRequestOrchImpl().provideAndRegisterDocumentSetBRequest(request, liftURL, assertion);
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.alembic.aurion.hiem.adapter.notify;
 
 import org.alembic.aurion.async.AsyncMessageIdExtractor;
@@ -16,6 +11,7 @@ import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.ws.WebServiceContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.oasis_open.docs.wsn.b_2.Notify;
 
 /**
@@ -25,6 +21,7 @@ import org.oasis_open.docs.wsn.b_2.Notify;
 public class AdapterNotificationConsumerImpl {
     public AcknowledgementType notify(NotifyRequestType notifyRequest, WebServiceContext context) {
         AssertionType assertion = getAssertion(context, notifyRequest.getAssertion());
+        getSoapLogger().logRawAssertion(assertion);
         ReferenceParametersElements referenceParametersElements = getRefParams(context);
 
         AdapterHiemNotifyOrchImpl notifyOrchImpl = new AdapterHiemNotifyOrchImpl();
@@ -38,6 +35,7 @@ public class AdapterNotificationConsumerImpl {
 
     public AcknowledgementType notify(Notify notifyRequestSecured, WebServiceContext context) {
         AssertionType assertion = getAssertion(context, null);
+        getSoapLogger().logRawAssertion(assertion);
         ReferenceParametersElements referenceParametersElements = getRefParams(context);
 
         AdapterHiemNotifyOrchImpl notifyOrchImpl = new AdapterHiemNotifyOrchImpl();
@@ -68,6 +66,10 @@ public class AdapterNotificationConsumerImpl {
         ReferenceParametersHelper referenceParametersHelper = new ReferenceParametersHelper();
         ReferenceParametersElements referenceParametersElements = referenceParametersHelper.createReferenceParameterElements(context, NhincConstants.HTTP_REQUEST_ATTRIBUTE_SOAPMESSAGE);
         return referenceParametersElements;
+    }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
     }
 
 }

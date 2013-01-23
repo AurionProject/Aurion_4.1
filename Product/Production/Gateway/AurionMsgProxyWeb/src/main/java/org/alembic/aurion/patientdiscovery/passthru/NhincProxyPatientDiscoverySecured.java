@@ -8,6 +8,7 @@ package org.alembic.aurion.patientdiscovery.passthru;
 
 import javax.jws.WebService;
 import javax.annotation.Resource;
+import javax.jws.HandlerChain;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
@@ -17,6 +18,7 @@ import javax.xml.ws.WebServiceContext;
  */
 @WebService(serviceName = "NhincProxyPatientDiscoverySecured", portName = "NhincProxyPatientDiscoverySecuredPort", endpointInterface = "org.alembic.aurion.nhincproxypatientdiscoverysecured.NhincProxyPatientDiscoverySecuredPortType", targetNamespace = "urn:org:alembic:aurion:nhincproxypatientdiscoverysecured", wsdlLocation = "WEB-INF/wsdl/NhincProxyPatientDiscoverySecured/NhincProxyPatientDiscoverySecured.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file = "NhincProxyPatientDiscoverySoapHeaderHandler.xml")
 public class NhincProxyPatientDiscoverySecured {
 
     @Resource

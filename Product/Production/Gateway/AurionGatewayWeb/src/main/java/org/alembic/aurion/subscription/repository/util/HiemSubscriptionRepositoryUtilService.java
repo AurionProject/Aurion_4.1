@@ -6,6 +6,7 @@
  */
 package org.alembic.aurion.subscription.repository.util;
 
+import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 
@@ -15,6 +16,7 @@ import javax.xml.ws.BindingType;
  */
 @WebService(serviceName = "HiemSubscriptionRepositoryUtilService", portName = "HiemSubscriptionRepositoryUtilPortTypeBindingPort", endpointInterface = "org.alembic.aurion.hiemsubscriptionrepositoryutil.HiemSubscriptionRepositoryUtilPortType", targetNamespace = "urn:org:alembic:aurion:hiemsubscriptionrepositoryutil", wsdlLocation = "WEB-INF/wsdl/HiemSubscriptionRepositoryUtilService/HiemSubscriptionRepositoryUtil.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file = "HiemSubscriptionRepositoryUtilServiceSoapHeaderHandler.xml")
 public class HiemSubscriptionRepositoryUtilService
 {
 

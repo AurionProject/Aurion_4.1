@@ -11,6 +11,7 @@ import org.alembic.aurion.common.nhinccommon.AssertionType;
 import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import org.alembic.aurion.util.soap.SoapLogger;
 
 /**
  * Helper class for performing document registry operations
@@ -23,6 +24,7 @@ public class DocumentRegistryImpl
     public AdhocQueryResponse documentRegistryRegistryStoredQuery(AdhocQueryRequest body, WebServiceContext context)
     {
         AssertionType assertion = getAssertion(context);
+        getSoapLogger().logRawAssertion(assertion);
         return new AdapterComponentDocRegistryOrchImpl().registryStoredQuery(body);
     }
 
@@ -36,5 +38,8 @@ public class DocumentRegistryImpl
         return assertion;
     }
 
-    
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

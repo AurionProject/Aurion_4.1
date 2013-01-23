@@ -4,22 +4,18 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.alembic.aurion.auditrepository.nhinc;
 
 import org.alembic.aurion.common.nhinccommon.AssertionType;
 import javax.xml.ws.WebServiceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.alembic.aurion.auditrepository.nhinc.AuditRepositoryOrchImpl;
 import org.alembic.aurion.common.nhinccommon.AcknowledgementType;
 import org.alembic.aurion.common.auditlog.LogEventSecureRequestType;
 import org.alembic.aurion.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType;
 import com.services.nhinc.schema.auditmessage.FindAuditEventsType;
 import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
+import org.alembic.aurion.util.soap.SoapLogger;
 
 
 public class AuditRepositorySecuredImpl {
@@ -53,6 +49,7 @@ public class AuditRepositorySecuredImpl {
             if (processor != null) {
                 try {
                     AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+                    getSoapLogger().logRawAssertion(assertion);
                     loadAssertion(assertion, context);
 
                     response = processor.logAudit(mess, assertion);
@@ -82,6 +79,7 @@ public class AuditRepositorySecuredImpl {
             if (processor != null) {
                 try {
                     AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+                    getSoapLogger().logRawAssertion(assertion);
                     loadAssertion(assertion, context);
 
                     response = processor.findAudit(query, assertion);
@@ -100,4 +98,9 @@ public class AuditRepositorySecuredImpl {
         return response;
 
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

@@ -4,15 +4,11 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.alembic.aurion.patientdiscovery.adapter;
 
 import javax.annotation.Resource;
+import javax.jws.HandlerChain;
 import javax.jws.WebService;
-import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
 /**
@@ -22,6 +18,7 @@ import javax.xml.ws.WebServiceContext;
  * @author Les Westberg
  */
 @WebService(serviceName = "AdapterPatientDiscovery", portName = "AdapterPatientDiscoveryPortSoap", endpointInterface = "org.alembic.aurion.adapterpatientdiscovery.AdapterPatientDiscoveryPortType", targetNamespace = "urn:org:alembic:aurion:adapterpatientdiscovery", wsdlLocation = "WEB-INF/wsdl/AdapterPatientDiscovery/AdapterPatientDiscovery.wsdl")
+@HandlerChain(file = "AdapterPatientDiscoverySoapHandler.xml")
 public class AdapterPatientDiscovery
 {
     @Resource

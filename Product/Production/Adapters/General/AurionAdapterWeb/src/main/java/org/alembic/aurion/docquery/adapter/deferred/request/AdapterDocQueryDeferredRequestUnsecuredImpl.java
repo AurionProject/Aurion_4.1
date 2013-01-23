@@ -4,16 +4,13 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.alembic.aurion.docquery.adapter.deferred.request;
 
 import org.alembic.aurion.async.AsyncMessageIdExtractor;
 import org.alembic.aurion.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType;
 import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import javax.xml.ws.WebServiceContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 
 /**
  *
@@ -24,6 +21,7 @@ public class AdapterDocQueryDeferredRequestUnsecuredImpl {
     public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(RespondingGatewayCrossGatewayQueryRequestType body, WebServiceContext context) {
         // Extract the relates to value from the WS-Addressing Header and place it in the Assertion Class
         if (body.getAssertion() != null) {
+            getSoapLogger().logRawAssertion(body.getAssertion());
             AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
             body.getAssertion().setMessageId(msgIdExtractor.GetAsyncMessageId(context));
         }
@@ -31,4 +29,9 @@ public class AdapterDocQueryDeferredRequestUnsecuredImpl {
         return new AdapterDocQueryDeferredRequestOrchImpl().respondingGatewayCrossGatewayQuery(body.getAdhocQueryRequest(), body.getAssertion());
 
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

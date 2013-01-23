@@ -13,6 +13,7 @@ import org.alembic.aurion.nhinclib.NullChecker;
 import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
 import java.util.List;
 import javax.xml.ws.WebServiceContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.MCCIIN000002UV01;
@@ -44,6 +45,7 @@ public class NhincProxyPatientDiscoveryAsyncRespImpl
         MCCIIN000002UV01 response = null;
 
         AssertionType assertion = getAssertion(context, null);
+        getSoapLogger().logRawAssertion(assertion);
         PRPAIN201306UV02 pdRequest = null;
         NhinTargetSystemType targetSystem = null;
         if (request != null)
@@ -73,6 +75,7 @@ public class NhincProxyPatientDiscoveryAsyncRespImpl
             assertion = request.getAssertion();
         }
         assertion = getAssertion(context, assertion);
+        getSoapLogger().logRawAssertion(assertion);
 
         response = new PassthruPatientDiscoveryDeferredRespOrchImpl().proxyProcessPatientDiscoveryAsyncResp(pdRequest, assertion, targetSystem);
 
@@ -104,6 +107,10 @@ public class NhincProxyPatientDiscoveryAsyncRespImpl
         }
 
         return assertion;
+    }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
     }
 
 }

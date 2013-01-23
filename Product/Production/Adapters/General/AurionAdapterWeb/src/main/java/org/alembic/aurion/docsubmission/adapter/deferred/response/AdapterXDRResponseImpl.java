@@ -15,6 +15,7 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import java.util.List;
 import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -49,6 +50,7 @@ public class AdapterXDRResponseImpl
             assertion = body.getAssertion();
         }
         assertion = getAssertion(context, assertion);
+        getSoapLogger().logRawAssertion(assertion);
         response = provideAndRegisterDocumentSetBResponse(regResponse, assertion);
 
         log.debug("End AdapterXDRResponseImpl.provideAndRegisterDocumentSetBResponse(unsecured)");
@@ -62,6 +64,7 @@ public class AdapterXDRResponseImpl
 
         AssertionType assertion = null;
         assertion = getAssertion(context, assertion);
+        getSoapLogger().logRawAssertion(assertion);
         response = provideAndRegisterDocumentSetBResponse(body, assertion);
 
         log.debug("End AdapterXDRResponseImpl.provideAndRegisterDocumentSetBResponse(secured)");
@@ -99,4 +102,9 @@ public class AdapterXDRResponseImpl
         log.debug("Begin AdapterXDRResponseImpl.provideAndRegisterDocumentSetBResponse");
         return new AdapterDocSubmissionDeferredResponseOrchImpl().provideAndRegisterDocumentSetBResponse(regResponse, assertion);
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

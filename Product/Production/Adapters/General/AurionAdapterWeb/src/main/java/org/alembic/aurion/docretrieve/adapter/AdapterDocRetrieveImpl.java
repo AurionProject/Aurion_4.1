@@ -4,10 +4,6 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.alembic.aurion.docretrieve.adapter;
 
 import org.alembic.aurion.common.nhinccommon.AssertionType;
@@ -18,6 +14,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.alembic.aurion.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveRequestType;
+import org.alembic.aurion.util.soap.SoapLogger;
 
 
 /**
@@ -47,6 +44,7 @@ public class AdapterDocRetrieveImpl
             request = respondingGatewayCrossGatewayRetrieveRequest.getRetrieveDocumentSetRequest();
             assertion = respondingGatewayCrossGatewayRetrieveRequest.getAssertion();
         }
+        getSoapLogger().logRawAssertion(assertion);
 
         RetrieveDocumentSetResponseType response = callOrchestrator(request, assertion);
 
@@ -76,6 +74,7 @@ public class AdapterDocRetrieveImpl
         {
             assertion = new AssertionType();
         }
+        getSoapLogger().logRawAssertion(assertion);
 
         RetrieveDocumentSetResponseType response = callOrchestrator(body, assertion);
 
@@ -97,4 +96,9 @@ public class AdapterDocRetrieveImpl
         RetrieveDocumentSetResponseType response = oOrchestrator.respondingGatewayCrossGatewayRetrieve(body, assertion);
         return response;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

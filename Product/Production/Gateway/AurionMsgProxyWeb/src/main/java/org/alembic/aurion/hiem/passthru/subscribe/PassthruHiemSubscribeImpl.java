@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.alembic.aurion.hiem.passthru.subscribe;
 
 import org.alembic.aurion.async.AsyncMessageIdExtractor;
@@ -12,6 +8,7 @@ import org.alembic.aurion.common.nhinccommonproxy.SubscribeRequestType;
 import org.alembic.aurion.hiem.dte.SoapUtil;
 import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
 import javax.xml.ws.WebServiceContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
 import org.oasis_open.docs.wsn.bw_2.InvalidFilterFault;
 import org.oasis_open.docs.wsn.bw_2.InvalidMessageContentExpressionFault;
@@ -36,6 +33,7 @@ public class PassthruHiemSubscribeImpl {
     public SubscribeResponse subscribe(SubscribeRequestSecuredType subscribeRequestSecured, WebServiceContext context) throws InvalidMessageContentExpressionFault, UnacceptableInitialTerminationTimeFault, InvalidTopicExpressionFault, InvalidProducerPropertiesExpressionFault, InvalidFilterFault, NotifyMessageNotSupportedFault, TopicNotSupportedFault, TopicExpressionDialectUnknownFault, ResourceUnknownFault, SubscribeCreationFailedFault, UnsupportedPolicyRequestFault, UnrecognizedPolicyRequestFault {
         PassthruHiemSubscribeOrchImpl hiemSubscribeImpl = new PassthruHiemSubscribeOrchImpl();
         AssertionType assertion = getAssertion(context, null);
+        getSoapLogger().logRawAssertion(assertion);
         Element subscribeElement = new SoapUtil().extractFirstElement(context, "subscribeSoapMessage", "Subscribe");
         try {
             return hiemSubscribeImpl.subscribe(subscribeRequestSecured.getSubscribe(), assertion, subscribeRequestSecured.getNhinTargetSystem(), subscribeElement);
@@ -70,6 +68,7 @@ public class PassthruHiemSubscribeImpl {
 
         PassthruHiemSubscribeOrchImpl hiemSubscribeImpl = new PassthruHiemSubscribeOrchImpl();
         AssertionType assertion = getAssertion(context, subscribeRequest.getAssertion());
+        getSoapLogger().logRawAssertion(assertion);
         Element subscribeElement = new SoapUtil().extractFirstElement(context, "subscribeSoapMessage", "Subscribe");
         try {
             return hiemSubscribeImpl.subscribe(subscribeRequest.getSubscribe(), assertion, subscribeRequest.getNhinTargetSystem(), subscribeElement);
@@ -119,4 +118,9 @@ public class PassthruHiemSubscribeImpl {
         Element subscribeElement = new SoapUtil().extractFirstElement(context, "subscribeSoapMessage", "Subscribe");
         return subscribeElement;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

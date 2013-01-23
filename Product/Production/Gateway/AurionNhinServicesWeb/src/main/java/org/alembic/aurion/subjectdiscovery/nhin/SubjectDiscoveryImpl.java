@@ -13,9 +13,11 @@ import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.alembic.aurion.common.nhinccommon.AcknowledgementType;
+import org.alembic.aurion.common.nhinccommon.AssertionType;
 import org.alembic.aurion.properties.PropertyAccessException;
 import org.alembic.aurion.properties.PropertyAccessor;
 import org.alembic.aurion.subjectdiscovery.SubjectDiscoveryAuditLogger;
+import org.alembic.aurion.util.soap.SoapLogger;
 
 /**
  *
@@ -34,7 +36,9 @@ public class SubjectDiscoveryImpl {
         String errMsg = null;
 
         pix201301Request.setPRPAIN201301UV02(message);
-        pix201301Request.setAssertion(SamlTokenExtractor.GetAssertion(context));
+        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+        getSoapLogger().logRawAssertion(assertion);
+        pix201301Request.setAssertion(assertion);
 
         // Audit the incoming 201301 message
         SubjectDiscoveryAuditLogger auditLogger = new SubjectDiscoveryAuditLogger();
@@ -72,7 +76,9 @@ public class SubjectDiscoveryImpl {
         String errMsg = null;
 
         pix201302Request.setPRPAIN201302UV02(message);
-        pix201302Request.setAssertion(SamlTokenExtractor.GetAssertion(context));
+        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+        getSoapLogger().logRawAssertion(assertion);
+        pix201302Request.setAssertion(assertion);
 
         // Audit the incoming 201302 message
         SubjectDiscoveryAuditLogger auditLogger = new SubjectDiscoveryAuditLogger();
@@ -124,7 +130,9 @@ public class SubjectDiscoveryImpl {
         String errMsg = null;
 
         pix201309Request.setPRPAIN201309UV02(message);
-        pix201309Request.setAssertion(SamlTokenExtractor.GetAssertion(context));
+        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+        getSoapLogger().logRawAssertion(assertion);
+        pix201309Request.setAssertion(assertion);
 
         // Audit the incoming 201309 message
         SubjectDiscoveryAuditLogger auditLogger = new SubjectDiscoveryAuditLogger();
@@ -193,4 +201,9 @@ public class SubjectDiscoveryImpl {
         }
         return passThroughModeEnabled;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

@@ -4,11 +4,6 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.alembic.aurion.auditquery.proxy;
 
 import com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType;
@@ -21,6 +16,7 @@ import org.alembic.aurion.nhincproxyauditlogquerysecured.NhincProxyAuditLogQuery
 import org.alembic.aurion.saml.extraction.SamlTokenCreator;
 import java.util.Map;
 import javax.xml.ws.BindingProvider;
+import org.alembic.aurion.util.soap.SoapLogger;
 
 /**
  *
@@ -40,6 +36,7 @@ public class ProxyAuditQueryImpl {
             NhincProxyAuditLogQuerySecuredPortType port = getPort(url);
 
             AssertionType assertIn = findAuditEventsRequest.getAssertion();
+            getSoapLogger().logRawAssertion(assertIn);
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map requestContext = tokenCreator.CreateRequestContext(assertIn, url, NhincConstants.AUDIT_QUERY_ACTION);
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
@@ -65,6 +62,10 @@ public class ProxyAuditQueryImpl {
         ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
 
         return port;
+    }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
     }
 
 }

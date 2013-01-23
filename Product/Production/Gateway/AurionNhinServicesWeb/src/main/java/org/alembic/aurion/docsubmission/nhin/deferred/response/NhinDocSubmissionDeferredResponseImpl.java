@@ -14,6 +14,7 @@ import javax.xml.ws.WebServiceContext;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import org.alembic.aurion.util.soap.SoapLogger;
 
 /**
  *
@@ -22,7 +23,6 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 public class NhinDocSubmissionDeferredResponseImpl
 {
 
-    
     /**
      *
      * @param body
@@ -34,6 +34,7 @@ public class NhinDocSubmissionDeferredResponseImpl
        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
 
        if (assertion != null) {
+            getSoapLogger().logRawAssertion(assertion);
             AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
             assertion.setMessageId(msgIdExtractor.GetAsyncMessageId(context));
             List<String> relatesToList = AsyncMessageIdExtractor.GetAsyncRelatesTo(context);
@@ -45,4 +46,9 @@ public class NhinDocSubmissionDeferredResponseImpl
        return new NhinDocSubmissionDeferredResponseOrchImpl().provideAndRegisterDocumentSetBResponse(body, assertion);
         
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

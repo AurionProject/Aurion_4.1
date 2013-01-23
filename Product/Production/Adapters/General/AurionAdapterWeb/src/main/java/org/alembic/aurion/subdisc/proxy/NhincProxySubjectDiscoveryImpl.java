@@ -4,11 +4,6 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.alembic.aurion.subdisc.proxy;
 
 import org.alembic.aurion.common.nhinccommon.AssertionType;
@@ -19,6 +14,7 @@ import org.alembic.aurion.nhincproxysubjectdiscoverysecured.NhincProxySubjectDis
 import org.alembic.aurion.saml.extraction.SamlTokenCreator;
 import java.util.Map;
 import javax.xml.ws.BindingProvider;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PIXConsumerPRPAIN201301UVProxyRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201301UVProxySecuredRequestType;
@@ -43,6 +39,7 @@ public class NhincProxySubjectDiscoveryImpl {
             NhincProxySubjectDiscoverySecuredPortType port = getPort(url);
 
             AssertionType assertIn = request.getAssertion();
+            getSoapLogger().logRawAssertion(assertIn);
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map requestContext = tokenCreator.CreateRequestContext(assertIn, url, NhincConstants.SUBJECT_DISCOVERY_ACTION);
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
@@ -68,6 +65,7 @@ public class NhincProxySubjectDiscoveryImpl {
             NhincProxySubjectDiscoverySecuredPortType port = getPort(url);
 
             AssertionType assertIn = request.getAssertion();
+            getSoapLogger().logRawAssertion(assertIn);
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map requestContext = tokenCreator.CreateRequestContext(assertIn, url, NhincConstants.SUBJECT_DISCOVERY_ACTION);
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
@@ -92,4 +90,9 @@ public class NhincProxySubjectDiscoveryImpl {
 
         return port;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

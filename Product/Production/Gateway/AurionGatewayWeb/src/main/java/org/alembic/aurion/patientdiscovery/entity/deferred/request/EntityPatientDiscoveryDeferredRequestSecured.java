@@ -7,6 +7,7 @@
 package org.alembic.aurion.patientdiscovery.entity.deferred.request;
 
 import javax.annotation.Resource;
+import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -16,6 +17,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02SecuredRequestType;
 
 @WebService(serviceName = "EntityPatientDiscoverySecuredAsyncReq", portName = "EntityPatientDiscoverySecuredAsyncReqPortSoap", endpointInterface = "org.alembic.aurion.entitypatientdiscoverysecuredasyncreq.EntityPatientDiscoverySecuredAsyncReqPortType", targetNamespace = "urn:org:alembic:aurion:entitypatientdiscoverysecuredasyncreq", wsdlLocation = "WEB-INF/wsdl/EntityPatientDiscoveryDeferredRequestSecured/EntityPatientDiscoverySecuredAsyncReq.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file = "EntityPatientDiscoveryDeferredRequestSoapHeaderHandler.xml")
 @Addressing(enabled=true)
 public class EntityPatientDiscoveryDeferredRequestSecured
 {

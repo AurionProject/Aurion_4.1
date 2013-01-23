@@ -4,10 +4,6 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.alembic.aurion.subjectdiscovery.proxy;
 
 import org.alembic.aurion.common.nhinccommon.AcknowledgementType;
@@ -17,6 +13,8 @@ import org.alembic.aurion.nhinsubjectdiscovery.proxy.NhinSubjectDiscoveryProxy;
 import org.alembic.aurion.nhinclib.NhincConstants;
 import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
 import javax.xml.ws.WebServiceContext;
+import org.alembic.aurion.common.nhinccommon.AssertionType;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PIXConsumerPRPAIN201301UVProxyRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201309UVProxyRequestType;
@@ -37,14 +35,16 @@ public class NhincProxySubjectDiscoveryImpl {
     private static Log log = LogFactory.getLog(NhincProxySubjectDiscoveryImpl.class);
 
     public MCCIIN000002UV01 pixConsumerPRPAIN201301UV(PIXConsumerPRPAIN201301UVProxySecuredRequestType secureRequest, WebServiceContext context) {
-       MCCIIN000002UV01 ack = new MCCIIN000002UV01();
-       PIXConsumerPRPAIN201301UVProxyRequestType request = new PIXConsumerPRPAIN201301UVProxyRequestType();
-       request.setAssertion(SamlTokenExtractor.GetAssertion(context));
-       request.setPRPAIN201301UV02(secureRequest.getPRPAIN201301UV02());
-       request.setNhinTargetSystem(secureRequest.getNhinTargetSystem());
-       ack = pixConsumerPRPAIN201301UV(request);
+        MCCIIN000002UV01 ack = new MCCIIN000002UV01();
+        PIXConsumerPRPAIN201301UVProxyRequestType request = new PIXConsumerPRPAIN201301UVProxyRequestType();
+        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+        getSoapLogger().logRawAssertion(assertion);
+        request.setAssertion(assertion);
+        request.setPRPAIN201301UV02(secureRequest.getPRPAIN201301UV02());
+        request.setNhinTargetSystem(secureRequest.getNhinTargetSystem());
+        ack = pixConsumerPRPAIN201301UV(request);
 
-       return ack;
+        return ack;
     }
 
     /**
@@ -57,6 +57,7 @@ public class NhincProxySubjectDiscoveryImpl {
     public MCCIIN000002UV01 pixConsumerPRPAIN201301UV(PIXConsumerPRPAIN201301UVProxyRequestType request) {
         log.debug("Entering NhincProxySubjectDiscoveryImpl.pixConsumerPRPAIN201301UV...");
         MCCIIN000002UV01 response = new MCCIIN000002UV01();
+        getSoapLogger().logRawAssertion(request.getAssertion());
 
         // Audit the Subject Announce Request Message sent on the Nhin Interface
         SubjectDiscoveryAuditLog auditLog = new SubjectDiscoveryAuditLog();
@@ -78,14 +79,16 @@ public class NhincProxySubjectDiscoveryImpl {
     }
 
     public PRPAIN201310UV02 pixConsumerPRPAIN201309UV(PIXConsumerPRPAIN201309UVProxySecuredRequestType secureRequest, WebServiceContext context) {
-       PRPAIN201310UV02 response = new PRPAIN201310UV02();
-       PIXConsumerPRPAIN201309UVProxyRequestType request = new PIXConsumerPRPAIN201309UVProxyRequestType();
-       request.setAssertion(SamlTokenExtractor.GetAssertion(context));
-       request.setPRPAIN201309UV02(secureRequest.getPRPAIN201309UV02());
-       request.setNhinTargetSystem(secureRequest.getNhinTargetSystem());
-       response = pixConsumerPRPAIN201309UV(request);
+        PRPAIN201310UV02 response = new PRPAIN201310UV02();
+        PIXConsumerPRPAIN201309UVProxyRequestType request = new PIXConsumerPRPAIN201309UVProxyRequestType();
+        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+        getSoapLogger().logRawAssertion(assertion);
+        request.setAssertion(assertion);
+        request.setPRPAIN201309UV02(secureRequest.getPRPAIN201309UV02());
+        request.setNhinTargetSystem(secureRequest.getNhinTargetSystem());
+        response = pixConsumerPRPAIN201309UV(request);
 
-       return response;
+        return response;
     }
 
     /**
@@ -98,6 +101,7 @@ public class NhincProxySubjectDiscoveryImpl {
     public org.hl7.v3.PRPAIN201310UV02 pixConsumerPRPAIN201309UV(PIXConsumerPRPAIN201309UVProxyRequestType request) {
         log.debug("Entering NhincProxySubjectDiscoveryImpl.pixConsumerPRPAIN201309UV...");
         org.hl7.v3.PRPAIN201310UV02 response = new org.hl7.v3.PRPAIN201310UV02();
+        getSoapLogger().logRawAssertion(request.getAssertion());
 
         // Audit the Subject Revoke Request Message sent on the Nhin Interface
         SubjectDiscoveryAuditLog auditLog = new SubjectDiscoveryAuditLog();
@@ -116,6 +120,10 @@ public class NhincProxySubjectDiscoveryImpl {
 
         log.debug("Exiting NhincProxySubjectDiscoveryImpl.pixConsumerPRPAIN201303UV...");
         return response;
+    }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
     }
 
 }

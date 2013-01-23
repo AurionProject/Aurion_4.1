@@ -10,12 +10,12 @@ import org.alembic.aurion.async.AsyncMessageIdExtractor;
 import org.alembic.aurion.common.nhinccommon.AssertionType;
 import org.oasis_open.docs.wsn.bw_2.UnableToDestroySubscriptionFault;
 import org.alembic.aurion.common.nhinccommonentity.UnsubscribeRequestType;
-import org.alembic.aurion.entitysubscriptionmanagement.ResourceUnknownFault;
 import org.alembic.aurion.hiem.consumerreference.ReferenceParametersElements;
 import org.alembic.aurion.hiem.consumerreference.ReferenceParametersHelper;
 import org.alembic.aurion.nhinclib.NhincConstants;
 import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
 import javax.xml.ws.WebServiceContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.wsn.b_2.UnsubscribeResponse;
@@ -33,6 +33,7 @@ public class EntitySubscriptionManagerImpl
     public UnsubscribeResponse unsubscribe(UnsubscribeRequestType unsubscribeRequest, WebServiceContext context) throws org.alembic.aurion.entitysubscriptionmanagementsecured.ResourceUnknownFault, org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault, org.alembic.aurion.entitysubscriptionmanagementsecured.UnableToDestroySubscriptionFault, UnableToDestroySubscriptionFault
     {
         AssertionType assertion = getAssertion(context, unsubscribeRequest.getAssertion());
+        getSoapLogger().logRawAssertion(assertion);
         ReferenceParametersElements referenceParametersElements = getRefParams(context);
 
         UnsubscribeResponse response = new EntityUnsubscribeOrchImpl().unsubscribe(unsubscribeRequest.getUnsubscribe(), assertion, null, referenceParametersElements);
@@ -44,6 +45,7 @@ public class EntitySubscriptionManagerImpl
     {
 
         AssertionType assertion = getAssertion(context, null);
+        getSoapLogger().logRawAssertion(assertion);
         ReferenceParametersElements referenceParametersElements = getRefParams(context);
 
         UnsubscribeResponse response = new EntityUnsubscribeOrchImpl().unsubscribe(unsubscribeRequest, assertion, null, referenceParametersElements);
@@ -73,4 +75,9 @@ public class EntitySubscriptionManagerImpl
         log.debug("extracted reference parameters from soap header");
         return referenceParametersElements;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

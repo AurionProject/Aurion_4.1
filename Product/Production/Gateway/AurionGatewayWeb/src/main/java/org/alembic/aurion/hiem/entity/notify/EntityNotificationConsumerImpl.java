@@ -13,6 +13,7 @@ import org.alembic.aurion.common.nhinccommonentity.NotifyRequestType;
 import javax.xml.ws.WebServiceContext;
 import org.alembic.aurion.hiem.dte.SoapUtil;
 import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.oasis_open.docs.wsn.b_2.Notify;
 
 /**
@@ -27,6 +28,7 @@ public class EntityNotificationConsumerImpl {
     public AcknowledgementType notify(NotifyRequestType notifyRequest, WebServiceContext context) {
         log.debug("EntityNotifyServiceImpl.notify");
         AssertionType assertion = getAssertion(context, notifyRequest.getAssertion());
+        getSoapLogger().logRawAssertion(assertion);
 
         String rawNotifyXml = getRawXml(context);
 
@@ -36,6 +38,7 @@ public class EntityNotificationConsumerImpl {
     public AcknowledgementType notify(Notify notifyRequest, WebServiceContext context) {
         log.debug("EntityNotifyServiceImpl.notify");
         AssertionType assertion = getAssertion(context, null);
+        getSoapLogger().logRawAssertion(assertion);
 
         String rawNotifyXml = getRawXml(context);
 
@@ -61,4 +64,9 @@ public class EntityNotificationConsumerImpl {
         String rawNotifyXml = new SoapUtil().extractSoapMessage(context, "notifySoapMessage");
         return rawNotifyXml;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

@@ -4,11 +4,6 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.alembic.aurion.docretrieve.nhin.deferred.request;
 
 import org.alembic.aurion.common.nhinccommon.AssertionType;
@@ -17,6 +12,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import javax.xml.ws.WebServiceContext;
 import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
 import org.alembic.aurion.async.AsyncMessageIdExtractor;
+import org.alembic.aurion.util.soap.SoapLogger;
 
 /**
  *
@@ -25,6 +21,7 @@ import org.alembic.aurion.async.AsyncMessageIdExtractor;
 public class NhinDocRetrieveDeferredRequestImpl {
     public DocRetrieveAcknowledgementType respondingGatewayDeferredRequestCrossGatewayRetrieve(RetrieveDocumentSetRequestType body, WebServiceContext context) {
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+        getSoapLogger().logRawAssertion(assertion);
 
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
         if (assertion != null) {
@@ -33,6 +30,10 @@ public class NhinDocRetrieveDeferredRequestImpl {
         }
 
         return new NhinDocRetrieveDeferredReqOrchImpl().sendToRespondingGateway(body, assertion);
+    }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
     }
 
 }

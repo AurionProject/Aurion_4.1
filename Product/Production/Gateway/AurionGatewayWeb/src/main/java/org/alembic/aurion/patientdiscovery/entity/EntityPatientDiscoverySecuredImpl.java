@@ -15,6 +15,7 @@ import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
 import javax.xml.namespace.QName;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
@@ -57,6 +58,7 @@ public class EntityPatientDiscoverySecuredImpl {
             return null;
         } else {
             AssertionType assertion = extractAssertion(context);
+            getSoapLogger().logRawAssertion(assertion);
             setMessageID (assertion, context);
 
             EntityPatientDiscoveryOrchImpl processor = getEntityPatientDiscoveryProcessor();
@@ -93,4 +95,9 @@ public class EntityPatientDiscoverySecuredImpl {
         }
         return interfaceName;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

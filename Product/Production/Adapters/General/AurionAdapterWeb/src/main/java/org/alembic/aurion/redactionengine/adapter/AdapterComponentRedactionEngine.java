@@ -11,6 +11,7 @@ import org.alembic.aurion.common.nhinccommonadapter.FilterDocQueryResultsRespons
 import org.alembic.aurion.common.nhinccommonadapter.FilterDocRetrieveResultsRequestType;
 import org.alembic.aurion.common.nhinccommonadapter.FilterDocRetrieveResultsResponseType;
 import javax.annotation.Resource;
+import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -21,6 +22,7 @@ import javax.xml.ws.WebServiceContext;
  */
 @WebService(serviceName = "AdapterComponentRedactionEngineService", portName = "AdapterComponentRedactionEnginePortTypeBindingPort", endpointInterface = "org.alembic.aurion.adaptercomponentredaction.AdapterComponentRedactionEnginePortType", targetNamespace = "urn:org:alembic:aurion:adaptercomponentredaction", wsdlLocation = "WEB-INF/wsdl/AdapterComponentRedactionEngine/AdapterComponentRedactionEngine.wsdl")
 @BindingType(value = "http://www.w3.org/2003/05/soap/bindings/HTTP/")
+@HandlerChain(file = "AdapterComponentRedactionEngineSoapHandler.xml")
 public class AdapterComponentRedactionEngine
 {
     @Resource

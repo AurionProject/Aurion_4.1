@@ -11,6 +11,7 @@ import javax.xml.ws.BindingType;
 import org.alembic.aurion.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
 import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import javax.annotation.Resource;
+import javax.jws.HandlerChain;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
@@ -24,6 +25,7 @@ import javax.xml.ws.soap.Addressing;
             targetNamespace = "urn:org:alembic:aurion:entitydocquerydeferredrequestsecured",
             wsdlLocation = "WEB-INF/wsdl/EntityDocQueryDeferredReqSecured/EntityDocQueryDeferredRequestSecured.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file = "EntityDocQueryDeferredReqSoapHeaderHandler.xml")
 @Addressing(enabled=true)
 public class EntityDocQueryDeferredReqSecured extends EntityDocQueryDeferredReqImpl {
 

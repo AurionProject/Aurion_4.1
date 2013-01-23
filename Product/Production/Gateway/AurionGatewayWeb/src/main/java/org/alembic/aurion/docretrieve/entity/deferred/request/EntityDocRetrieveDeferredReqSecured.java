@@ -9,6 +9,7 @@ package org.alembic.aurion.docretrieve.entity.deferred.request;
 import org.alembic.aurion.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import javax.annotation.Resource;
+import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -19,6 +20,7 @@ import javax.xml.ws.soap.Addressing;
  */
 @WebService(serviceName = "EntityDocRetrieveDeferredRequestSecured", portName = "EntityDocRetrieveDeferredRequestSecuredPortSoap", endpointInterface = "org.alembic.aurion.entitydocretrievesecured.EntityDocRetrieveDeferredRequestSecuredPortType", targetNamespace = "urn:org:alembic:aurion:entitydocretrievesecured", wsdlLocation = "WEB-INF/wsdl/EntityDocRetrieveDeferredReqSecured/EntityDocRetrieveDeferredReqSecured.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file = "EntityDocRetrieveDeferredReqSoapHeaderHandler.xml")
 @Addressing(enabled=true)
 public class EntityDocRetrieveDeferredReqSecured extends EntityDocRetrieveDeferredRequestImpl
 {

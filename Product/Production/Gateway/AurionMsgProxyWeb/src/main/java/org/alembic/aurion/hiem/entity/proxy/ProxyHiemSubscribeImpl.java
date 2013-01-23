@@ -25,12 +25,14 @@ import org.oasis_open.docs.wsn.bw_2.UnacceptableInitialTerminationTimeFault;
 import org.oasis_open.docs.wsn.bw_2.UnrecognizedPolicyRequestFault;
 import org.oasis_open.docs.wsn.bw_2.UnsupportedPolicyRequestFault;
 import javax.xml.ws.WebServiceContext;
+import org.alembic.aurion.common.nhinccommon.AssertionType;
 import org.alembic.aurion.hiem.dte.SoapUtil;
 import org.alembic.aurion.hiem.dte.marshallers.SubscribeResponseMarshaller;
 import org.alembic.aurion.hiem.nhin.subscribe.proxy.NhinHiemSubscribeProxy;
 import org.alembic.aurion.hiem.nhin.subscribe.proxy.NhinHiemSubscribeProxyObjectFactory;
 import org.w3c.dom.Element;
 import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.alembic.aurion.xmlCommon.XmlUtility;
 
 /**
@@ -45,6 +47,9 @@ public class ProxyHiemSubscribeImpl {
         log.debug("Entering ProxyHiemSubscribeImpl.subscribe...");
         SubscribeResponse resp = null;
 
+        AssertionType assertion = subscribeRequest.getAssertion();
+        getSoapLogger().logRawAssertion(assertion);
+
         Element subscribeElement = new SoapUtil().extractFirstElement(context, "subscribeSoapMessage", "Subscribe");
 
         // Audit the Audit Log Query Request Message sent on the Nhin Interface
@@ -53,7 +58,7 @@ public class ProxyHiemSubscribeImpl {
         NhinHiemSubscribeProxyObjectFactory hiemSubscribeFactory = new NhinHiemSubscribeProxyObjectFactory();
         NhinHiemSubscribeProxy proxy = hiemSubscribeFactory.getNhinHiemSubscribeProxy();
 
-        Element responseElement = proxy.subscribe(subscribeElement, subscribeRequest.getAssertion(), subscribeRequest.getNhinTargetSystem());
+        Element responseElement = proxy.subscribe(subscribeElement, assertion, subscribeRequest.getNhinTargetSystem());
 
         SubscribeResponseMarshaller responseMarshaller = new SubscribeResponseMarshaller();
         resp = responseMarshaller.unmarshal(responseElement);
@@ -90,6 +95,9 @@ public class ProxyHiemSubscribeImpl {
         log.debug("Entering Secured ProxyHiemSubscribeImpl.subscribe...");
         SubscribeResponse resp = null;
 
+        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+        getSoapLogger().logRawAssertion(assertion);
+
         Element subscribeElement = new SoapUtil().extractFirstElement(context, "subscribeSoapMessage", "Subscribe");
 
         // Audit the Audit Log Query Request Message sent on the Nhin Interface
@@ -98,7 +106,7 @@ public class ProxyHiemSubscribeImpl {
         NhinHiemSubscribeProxyObjectFactory hiemSubscribeFactory = new NhinHiemSubscribeProxyObjectFactory();
         NhinHiemSubscribeProxy proxy = hiemSubscribeFactory.getNhinHiemSubscribeProxy();
 
-        Element responseElement = proxy.subscribe(subscribeElement, SamlTokenExtractor.GetAssertion(context), subscribeRequest.getNhinTargetSystem());
+        Element responseElement = proxy.subscribe(subscribeElement, assertion, subscribeRequest.getNhinTargetSystem());
 
         SubscribeResponseMarshaller responseMarshaller = new SubscribeResponseMarshaller();
         resp = responseMarshaller.unmarshal(responseElement);
@@ -130,4 +138,9 @@ public class ProxyHiemSubscribeImpl {
 
         return ack;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

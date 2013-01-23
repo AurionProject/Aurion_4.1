@@ -4,10 +4,6 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.alembic.aurion.docretrieve.entity;
 
 import org.alembic.aurion.async.AsyncMessageIdExtractor;
@@ -20,6 +16,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import javax.xml.namespace.QName;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 
 /**
  *
@@ -30,6 +27,7 @@ public class EntityDocRetreiveImpl {
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayQuery(ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body, final WebServiceContext context) {
         String interfaceName = getServiceNameFromContext(context);
         AssertionType assertion = getAssertion(context, null);
+        getSoapLogger().logRawAssertion(assertion);
         setMessageID (assertion, context);
 
         AuditPerformance oAuditPerformance = PerformanceMonitorUtil.buildAuditPerfromance(0, interfaceName, AsyncMessageIdExtractor.GetAsyncMessageId(context), NhincConstants.SERVICE_REQUEST_STRING);
@@ -42,6 +40,7 @@ public class EntityDocRetreiveImpl {
 
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayQuery(ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body, AssertionType assertion, final WebServiceContext context) {
         String interfaceName = getServiceNameFromContext(context);
+        getSoapLogger().logRawAssertion(assertion);
         AssertionType assertionWithId = getAssertion(context, assertion);
         setMessageID (assertionWithId, context);
         AuditPerformance oAuditPerformance = PerformanceMonitorUtil.buildAuditPerfromance(0, interfaceName, AsyncMessageIdExtractor.GetAsyncMessageId(context), NhincConstants.SERVICE_REQUEST_STRING);
@@ -95,4 +94,9 @@ public class EntityDocRetreiveImpl {
         }
         return interfaceName;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

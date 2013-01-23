@@ -4,14 +4,10 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.alembic.aurion.docquery.passthru;
 
 import javax.annotation.Resource;
+import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -23,6 +19,7 @@ import javax.xml.ws.soap.Addressing;
  */
 @WebService(serviceName = "NhincProxyDocQuery", portName = "NhincProxyDocQueryPortSoap", endpointInterface = "org.alembic.aurion.nhincproxydocquery.NhincProxyDocQueryPortType", targetNamespace = "urn:org:alembic:aurion:nhincproxydocquery", wsdlLocation = "WEB-INF/wsdl/NhincProxyDocQueryUnsecured/NhincProxyDocQuery.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file = "NhincProxyDocQuerySoapHeaderHandler.xml")
 @Addressing(enabled=true)
 public class NhincProxyDocQueryUnsecured {
     @Resource

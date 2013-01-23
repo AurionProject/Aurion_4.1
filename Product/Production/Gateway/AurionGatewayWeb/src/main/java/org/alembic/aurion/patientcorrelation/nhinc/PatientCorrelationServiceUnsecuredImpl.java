@@ -4,16 +4,11 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.alembic.aurion.patientcorrelation.nhinc;
 
 import org.alembic.aurion.async.AsyncMessageIdExtractor;
-import org.alembic.aurion.common.nhinccommon.AssertionType;
-import org.alembic.aurion.patientcorrelation.nhinc.PatientCorrelationOrchImpl;
 import javax.xml.ws.WebServiceContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.hl7.v3.AddPatientCorrelationRequestType;
 import org.hl7.v3.AddPatientCorrelationResponseType;
 import org.hl7.v3.RetrievePatientCorrelationsRequestType;
@@ -30,6 +25,7 @@ public class PatientCorrelationServiceUnsecuredImpl {
     public RetrievePatientCorrelationsResponseType retrievePatientCorrelations(RetrievePatientCorrelationsRequestType retrievePatientCorrelationsRequest, WebServiceContext context) {
         if (retrievePatientCorrelationsRequest != null &&
                 retrievePatientCorrelationsRequest.getAssertion() != null) {
+            getSoapLogger().logRawAssertion(retrievePatientCorrelationsRequest.getAssertion());
             retrievePatientCorrelationsRequest.getAssertion().setMessageId(createMessageId(context));
         }
 
@@ -42,6 +38,7 @@ public class PatientCorrelationServiceUnsecuredImpl {
     public AddPatientCorrelationResponseType addPatientCorrelation(AddPatientCorrelationRequestType addPatientCorrelationRequest, WebServiceContext context) {
         if (addPatientCorrelationRequest != null &&
                 addPatientCorrelationRequest.getAssertion() != null) {
+            getSoapLogger().logRawAssertion(addPatientCorrelationRequest.getAssertion());
             addPatientCorrelationRequest.getAssertion().setMessageId(createMessageId(context));
         }
 
@@ -56,4 +53,9 @@ public class PatientCorrelationServiceUnsecuredImpl {
         AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
         return msgIdExtractor.GetAsyncMessageId(context);
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

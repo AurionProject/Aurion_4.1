@@ -10,6 +10,7 @@ import javax.xml.ws.WebServiceContext;
 import org.alembic.aurion.common.nhinccommon.AssertionType;
 import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
 import org.alembic.aurion.common.nhinccommonadapter.CheckPolicyResponseType;
+import org.alembic.aurion.util.soap.SoapLogger;
 
 /**
  *
@@ -24,6 +25,7 @@ public class AdapterPolicyEngineSecuredImpl
     {
         // Collect assertion
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+        getSoapLogger().logRawAssertion(assertion);
         CheckPolicyResponseType checkPolicyResp = null;
 
         AdapterPolicyEngineProcessorImpl oPolicyEngine = new AdapterPolicyEngineProcessorImpl();
@@ -43,4 +45,9 @@ public class AdapterPolicyEngineSecuredImpl
         }
         return checkPolicyResp;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

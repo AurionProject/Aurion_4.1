@@ -4,14 +4,10 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.alembic.aurion.docsubmission.entity.deferred.request;
 
 import javax.annotation.Resource;
+import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -23,6 +19,7 @@ import javax.xml.ws.soap.Addressing;
  */
 @WebService(serviceName = "EntityXDRAsyncRequest_Service", portName = "EntityXDRAsyncRequest_Port", endpointInterface = "org.alembic.aurion.nhincentityxdr.async.request.EntityXDRAsyncRequestPortType", targetNamespace = "urn:org:alembic:aurion:nhincentityxdr:async:request", wsdlLocation = "WEB-INF/wsdl/EntityDocSubmissionDeferredRequestUnsecured/EntityXDRRequest.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file = "EntityDocSubmissionDeferredRequestSoapHeaderHandler.xml")
 @Addressing(enabled=true)
 public class EntityDocSubmissionDeferredRequestUnsecured {
     @Resource

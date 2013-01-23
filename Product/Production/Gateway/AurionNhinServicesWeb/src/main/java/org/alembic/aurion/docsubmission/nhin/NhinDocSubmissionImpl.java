@@ -17,6 +17,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import javax.xml.namespace.QName;
 import javax.xml.ws.handler.MessageContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 
 /**
  *
@@ -28,6 +29,7 @@ public class NhinDocSubmissionImpl {
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
 
         if (assertion != null) {
+            getSoapLogger().logRawAssertion(assertion);
             assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
         }
         String interfaceName = getServiceNameFromContext(context);
@@ -52,4 +54,9 @@ public class NhinDocSubmissionImpl {
         }
         return interfaceName;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

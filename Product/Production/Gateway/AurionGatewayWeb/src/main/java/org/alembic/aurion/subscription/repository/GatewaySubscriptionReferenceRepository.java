@@ -6,6 +6,7 @@
  */
 package org.alembic.aurion.subscription.repository;
 
+import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import org.apache.commons.logging.Log;
@@ -17,6 +18,7 @@ import org.apache.commons.logging.LogFactory;
  */
 @WebService(serviceName = "NhincComponentSubscriptionReferenceRepositoryService", portName = "NhincComponentSubscriptionReferenceRepositoryPortTypeBindingPort", endpointInterface = "org.alembic.aurion.nhinccomponentsubscriptionreferencerepository.NhincComponentSubscriptionReferenceRepositoryPortType", targetNamespace = "urn:org:alembic:aurion:nhinccomponentsubscriptionreferencerepository", wsdlLocation = "WEB-INF/wsdl/GatewaySubscriptionReferenceRepository/NhincComponentSubscriptionReferenceRepository.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file = "GatewaySubscriptionRepositorySoapHeaderHandler.xml")
 public class GatewaySubscriptionReferenceRepository
 {
     private static Log log = LogFactory.getLog(GatewaySubscriptionReferenceRepository.class);

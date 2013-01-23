@@ -7,6 +7,7 @@
 package org.alembic.aurion.policyengine.adapter;
 
 import javax.annotation.Resource;
+import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -17,6 +18,7 @@ import javax.xml.ws.WebServiceContext;
  */
 @WebService(serviceName = "AdapterPolicyEngineSecured", portName = "AdapterPolicyEngineSecuredPortSoap", endpointInterface = "org.alembic.aurion.adapterpolicyenginesecured.AdapterPolicyEngineSecuredPortType", targetNamespace = "urn:org:alembic:aurion:adapterpolicyenginesecured", wsdlLocation = "WEB-INF/wsdl/AdapterPolicyEngineSecured/AdapterPolicyEngineSecured.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file = "AdapterPolicyEngineSoapHandler.xml")
 public class AdapterPolicyEngineSecured {
 
     @Resource

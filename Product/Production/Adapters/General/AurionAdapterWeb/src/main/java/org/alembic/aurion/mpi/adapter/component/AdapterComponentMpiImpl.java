@@ -4,15 +4,12 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.alembic.aurion.mpi.adapter.component;
 
 import org.alembic.aurion.common.nhinccommon.AssertionType;
 import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
 import javax.xml.ws.WebServiceContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -50,6 +47,7 @@ public class AdapterComponentMpiImpl
         {
             assertion = new AssertionType();
         }
+        getSoapLogger().logRawAssertion(assertion);
 
         AdapterComponentMpiOrchImpl oOrchestrator = new AdapterComponentMpiOrchImpl();
         PRPAIN201306UV02 response = oOrchestrator.findCandidates(findCandidatesRequest, assertion);
@@ -58,4 +56,9 @@ public class AdapterComponentMpiImpl
         log.debug("Exiting AdapterComponentMpiImpl.findCandidates");
         return response;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

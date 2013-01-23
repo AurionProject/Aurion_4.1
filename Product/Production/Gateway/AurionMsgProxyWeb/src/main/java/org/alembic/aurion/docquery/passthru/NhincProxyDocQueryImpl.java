@@ -16,9 +16,9 @@ import org.alembic.aurion.nhinclib.NhincConstants;
 import org.alembic.aurion.performance.model.AuditPerformance;
 import org.alembic.aurion.performance.monitor.PerformanceMonitorUtil;
 import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
-import org.alembic.aurion.service.WebServiceHelper;
 import javax.xml.namespace.QName;
 import javax.xml.ws.handler.MessageContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 
 /**
  *
@@ -41,8 +41,8 @@ public class NhincProxyDocQueryImpl {
     }
 
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(RespondingGatewayCrossGatewayQuerySecuredRequestType body, WebServiceContext context) {
-        WebServiceHelper oHelper = new WebServiceHelper();
         AssertionType assertion = getAssertion(context, null);
+        getSoapLogger().logRawAssertion(assertion);
         String interfaceName = getServiceNameFromContext(context);
         AuditPerformance oAuditPerformance = PerformanceMonitorUtil.buildAuditPerfromance(0, interfaceName, AsyncMessageIdExtractor.GetAsyncMessageId(context), NhincConstants.SERVICE_REQUEST_STRING);
         PerformanceMonitorUtil.getPerformanceProxy().logPerformance(oAuditPerformance);
@@ -81,4 +81,9 @@ public class NhincProxyDocQueryImpl {
         }
         return interfaceName;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

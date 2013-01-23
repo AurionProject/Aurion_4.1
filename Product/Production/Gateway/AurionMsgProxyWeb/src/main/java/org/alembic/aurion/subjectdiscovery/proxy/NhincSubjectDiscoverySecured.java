@@ -8,6 +8,7 @@ package org.alembic.aurion.subjectdiscovery.proxy;
 
 import javax.jws.WebService;
 import javax.annotation.Resource;
+import javax.jws.HandlerChain;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
@@ -17,6 +18,7 @@ import javax.xml.ws.WebServiceContext;
  */
 @WebService(serviceName = "NhincProxySubjectDiscoverySecured", portName = "NhincProxySubjectDiscoverySecuredPortSoap", endpointInterface = "org.alembic.aurion.nhincproxysubjectdiscoverysecured.NhincProxySubjectDiscoverySecuredPortType", targetNamespace = "urn:org:alembic:aurion:nhincproxysubjectdiscoverysecured", wsdlLocation = "WEB-INF/wsdl/NhincSubjectDiscoverySecured/NhincProxySubjectDiscoverySecured.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file = "NhincSubjectDiscoverySoapHeaderHandler.xml")
 public class NhincSubjectDiscoverySecured
 {
     @Resource

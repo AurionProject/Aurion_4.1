@@ -9,6 +9,7 @@ package org.alembic.aurion.docretrieve.passthru.deferred.request;
 import org.alembic.aurion.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveRequestType;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import javax.annotation.Resource;
+import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -20,6 +21,7 @@ import javax.xml.ws.soap.Addressing;
  */
 @WebService(serviceName = "NhincProxyDocRetrieveDeferredRequest", portName = "NhincProxyDocRetrieveDeferredRequestPortSoap", endpointInterface = "org.alembic.aurion.nhincproxydocretrievedeferredrequest.NhincProxyDocRetrieveDeferredRequestPortType", targetNamespace = "urn:org:alembic:aurion:nhincproxydocretrievedeferredrequest", wsdlLocation = "WEB-INF/wsdl/PassthruDocRetrieveDeferredRequestUnsecured/NhincProxyDocRetrieveDeferredReq.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file = "PassthruDocRetrieveDeferredRequestSoapHeaderHandler.xml")
 @Addressing(enabled=true)
 public class PassthruDocRetrieveDeferredRequestUnsecured extends PassthruDocRetrieveDeferredRequestImpl {
 

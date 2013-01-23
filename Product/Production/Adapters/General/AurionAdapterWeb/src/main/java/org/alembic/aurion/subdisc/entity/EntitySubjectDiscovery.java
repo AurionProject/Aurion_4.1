@@ -6,6 +6,7 @@
  */
 package org.alembic.aurion.subdisc.entity;
 
+import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 
@@ -15,6 +16,7 @@ import javax.xml.ws.BindingType;
  */
 @WebService(serviceName = "EntitySubjectDiscovery", portName = "EntitySubjectDiscoveryPortSoap", endpointInterface = "org.alembic.aurion.entitysubjectdiscovery.EntitySubjectDiscoveryPortType", targetNamespace = "urn:org:alembic:aurion:entitysubjectdiscovery", wsdlLocation = "WEB-INF/wsdl/EntitySubjectDiscovery/EntitySubjectDiscovery.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file = "EntitySubjectDiscoverySoapHandler.xml")
 public class EntitySubjectDiscovery {
 
     public org.hl7.v3.MCCIIN000002UV01 pixConsumerPRPAIN201301UV(org.hl7.v3.PIXConsumerPRPAIN201301UVRequestType pixConsumerPRPAIN201301UVRequest) {

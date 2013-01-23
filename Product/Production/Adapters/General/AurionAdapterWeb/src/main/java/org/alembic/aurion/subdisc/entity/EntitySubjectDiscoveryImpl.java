@@ -18,6 +18,7 @@ import org.alembic.aurion.nhinclib.NhincConstants;
 import org.alembic.aurion.saml.extraction.SamlTokenCreator;
 import java.util.Map;
 import javax.xml.ws.BindingProvider;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PIXConsumerPRPAIN201301UVRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201301UVSecuredRequestType;
@@ -46,6 +47,7 @@ public class EntitySubjectDiscoveryImpl {
             EntitySubjectDiscoverySecuredPortType port = getPort(url);
 
             AssertionType assertIn = request.getAssertion();
+            getSoapLogger().logRawAssertion(assertIn);
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map requestContext = tokenCreator.CreateRequestContext(assertIn, url, NhincConstants.SUBJECT_DISCOVERY_ACTION);
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
@@ -71,6 +73,7 @@ public class EntitySubjectDiscoveryImpl {
             EntitySubjectDiscoverySecuredPortType port = getPort(url);
 
             AssertionType assertIn = request.getAssertion();
+            getSoapLogger().logRawAssertion(assertIn);
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map requestContext = tokenCreator.CreateRequestContext(assertIn, url, NhincConstants.SUBJECT_DISCOVERY_ACTION);
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
@@ -101,6 +104,7 @@ public class EntitySubjectDiscoveryImpl {
             EntitySubjectDiscoverySecuredPortType port = getPort(url);
 
             AssertionType assertIn = request.getAssertion();
+            getSoapLogger().logRawAssertion(assertIn);
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map requestContext = tokenCreator.CreateRequestContext(assertIn, url, NhincConstants.SUBJECT_DISCOVERY_ACTION);
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
@@ -124,4 +128,9 @@ public class EntitySubjectDiscoveryImpl {
 
         return port;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

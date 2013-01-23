@@ -6,6 +6,7 @@
  */
 package org.alembic.aurion.adapterauthentication;
 
+import javax.jws.HandlerChain;
 import org.alembic.aurion.common.nhinccommonadapter.AuthenticateUserResponseType;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
@@ -18,6 +19,7 @@ import org.apache.commons.logging.LogFactory;
  */
 @WebService(serviceName = "AdapterAuthentication", portName = "AdapterAuthenticationPortSoap", endpointInterface = "org.alembic.aurion.adapterauthentication.AdapterAuthenticationPortType", targetNamespace = "urn:org:alembic:aurion:adapterauthentication", wsdlLocation = "WEB-INF/wsdl/AdapterAuthenticationService/AdapterAuthentication.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file = "AdapterAuthenticationSoapHeaderHandler.xml")
 public class AdapterAuthenticationService {
 
     private static Log log = LogFactory.getLog(AdapterAuthenticationService.class);

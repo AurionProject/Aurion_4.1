@@ -4,11 +4,6 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.alembic.aurion.adapter.subjectdiscovery;
 
 import org.alembic.aurion.adaptersubjectdiscoverysecured.AdapterSubjectDiscoverySecured;
@@ -19,6 +14,7 @@ import org.alembic.aurion.nhinclib.NhincConstants;
 import org.alembic.aurion.saml.extraction.SamlTokenCreator;
 import java.util.Map;
 import javax.xml.ws.BindingProvider;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PIXConsumerPRPAIN201301UVRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201302UVRequestType;
@@ -44,6 +40,7 @@ public class AdapterSubjectDiscoveryImpl {
             AdapterSubjectDiscoverySecuredPortType port = getPort(url);
 
             AssertionType assertIn = pixConsumerPRPAIN201301UVRequest.getAssertion();
+            getSoapLogger().logRawAssertion(assertIn);
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map requestContext = tokenCreator.CreateRequestContext(assertIn, url, NhincConstants.SUBJECT_DISCOVERY_ACTION);
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
@@ -67,6 +64,7 @@ public class AdapterSubjectDiscoveryImpl {
             AdapterSubjectDiscoverySecuredPortType port = getPort(url);
 
             AssertionType assertIn = pixConsumerPRPAIN201302UVRequest.getAssertion();
+            getSoapLogger().logRawAssertion(assertIn);
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map requestContext = tokenCreator.CreateRequestContext(assertIn, url, NhincConstants.SUBJECT_DISCOVERY_ACTION);
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
@@ -98,6 +96,7 @@ public class AdapterSubjectDiscoveryImpl {
             AdapterSubjectDiscoverySecuredPortType port = getPort(url);
 
             AssertionType assertIn = pixConsumerPRPAIN201309UVRequest.getAssertion();
+            getSoapLogger().logRawAssertion(assertIn);
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map requestContext = tokenCreator.CreateRequestContext(assertIn, url, NhincConstants.SUBJECT_DISCOVERY_ACTION);
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
@@ -122,4 +121,9 @@ public class AdapterSubjectDiscoveryImpl {
 
         return port;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

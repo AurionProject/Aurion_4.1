@@ -8,6 +8,7 @@ package org.alembic.aurion.subjectdiscovery.entity;
 
 import javax.jws.WebService;
 import javax.annotation.Resource;
+import javax.jws.HandlerChain;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
@@ -17,6 +18,7 @@ import javax.xml.ws.WebServiceContext;
  */
 @WebService(serviceName = "EntitySubjectDiscoverySecured", portName = "EntitySubjectDiscoverySecuredPortSoap", endpointInterface = "org.alembic.aurion.entitysubjectdiscoverysecured.EntitySubjectDiscoverySecuredPortType", targetNamespace = "urn:org:alembic:aurion:entitysubjectdiscoverysecured", wsdlLocation = "WEB-INF/wsdl/EntitySubjectDiscoverySecured/EntitySubjectDiscoverySecured.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file = "EntitySubjectDiscoverySoapHeaderHandler.xml")
 public class EntitySubjectDiscoverySecured
 {
     @Resource

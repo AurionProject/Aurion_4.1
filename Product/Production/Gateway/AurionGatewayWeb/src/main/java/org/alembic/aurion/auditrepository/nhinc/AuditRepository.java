@@ -8,10 +8,9 @@ package org.alembic.aurion.auditrepository.nhinc;
 
 import javax.jws.WebService;
 import javax.annotation.Resource;
+import javax.jws.HandlerChain;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  *
@@ -19,6 +18,7 @@ import org.apache.commons.logging.LogFactory;
  */
 @WebService(serviceName = "AuditRepositoryManagerSecuredService", portName = "AuditRepositoryManagerSecuredPort", endpointInterface = "org.alembic.aurion.nhinccomponentauditrepository.AuditRepositoryManagerSecuredPortType", targetNamespace = "urn:org:alembic:aurion:nhinccomponentauditrepository", wsdlLocation = "WEB-INF/wsdl/AuditRepository/NhincComponentAuditRepositorySecured.wsdl")
 @BindingType(value = "http://www.w3.org/2003/05/soap/bindings/HTTP/")
+@HandlerChain(file = "AuditRepositorySoapHeaderHandler.xml")
 public class AuditRepository
 {
     @Resource

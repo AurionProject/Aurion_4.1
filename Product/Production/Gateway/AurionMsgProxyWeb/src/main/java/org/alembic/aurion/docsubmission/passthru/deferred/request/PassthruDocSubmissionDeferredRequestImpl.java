@@ -13,6 +13,7 @@ import javax.xml.ws.WebServiceContext;
 import org.alembic.aurion.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+import org.alembic.aurion.util.soap.SoapLogger;
 
 /**
  *
@@ -25,6 +26,7 @@ public class PassthruDocSubmissionDeferredRequestImpl
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterRequestRequest, WebServiceContext context)
     {
         AssertionType assertion = extractAssertionFromContext(context, null);
+        getSoapLogger().logRawAssertion(assertion);
 
         return new PassthruDocSubmissionDeferredRequestOrchImpl().provideAndRegisterDocumentSetBRequest(provideAndRegisterRequestRequest.getProvideAndRegisterDocumentSetRequest(), assertion, provideAndRegisterRequestRequest.getNhinTargetSystem());
     }
@@ -32,6 +34,7 @@ public class PassthruDocSubmissionDeferredRequestImpl
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(RespondingGatewayProvideAndRegisterDocumentSetRequestType provideAndRegisterRequestRequest, WebServiceContext context)
     {
         AssertionType assertion = extractAssertionFromContext(context, provideAndRegisterRequestRequest.getAssertion());
+        getSoapLogger().logRawAssertion(assertion);
 
         return new PassthruDocSubmissionDeferredRequestOrchImpl().provideAndRegisterDocumentSetBRequest(provideAndRegisterRequestRequest.getProvideAndRegisterDocumentSetRequest(), assertion, provideAndRegisterRequestRequest.getNhinTargetSystem());
         
@@ -51,6 +54,10 @@ public class PassthruDocSubmissionDeferredRequestImpl
         }
 
         return assertion;
+    }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
     }
 
 }

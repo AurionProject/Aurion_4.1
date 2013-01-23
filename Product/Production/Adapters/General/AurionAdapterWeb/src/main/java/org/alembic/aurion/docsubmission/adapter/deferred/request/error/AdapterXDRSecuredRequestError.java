@@ -7,6 +7,7 @@
 package org.alembic.aurion.docsubmission.adapter.deferred.request.error;
 
 import javax.annotation.Resource;
+import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -18,6 +19,7 @@ import javax.xml.ws.soap.Addressing;
  */
 @WebService(serviceName = "AdapterXDRRequestErrorSecured_Service", portName = "AdapterXDRRequestErrorSecured_Port_Soap", endpointInterface = "org.alembic.aurion.adapterxdrrequesterrorsecured.AdapterXDRRequestErrorSecuredPortType", targetNamespace = "urn:org:alembic:aurion:adapterxdrrequesterrorsecured", wsdlLocation = "WEB-INF/wsdl/AdapterXDRSecuredRequestError/AdapterXDRRequestSecuredError.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file = "AdapterXDRRequestErrorSoapHandler.xml")
 @Addressing(enabled = true)
 public class AdapterXDRSecuredRequestError
 {

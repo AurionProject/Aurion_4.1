@@ -9,6 +9,7 @@ package org.alembic.aurion.policyengine.adapter.pep;
 import org.alembic.aurion.common.nhinccommon.AssertionType;
 import org.alembic.aurion.common.nhinccommonadapter.CheckPolicyResponseType;
 import javax.xml.ws.WebServiceContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -54,6 +55,7 @@ public class AdapterPEPServiceImpl
         try {
             AssertionType assertion = checkPolicyRequest.getAssertion();
             loadAssertion(assertion, context);
+            getSoapLogger().logRawAssertion(assertion);
 
             checkPolicyResp = adapterPEPImpl.checkPolicy(checkPolicyRequest, assertion);
         } catch (Exception ex) {
@@ -63,6 +65,10 @@ public class AdapterPEPServiceImpl
             throw new RuntimeException(message, ex);
         }
         return checkPolicyResp;
+    }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
     }
 
 }

@@ -8,6 +8,7 @@ package org.alembic.aurion.docquery.passthru;
 
 import javax.jws.WebService;
 import javax.annotation.Resource;
+import javax.jws.HandlerChain;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
@@ -18,6 +19,7 @@ import javax.xml.ws.soap.Addressing;
  */
 @WebService(serviceName = "NhincProxyDocQuerySecured", portName = "NhincProxyDocQuerySecuredPortSoap", endpointInterface = "org.alembic.aurion.nhincproxydocquerysecured.NhincProxyDocQuerySecuredPortType", targetNamespace = "urn:org:alembic:aurion:nhincproxydocquerysecured", wsdlLocation = "WEB-INF/wsdl/NhincProxyDocQuerySecured/NhincProxyDocQuerySecured.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file = "NhincProxyDocQuerySoapHeaderHandler.xml")
 @Addressing(enabled=true)
 public class NhincProxyDocQuerySecured {
 

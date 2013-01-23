@@ -11,6 +11,7 @@ import org.alembic.aurion.common.nhinccommonadapter.RetrievePtConsentByPtDocIdRe
 import org.alembic.aurion.common.nhinccommonadapter.RetrievePtConsentByPtIdResponseType;
 import org.alembic.aurion.common.nhinccommonadapter.StorePtConsentResponseType;
 import javax.xml.ws.WebServiceContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -60,6 +61,7 @@ public class AdapterPIPServiceImpl
         {
             AssertionType assertion = retrievePtConsentByPtIdRequest.getAssertion();
             loadAssertion(assertion, context);
+            getSoapLogger().logRawAssertion(assertion);
 
             oResponse = oAdapterPIPImpl.retrievePtConsentByPtId(retrievePtConsentByPtIdRequest);
         } catch (Exception e) {
@@ -90,6 +92,7 @@ public class AdapterPIPServiceImpl
         try {
             AssertionType assertion = retrievePtConsentByPtDocIdRequest.getAssertion();
             loadAssertion(assertion, context);
+            getSoapLogger().logRawAssertion(assertion);
 
             oResponse = oAdapterPIPImpl.retrievePtConsentByPtDocId(retrievePtConsentByPtDocIdRequest);
         } catch (Exception e) {
@@ -118,6 +121,7 @@ public class AdapterPIPServiceImpl
         try {
             AssertionType assertion = storePtConsentRequest.getAssertion();
             loadAssertion(assertion, context);
+            getSoapLogger().logRawAssertion(assertion);
 
             oResponse = oAdapterPIPImpl.storePtConsent(storePtConsentRequest);
         } catch (Exception e) {
@@ -129,6 +133,10 @@ public class AdapterPIPServiceImpl
         }
 
         return oResponse;
+    }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
     }
 
 }

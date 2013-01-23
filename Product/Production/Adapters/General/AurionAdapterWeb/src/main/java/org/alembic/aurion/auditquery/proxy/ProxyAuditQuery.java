@@ -6,6 +6,7 @@
  */
 package org.alembic.aurion.auditquery.proxy;
 
+import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 
@@ -15,6 +16,7 @@ import javax.xml.ws.BindingType;
  */
 @WebService(serviceName = "NhincProxyAuditLogQuery", portName = "NhincProxyAuditLogQueryPortSoap", endpointInterface = "org.alembic.aurion.nhincproxyauditlogquery.NhincProxyAuditLogQueryPortType", targetNamespace = "urn:org:alembic:aurion:nhincproxyauditlogquery", wsdlLocation = "WEB-INF/wsdl/ProxyAuditQuery/NhincProxyAuditLogQuery.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file = "ProxyAuditQuerySoapHeaderHandler.xml")
 public class ProxyAuditQuery {
 
     public com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType findAuditEvents(org.alembic.aurion.common.nhinccommonproxy.FindAuditEventsRequestType findAuditEventsRequest) {

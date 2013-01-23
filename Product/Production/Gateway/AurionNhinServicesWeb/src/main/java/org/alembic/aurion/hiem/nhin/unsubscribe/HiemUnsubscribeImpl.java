@@ -16,6 +16,7 @@ import org.oasis_open.docs.wsn.b_2.Unsubscribe;
 import org.oasis_open.docs.wsn.b_2.UnsubscribeResponse;
 import org.alembic.aurion.hiem.processor.faults.SubscriptionManagerSoapFaultFactory;
 import org.alembic.aurion.nhinclib.NhincConstants;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault;
 import org.oasis_open.docs.wsn.bw_2.UnableToDestroySubscriptionFault;
 
@@ -31,6 +32,7 @@ public class HiemUnsubscribeImpl {
         try {
             NhinHiemUnsubscribeOrchImpl unsubscribeOrchImpl = new NhinHiemUnsubscribeOrchImpl();
             AssertionType assertion = getAssertion(context, null);
+            getSoapLogger().logRawAssertion(assertion);
             ReferenceParametersElements referenceParametersElements = getRefParams(context);
             response = unsubscribeOrchImpl.unsubscribe(unsubscribeRequest, referenceParametersElements, assertion);
         } catch (Exception ex) {
@@ -60,4 +62,9 @@ public class HiemUnsubscribeImpl {
 
         return assertion;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

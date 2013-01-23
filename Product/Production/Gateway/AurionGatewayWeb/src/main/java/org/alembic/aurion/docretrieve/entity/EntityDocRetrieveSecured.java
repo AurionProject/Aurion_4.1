@@ -8,6 +8,7 @@ package org.alembic.aurion.docretrieve.entity;
 
 import javax.jws.WebService;
 import javax.annotation.Resource;
+import javax.jws.HandlerChain;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
@@ -18,6 +19,7 @@ import javax.xml.ws.soap.Addressing;
  */
 @WebService(serviceName = "EntityDocRetrieveSecured", portName = "EntityDocRetrieveSecuredPortSoap", endpointInterface = "org.alembic.aurion.entitydocretrievesecured.EntityDocRetrieveSecuredPortType", targetNamespace = "urn:org:alembic:aurion:entitydocretrievesecured", wsdlLocation = "WEB-INF/wsdl/EntityDocRetrieveSecured/EntityDocRetrieveSecured.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file = "EntityDocRetrieveSoapHeaderHandler.xml")
 @Addressing(enabled=true)
 public class EntityDocRetrieveSecured
 {

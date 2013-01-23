@@ -12,6 +12,7 @@ import javax.xml.ws.WebServiceContext;
 import org.alembic.aurion.common.nhinccommon.AssertionType;
 import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+import org.alembic.aurion.util.soap.SoapLogger;
 
 /**
  *
@@ -21,6 +22,7 @@ public class EntityDocSubmissionDeferredRequestImpl {
 
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterRequestRequest, WebServiceContext context) {
         AssertionType assertion = extractAssertionFromContext(context, null);
+        getSoapLogger().logRawAssertion(assertion);
 
         XDRAcknowledgementType response = new EntityDocSubmissionDeferredRequestOrchImpl().provideAndRegisterDocumentSetBAsyncRequest(provideAndRegisterRequestRequest.getProvideAndRegisterDocumentSetRequest(), assertion, provideAndRegisterRequestRequest.getNhinTargetCommunities(), provideAndRegisterRequestRequest.getUrl());
         
@@ -29,6 +31,7 @@ public class EntityDocSubmissionDeferredRequestImpl {
 
     public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(org.alembic.aurion.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType provideAndRegisterAsyncReqRequest, WebServiceContext context) {
         AssertionType assertion = extractAssertionFromContext(context, provideAndRegisterAsyncReqRequest.getAssertion());
+        getSoapLogger().logRawAssertion(assertion);
 
         XDRAcknowledgementType response = new EntityDocSubmissionDeferredRequestOrchImpl().provideAndRegisterDocumentSetBAsyncRequest(provideAndRegisterAsyncReqRequest.getProvideAndRegisterDocumentSetRequest(), assertion, provideAndRegisterAsyncReqRequest.getNhinTargetCommunities(), provideAndRegisterAsyncReqRequest.getUrl());
 
@@ -49,4 +52,9 @@ public class EntityDocSubmissionDeferredRequestImpl {
 
         return assertion;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

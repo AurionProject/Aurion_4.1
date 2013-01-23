@@ -6,6 +6,7 @@
  */
 package org.alembic.aurion.auditquery.entity;
 
+import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 
@@ -15,6 +16,7 @@ import javax.xml.ws.BindingType;
  */
 @WebService(serviceName = "EntityAuditLogQuery", portName = "EntityAuditLogQueryPortSoap", endpointInterface = "org.alembic.aurion.entityauditlogquery.EntityAuditLogQueryPortType", targetNamespace = "urn:org:alembic:aurion:entityauditlogquery", wsdlLocation = "WEB-INF/wsdl/EntityAuditQuery/EntityAuditLogQuery.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file = "EntityAuditQuerySoapHeaderHandler.xml")
 public class EntityAuditQuery {
 
     public com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType findAuditEvents(org.alembic.aurion.common.nhinccommonentity.FindAuditEventsRequestType findAuditEventsRequest) {

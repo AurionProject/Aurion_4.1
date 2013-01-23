@@ -7,6 +7,7 @@
 package org.alembic.aurion.patientdiscovery.entity;
 
 import javax.annotation.Resource;
+import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -19,6 +20,7 @@ import javax.xml.ws.soap.Addressing;
  */
 @WebService(serviceName = "EntityPatientDiscovery", portName = "EntityPatientDiscoveryPortSoap", endpointInterface = "org.alembic.aurion.entitypatientdiscovery.EntityPatientDiscoveryPortType", targetNamespace = "urn:org:alembic:aurion:entitypatientdiscovery", wsdlLocation = "WEB-INF/wsdl/EntityPatientDiscoveryUnsecured/EntityPatientDiscovery.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file = "EntityPatientDiscoverySoapHeaderHandler.xml")
 @Addressing(enabled=true)
 public class EntityPatientDiscoveryUnsecured
 {

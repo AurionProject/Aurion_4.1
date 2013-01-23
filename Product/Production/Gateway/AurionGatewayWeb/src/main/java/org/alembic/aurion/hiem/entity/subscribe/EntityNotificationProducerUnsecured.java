@@ -1,22 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.alembic.aurion.hiem.entity.subscribe;
 
-import org.alembic.aurion.entitysubscriptionmanagement.InvalidFilterFault;
-import org.alembic.aurion.entitysubscriptionmanagement.InvalidMessageContentExpressionFault;
-import org.alembic.aurion.entitysubscriptionmanagement.InvalidProducerPropertiesExpressionFault;
-import org.alembic.aurion.entitysubscriptionmanagement.InvalidTopicExpressionFault;
-import org.alembic.aurion.entitysubscriptionmanagement.NotifyMessageNotSupportedFault;
-import org.alembic.aurion.entitysubscriptionmanagement.ResourceUnknownFault;
-import org.alembic.aurion.entitysubscriptionmanagement.SubscribeCreationFailedFault;
-import org.alembic.aurion.entitysubscriptionmanagement.TopicExpressionDialectUnknownFault;
-import org.alembic.aurion.entitysubscriptionmanagement.TopicNotSupportedFault;
-import org.alembic.aurion.entitysubscriptionmanagement.UnacceptableInitialTerminationTimeFault;
-import org.alembic.aurion.entitysubscriptionmanagement.UnrecognizedPolicyRequestFault;
-import org.alembic.aurion.entitysubscriptionmanagement.UnsupportedPolicyRequestFault;
 import javax.annotation.Resource;
 import javax.jws.HandlerChain;
 import javax.jws.WebService;

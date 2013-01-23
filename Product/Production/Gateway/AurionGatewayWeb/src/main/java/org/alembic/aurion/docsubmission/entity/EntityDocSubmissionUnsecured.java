@@ -8,6 +8,7 @@ package org.alembic.aurion.docsubmission.entity;
 
 import org.alembic.aurion.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
 import javax.annotation.Resource;
+import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -16,6 +17,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 @WebService(serviceName = "EntityXDR_Service", portName = "EntityXDR_Port", endpointInterface = "org.alembic.aurion.nhincentityxdr.EntityXDRPortType", targetNamespace = "urn:org:alembic:aurion:nhincentityxdr", wsdlLocation = "WEB-INF/wsdl/EntityDocSubmissionUnsecured/EntityXDR.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file = "EntityDocSubmissionSoapHeaderHandler.xml")
 @Addressing(enabled=true)
 public class EntityDocSubmissionUnsecured {
 

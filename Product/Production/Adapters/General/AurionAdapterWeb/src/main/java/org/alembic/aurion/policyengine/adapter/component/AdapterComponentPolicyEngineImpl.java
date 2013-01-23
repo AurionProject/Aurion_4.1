@@ -10,6 +10,7 @@ import org.alembic.aurion.common.nhinccommon.AssertionType;
 import org.alembic.aurion.common.nhinccommonadapter.CheckPolicyResponseType;
 import org.alembic.aurion.policyengine.adapter.orchestrator.AdapterPolicyEngineOrchestratorImpl;
 import javax.xml.ws.WebServiceContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -57,6 +58,7 @@ public class AdapterComponentPolicyEngineImpl
         {
             AssertionType assertion = checkPolicyRequest.getAssertion();
             loadAssertion(assertion, context);
+            getSoapLogger().logRawAssertion(assertion);
 
             checkPolicyResp = oOrchestrator.checkPolicy(checkPolicyRequest, assertion);
         }
@@ -69,4 +71,9 @@ public class AdapterComponentPolicyEngineImpl
         }
         return checkPolicyResp;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

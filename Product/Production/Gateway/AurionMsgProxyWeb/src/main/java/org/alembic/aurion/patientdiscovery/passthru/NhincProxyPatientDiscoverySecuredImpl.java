@@ -4,10 +4,6 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.alembic.aurion.patientdiscovery.passthru;
 
 import org.alembic.aurion.async.AsyncMessageIdExtractor;
@@ -23,6 +19,7 @@ import org.hl7.v3.ProxyPRPAIN201305UVProxySecuredRequestType;
 import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
 import javax.xml.namespace.QName;
 import javax.xml.ws.handler.MessageContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 
 /**
  *
@@ -49,6 +46,7 @@ public class NhincProxyPatientDiscoverySecuredImpl {
             try {
 
                 AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+                getSoapLogger().logRawAssertion(assertion);
                 loadAssertion(assertion, context);
                 String interfaceName = getServiceNameFromContext(context);
                 AuditPerformance oAuditPerformance = PerformanceMonitorUtil.buildAuditPerfromance(0, interfaceName, AsyncMessageIdExtractor.GetAsyncMessageId(context), NhincConstants.SERVICE_REQUEST_STRING);
@@ -83,4 +81,9 @@ public class NhincProxyPatientDiscoverySecuredImpl {
         }
         return interfaceName;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

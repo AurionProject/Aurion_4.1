@@ -27,7 +27,6 @@ import org.alembic.aurion.connectmgr.data.CMHomeCommunity;
 import org.alembic.aurion.nhinclib.NhincConstants;
 import org.alembic.aurion.nhinclib.NullChecker;
 import org.alembic.aurion.common.patientcorrelationfacade.RetrievePatientCorrelationsRequestType;
-import org.alembic.aurion.common.patientcorrelationfacade.RetrievePatientCorrelationsResponseType;
 import org.alembic.aurion.nhinsubjectdiscovery.proxy.NhinSubjectDiscoveryProxy;
 import org.alembic.aurion.nhinsubjectdiscovery.proxy.NhinSubjectDiscoveryProxyObjectFactory;
 
@@ -48,6 +47,7 @@ import javax.xml.bind.JAXBElement;
 import java.util.List;
 import java.util.ArrayList;
 import javax.xml.ws.WebServiceContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.hl7.v3.PIXConsumerPRPAIN201301UVSecuredRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201309UVResponseType;
 import org.hl7.v3.PIXConsumerPRPAIN201309UVSecuredRequestType;
@@ -71,7 +71,9 @@ public class EntitySubjectDiscoveryImpl {
         List<CMHomeCommunity> communities = new ArrayList<CMHomeCommunity>();
 
         PIXConsumerPRPAIN201301UVRequestType request = new PIXConsumerPRPAIN201301UVRequestType();
-        request.setAssertion(SamlTokenExtractor.GetAssertion(context));
+        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+        getSoapLogger().logRawAssertion(assertion);
+        request.setAssertion(assertion);
         request.setNhinTargetCommunities(pixConsumerPRPAIN201301UVRequest.getNhinTargetCommunities());
         request.setPRPAIN201301UV02(pixConsumerPRPAIN201301UVRequest.getPRPAIN201301UV02());
 
@@ -176,6 +178,7 @@ public class EntitySubjectDiscoveryImpl {
     {
         log.debug("Entering callPRPAIN201301UVProxy...");
         MCCIIN000002UV01 response = new MCCIIN000002UV01();
+        getSoapLogger().logRawAssertion(request.getAssertion());
 
         // Audit the Subject Announce Request Message sent on the Nhin Interface
         SubjectDiscoveryAuditLog auditLog = new SubjectDiscoveryAuditLog();
@@ -204,6 +207,7 @@ public class EntitySubjectDiscoveryImpl {
 
         PIXConsumerPRPAIN201309UVRequestType request = new PIXConsumerPRPAIN201309UVRequestType();
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+        getSoapLogger().logRawAssertion(assertion);
         request.setAssertion(assertion);
         request.setNhinTargetCommunities(pixConsumerPRPAIN201309UVRequest.getNhinTargetCommunities());
         request.setPRPAIN201309UV02(pixConsumerPRPAIN201309UVRequest.getPRPAIN201309UV02());
@@ -322,6 +326,7 @@ public class EntitySubjectDiscoveryImpl {
         if (request.getAssertion() != null) {
             AssertionType assertion = new AssertionType();
             AssertionType input = request.getAssertion();
+            getSoapLogger().logRawAssertion(input);
             if (input.getUserInfo() != null) {
                 UserType proxyUser = new UserType();
                 if (input.getUserInfo().getOrg() != null) {
@@ -392,6 +397,7 @@ public class EntitySubjectDiscoveryImpl {
         }
         if (request.getAssertion() != null) {
             AssertionType assertion = request.getAssertion();
+            getSoapLogger().logRawAssertion(assertion);
             AssertionType input = request.getAssertion();
             if (input.getUserInfo() != null) {
                 UserType proxyUser = new UserType();
@@ -445,4 +451,9 @@ public class EntitySubjectDiscoveryImpl {
 
         return result;
     }
+
+    protected static SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

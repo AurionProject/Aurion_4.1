@@ -16,9 +16,11 @@ import org.alembic.aurion.hiem.nhin.notify.proxy.NhinHiemNotifyProxy;
 import org.alembic.aurion.hiem.nhin.notify.proxy.NhinHiemNotifyProxyObjectFactory;
 import org.w3c.dom.Element;
 import javax.xml.ws.WebServiceContext;
+import org.alembic.aurion.common.nhinccommon.AssertionType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.alembic.aurion.xmlCommon.XmlUtility;
 
 /**
@@ -34,6 +36,9 @@ public class ProxyHiemNotifyImpl
     {
         log.debug("Entering ProxyHiemNotifyImpl.notify...");
 
+        AssertionType assertion = notifyRequest.getAssertion();
+        getSoapLogger().logRawAssertion(assertion);
+
         Element notifyElement = new SoapUtil().extractFirstElement(context, "notifySoapMessage", "Notify");
 
         log.debug("extracting soap header elements");
@@ -47,7 +52,7 @@ public class ProxyHiemNotifyImpl
         NhinHiemNotifyProxyObjectFactory hiemNotifyFactory = new NhinHiemNotifyProxyObjectFactory();
         NhinHiemNotifyProxy proxy = hiemNotifyFactory.getNhinHiemNotifyProxy();
 
-        proxy.notify(notifyElement, referenceParametersElements, notifyRequest.getAssertion(), notifyRequest.getNhinTargetSystem());
+        proxy.notify(notifyElement, referenceParametersElements, assertion, notifyRequest.getNhinTargetSystem());
 
         log.debug("Exiting ProxyHiemNotifyImpl.notify...");
     }
@@ -55,6 +60,9 @@ public class ProxyHiemNotifyImpl
     public void notify(NotifyRequestSecuredType notifyRequest, WebServiceContext context)
     {
         log.debug("Entering ProxyHiemNotifyImpl.notify...");
+
+        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+        getSoapLogger().logRawAssertion(assertion);
 
         Element notifyElement = new SoapUtil().extractFirstElement(context, "notifySoapMessage", "Notify");
 
@@ -72,7 +80,7 @@ public class ProxyHiemNotifyImpl
         NhinHiemNotifyProxyObjectFactory hiemNotifyFactory = new NhinHiemNotifyProxyObjectFactory();
         NhinHiemNotifyProxy proxy = hiemNotifyFactory.getNhinHiemNotifyProxy();
 
-        proxy.notify(notifyElement, referenceParametersElements, SamlTokenExtractor.GetAssertion(context), notifyRequest.getNhinTargetSystem());
+        proxy.notify(notifyElement, referenceParametersElements, assertion, notifyRequest.getNhinTargetSystem());
 
         log.debug("Exiting ProxyHiemNotifyImpl.notify...");
     }
@@ -90,4 +98,9 @@ public class ProxyHiemNotifyImpl
 
         return ack;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

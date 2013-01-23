@@ -4,10 +4,6 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.alembic.aurion.adapter.reidentification;
 
 import java.util.List;
@@ -27,6 +23,7 @@ import org.hl7.v3.MCCIMT000100UV01Device;
 import org.alembic.aurion.adapter.reidentification.data.PseudonymMap;
 import org.alembic.aurion.transform.subdisc.HL7Constants;
 import org.alembic.aurion.transform.subdisc.HL7PRPA201310Transforms;
+import org.alembic.aurion.util.soap.SoapLogger;
 
 /**
  * This provides the implementation of the adapter reidentification web service
@@ -39,6 +36,7 @@ class AdapterReidentificationImpl {
         PIXConsumerPRPAIN201310UVRequestType ret201310RequestType = new PIXConsumerPRPAIN201310UVRequestType();
 
         if (realIdentifierRequest != null) {
+            getSoapLogger().logRawAssertion(realIdentifierRequest.getAssertion());
             ret201310RequestType.setAssertion(realIdentifierRequest.getAssertion());
 
             PRPAIN201310UV02 response201310 = null;
@@ -154,4 +152,9 @@ class AdapterReidentificationImpl {
         }
         return senderOID201309;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

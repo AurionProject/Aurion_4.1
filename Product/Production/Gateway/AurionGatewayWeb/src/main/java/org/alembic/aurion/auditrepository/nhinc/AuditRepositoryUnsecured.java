@@ -4,19 +4,13 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.alembic.aurion.auditrepository.nhinc;
 
 import javax.jws.WebService;
 import javax.annotation.Resource;
+import javax.jws.HandlerChain;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  *
@@ -24,7 +18,7 @@ import org.apache.commons.logging.LogFactory;
  */
 @WebService(serviceName = "AuditRepositoryManagerService", portName = "AuditRepositoryManagerPort", endpointInterface = "org.alembic.aurion.nhinccomponentauditrepository.AuditRepositoryManagerPortType", targetNamespace = "urn:org:alembic:aurion:nhinccomponentauditrepository", wsdlLocation = "WEB-INF/wsdl/AuditRepositoryManagerService/NhincComponentAuditRepository.wsdl")
 @BindingType(value = "http://www.w3.org/2003/05/soap/bindings/HTTP/")
-
+@HandlerChain(file = "AuditRepositorySoapHeaderHandler.xml")
 public class AuditRepositoryUnsecured {
     @Resource
     private WebServiceContext context;

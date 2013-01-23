@@ -7,6 +7,7 @@
 package org.alembic.aurion.docsubmission.adapter.deferred.request;
 
 import javax.annotation.Resource;
+import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -18,6 +19,7 @@ import javax.xml.ws.soap.Addressing;
  */
 @WebService(serviceName = "AdapterXDRRequest_Service", portName = "AdapterXDRRequest_Port", endpointInterface = "org.alembic.aurion.adapterxdrrequest.AdapterXDRRequestPortType", targetNamespace = "urn:org:alembic:aurion:adapterxdrrequest", wsdlLocation = "WEB-INF/wsdl/AdapterXDRRequest/AdapterXDRRequest.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file = "AdapterXDRRequestSoapHandler.xml")
 @Addressing(enabled=true)
 public class AdapterXDRRequest {
     @Resource

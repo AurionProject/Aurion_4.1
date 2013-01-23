@@ -32,6 +32,7 @@ import org.alembic.aurion.properties.PropertyAccessor;
 import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
 import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -58,7 +59,9 @@ public class AuditQueryImpl {
         // Set up the audit query request message
         FindAuditEventsRequestType request = new FindAuditEventsRequestType();
         request.setFindAuditEvents(query);
-        request.setAssertion(SamlTokenExtractor.GetAssertion(context));
+        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+        request.setAssertion(assertion);
+        getSoapLogger().logRawAssertion(assertion);
 
         // Audit the Audit Log Query Request Message received on the Nhin Interface
         AcknowledgementType ack = audit(request, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
@@ -186,4 +189,9 @@ public class AuditQueryImpl {
 
         return passThroughModeEnabled;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

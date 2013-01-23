@@ -4,16 +4,13 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.alembic.aurion.patientdiscovery.entity.deferred.request.queue;
 
 import org.alembic.aurion.async.AsyncMessageIdExtractor;
 import org.alembic.aurion.common.nhinccommon.AssertionType;
 import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
 import javax.xml.ws.WebServiceContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.MCCIIN000002UV01;
@@ -30,12 +27,14 @@ public class EntityPatientDiscoverySecuredDeferredReqQueueImpl {
 
     public MCCIIN000002UV01 addPatientDiscoveryAsyncReq(RespondingGatewayPRPAIN201305UV02SecuredRequestType request, WebServiceContext context) {
         AssertionType assertion = extractAssertionFromContext(context, null);
+        getSoapLogger().logRawAssertion(assertion);
 
         return new EntityPatientDiscoveryDeferredReqQueueOrchImpl().addPatientDiscoveryAsyncReq(request.getPRPAIN201305UV02(), assertion, request.getNhinTargetCommunities());
     }
 
     public MCCIIN000002UV01 addPatientDiscoveryAsyncReq(RespondingGatewayPRPAIN201305UV02RequestType request, WebServiceContext context) {
         AssertionType assertion = extractAssertionFromContext(context, request.getAssertion());
+        getSoapLogger().logRawAssertion(assertion);
 
         return new EntityPatientDiscoveryDeferredReqQueueOrchImpl().addPatientDiscoveryAsyncReq(request.getPRPAIN201305UV02(), assertion, request.getNhinTargetCommunities());
     }
@@ -55,4 +54,9 @@ public class EntityPatientDiscoverySecuredDeferredReqQueueImpl {
 
         return assertion;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

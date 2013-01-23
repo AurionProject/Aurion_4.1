@@ -2,6 +2,10 @@
 <handler-chains xmlns="http://java.sun.com/xml/ns/javaee">
   <handler-chain>
     <handler>
+      <handler-name>org.alembic.aurion.util.soap.LoggingSoapHandler</handler-name>
+      <handler-class>org.alembic.aurion.util.soap.LoggingSoapHandler</handler-class>
+    </handler>
+    <handler>
       <handler-name>org.alembic.aurion.hiem.nhin.unsubscribe.HiemUnsubscribeSoapHeaderHandler</handler-name>
       <handler-class>org.alembic.aurion.hiem.nhin.unsubscribe.HiemUnsubscribeSoapHeaderHandler</handler-class>
     </handler>

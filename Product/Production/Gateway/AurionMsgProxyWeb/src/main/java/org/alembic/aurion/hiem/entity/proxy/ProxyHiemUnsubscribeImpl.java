@@ -23,6 +23,7 @@ import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.wsn.b_2.Unsubscribe;
 import org.oasis_open.docs.wsn.b_2.UnsubscribeResponse;
 import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault;
 import org.oasis_open.docs.wsn.bw_2.UnableToDestroySubscriptionFault;
 
@@ -54,6 +55,7 @@ public class ProxyHiemUnsubscribeImpl
 
         log.debug("extracting assertion");
         AssertionType assertion = unsubscribeRequest.getAssertion();
+        getSoapLogger().logRawAssertion(assertion);
         log.debug("extracted assertion");
 
         log.debug("extracting consumer reference elements");
@@ -112,6 +114,7 @@ public class ProxyHiemUnsubscribeImpl
 
         log.debug("extracting assertion");
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+        getSoapLogger().logRawAssertion(assertion);
         log.debug("extracted assertion");
 
         log.debug("extracting consumer reference elements");
@@ -150,4 +153,9 @@ public class ProxyHiemUnsubscribeImpl
         log.debug("Exiting ProxyHiemUnsubscribeImpl.unsubscribe...");
         return response;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

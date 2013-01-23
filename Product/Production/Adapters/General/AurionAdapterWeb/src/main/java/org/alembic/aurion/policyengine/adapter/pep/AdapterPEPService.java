@@ -7,6 +7,7 @@
 package org.alembic.aurion.policyengine.adapter.pep;
 
 import javax.annotation.Resource;
+import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -17,6 +18,7 @@ import javax.xml.ws.WebServiceContext;
  */
 @WebService(serviceName = "AdapterPEP", portName = "AdapterPEPPortSoap", endpointInterface = "org.alembic.aurion.adapterpep.AdapterPEPPortType", targetNamespace = "urn:org:alembic:aurion:adapterpep", wsdlLocation = "WEB-INF/wsdl/AdapterPEPService/AdapterPEP.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file = "AdapterPEPServiceSoapHandler.xml")
 public class AdapterPEPService
 {
     @Resource

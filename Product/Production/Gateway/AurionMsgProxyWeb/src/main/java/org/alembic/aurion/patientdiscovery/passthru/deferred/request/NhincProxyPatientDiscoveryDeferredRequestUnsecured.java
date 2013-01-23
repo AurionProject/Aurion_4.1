@@ -7,6 +7,7 @@
 package org.alembic.aurion.patientdiscovery.passthru.deferred.request;
 
 import javax.annotation.Resource;
+import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -16,6 +17,7 @@ import org.hl7.v3.ProxyPRPAIN201305UVProxyRequestType;
 
 @WebService(serviceName = "NhincProxyPatientDiscoveryAsyncReq", portName = "NhincProxyPatientDiscoveryAsyncReqPortType", endpointInterface = "org.alembic.aurion.nhincproxypatientdiscoveryasyncreq.NhincProxyPatientDiscoveryAsyncReqPortType", targetNamespace = "urn:org:alembic:aurion:nhincproxypatientdiscoveryasyncreq", wsdlLocation = "WEB-INF/wsdl/NhincProxyPatientDiscoveryDeferredRequestUnsecured/NhincProxyPatientDiscoveryAsyncReq.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file = "NhincProxyPatientDiscoveryDeferredRequestSoapHeaderHandler.xml")
 @Addressing(enabled=true)
 public class NhincProxyPatientDiscoveryDeferredRequestUnsecured
 {

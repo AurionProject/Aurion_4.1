@@ -9,6 +9,7 @@ package org.alembic.aurion.docrepository.adapter;
 import org.alembic.aurion.async.AsyncMessageIdExtractor;
 import org.alembic.aurion.common.nhinccommon.AssertionType;
 import javax.xml.ws.WebServiceContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 
 /**
  * Helper class for the document repository service.
@@ -20,12 +21,14 @@ public class DocumentRepositoryServiceImpl {
 
     public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType documentRepositoryRetrieveDocumentSet(ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body, WebServiceContext context) {
         AssertionType assertion = getAssertion(context);
+        getSoapLogger().logRawAssertion(assertion);
         return new AdapterComponentDocRepositoryOrchImpl().documentRepositoryRetrieveDocumentSet(body);
     }
 
 
     public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType documentRepositoryProvideAndRegisterDocumentSet(ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
         AssertionType assertion = getAssertion(context);
+        getSoapLogger().logRawAssertion(assertion);
         return new AdapterComponentDocRepositoryOrchImpl().documentRepositoryProvideAndRegisterDocumentSet(body);
     }
 
@@ -39,5 +42,8 @@ public class DocumentRepositoryServiceImpl {
         return assertion;
     }
 
-    
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

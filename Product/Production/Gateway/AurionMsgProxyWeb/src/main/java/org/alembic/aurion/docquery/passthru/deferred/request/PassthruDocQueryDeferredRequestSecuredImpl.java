@@ -4,10 +4,6 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.alembic.aurion.docquery.passthru.deferred.request;
 
 import org.alembic.aurion.common.nhinccommon.AssertionType;
@@ -18,6 +14,7 @@ import javax.xml.ws.WebServiceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.alembic.aurion.async.AsyncMessageIdExtractor;
+import org.alembic.aurion.util.soap.SoapLogger;
 
 
 
@@ -36,6 +33,7 @@ public class PassthruDocQueryDeferredRequestSecuredImpl
         getLogger().debug("Beginning of PassthruDocQueryDeferredRequestSecured.crossGatewayQueryRequest()");
 
         AssertionType assertion = extractAssertion(context);
+        getSoapLogger().logRawAssertion(assertion);
 
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
         if (assertion != null)
@@ -80,4 +78,9 @@ public class PassthruDocQueryDeferredRequestSecuredImpl
     {
         return new AsyncMessageIdExtractor();
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

@@ -16,6 +16,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType;
 import com.services.nhinc.schema.auditmessage.FindAuditEventsType;
+import org.alembic.aurion.util.soap.SoapLogger;
 
 /**
  * This class performs the actual work of class methods to query the audit log.
@@ -57,6 +58,7 @@ public class AdapterAuditLogQueryImpl
     public FindAuditEventsResponseType queryAdapter(FindAuditEventsType queryRequest, AssertionType assertion)
     {
         log.debug("Entering AdapterSecuredAuditLogQueryImpl.queryAdapter(FindAuditEventsType, AssertionType)...");
+        getSoapLogger().logRawAssertion(assertion);
         if(queryRequest != null)
         {
             log.debug("incomming adapter audit query request: " + queryRequest.toString());
@@ -66,6 +68,10 @@ public class AdapterAuditLogQueryImpl
 
         log.debug("Exiting AdapterSecuredAuditLogQueryImpl.queryAdapter(FindAuditEventsType, AssertionType)...");
         return queryResponse;
+    }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
     }
 
 }

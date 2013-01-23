@@ -14,6 +14,7 @@ import org.alembic.aurion.common.nhinccommonadapter.AdapterProvideAndRegisterDoc
 import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import javax.xml.ws.WebServiceContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -49,6 +50,7 @@ public class AdapterXDRSecuredRequestErrorImpl
             errorMessage = body.getErrorMsg();
         }
         assertion = getAssertion(context, assertion);
+        getSoapLogger().logRawAssertion(assertion);
         response = provideAndRegisterDocumentSetBRequestError(request, errorMessage, assertion);
 
         log.debug("End AdapterXDRSecuredRequestErrorImpl.provideAndRegisterDocumentSetBRequestError(secured)");
@@ -70,6 +72,7 @@ public class AdapterXDRSecuredRequestErrorImpl
             assertion = body.getAssertion();
         }
         assertion = getAssertion(context, assertion);
+        getSoapLogger().logRawAssertion(assertion);
         response = provideAndRegisterDocumentSetBRequestError(request, errorMessage, assertion);
 
         log.debug("End AdapterXDRSecuredRequestErrorImpl.provideAndRegisterDocumentSetBRequestError(unsecured)");
@@ -100,4 +103,9 @@ public class AdapterXDRSecuredRequestErrorImpl
     {
         return new AdapterDocSubmissionDeferredRequestErrorOrchImpl().provideAndRegisterDocumentSetBRequestError(request, errorMessage, assertion);
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

@@ -10,6 +10,7 @@ import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.annotation.Resource;
+import javax.jws.HandlerChain;
 import javax.xml.ws.soap.Addressing;
 
 /**
@@ -18,6 +19,7 @@ import javax.xml.ws.soap.Addressing;
  */
 @WebService(serviceName = "AdapterXDRRequestSecured_Service", portName = "AdapterXDRRequestSecured_Port_Soap", endpointInterface = "org.alembic.aurion.adapterxdrrequestsecured.AdapterXDRRequestSecuredPortType", targetNamespace = "urn:org:alembic:aurion:adapterxdrrequestsecured", wsdlLocation = "WEB-INF/wsdl/AdapterXDRRequestSecured/AdapterXDRRequestSecured.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file = "AdapterXDRRequestSoapHandler.xml")
 @Addressing(enabled=true)
 public class AdapterXDRRequestSecured {
     @Resource

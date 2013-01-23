@@ -8,6 +8,7 @@
 package org.alembic.aurion.auditquery.adapter;
 
 import javax.annotation.Resource;
+import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -19,6 +20,7 @@ import javax.xml.ws.soap.Addressing;
  */
 @WebService(serviceName = "AdapterAuditLogQuerySamlService", portName = "AdapterAuditLogQuerySamlPortTypeBindingPort", endpointInterface = "org.alembic.aurion.adapterauditlogquerysaml.AdapterAuditLogQuerySamlPortType", targetNamespace = "urn:org:alembic:aurion:adapterauditlogquerysaml", wsdlLocation = "WEB-INF/wsdl/AdapterSecuredAuditLogQuery/AdapterAuditLogQuerySaml.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file = "AdapterAuditQueryServiceSoapHeaderHandler.xml")
 @Addressing(enabled=true)
 public class AdapterSecuredAuditLogQuery {
 

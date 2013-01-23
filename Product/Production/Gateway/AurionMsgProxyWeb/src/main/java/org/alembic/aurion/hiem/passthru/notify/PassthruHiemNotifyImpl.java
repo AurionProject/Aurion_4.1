@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.alembic.aurion.hiem.passthru.notify;
 
 import org.alembic.aurion.async.AsyncMessageIdExtractor;
@@ -13,6 +9,7 @@ import org.alembic.aurion.hiem.consumerreference.ReferenceParametersHelper;
 import org.alembic.aurion.hiem.dte.SoapUtil;
 import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
 import javax.xml.ws.WebServiceContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.w3c.dom.Element;
 
 /**
@@ -23,6 +20,7 @@ public class PassthruHiemNotifyImpl {
 
     public void notify(NotifyRequestType notifyRequest, WebServiceContext context) {
         AssertionType assertion = getAssertion(context, notifyRequest.getAssertion());
+        getSoapLogger().logRawAssertion(assertion);
         ReferenceParametersElements referenceParametersElements = getRefParameters(context);
         Element notifyElement = getNotifyElement (context);
         new PassthruHiemNotifyOrchImpl().notify(notifyRequest.getNotify(), assertion, notifyRequest.getNhinTargetSystem(), referenceParametersElements, notifyElement);
@@ -30,6 +28,7 @@ public class PassthruHiemNotifyImpl {
 
     public void notify(NotifyRequestSecuredType notifyRequest, WebServiceContext context) {
         AssertionType assertion = getAssertion(context, null);
+        getSoapLogger().logRawAssertion(assertion);
         ReferenceParametersElements referenceParametersElements = getRefParameters(context);
         Element notifyElement = getNotifyElement (context);
         new PassthruHiemNotifyOrchImpl().notify(notifyRequest.getNotify(), assertion, notifyRequest.getNhinTargetSystem(), referenceParametersElements, notifyElement);
@@ -62,5 +61,9 @@ public class PassthruHiemNotifyImpl {
     private Element getNotifyElement(WebServiceContext context) {
         Element notifyElement = new SoapUtil().extractFirstElement(context, "notifySoapMessage", "Notify");
         return notifyElement;
+    }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
     }
 }

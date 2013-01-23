@@ -4,11 +4,6 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.alembic.aurion.docretrieve.adapter.deferred.request.error;
 
 import org.alembic.aurion.async.AsyncMessageIdExtractor;
@@ -18,6 +13,7 @@ import org.alembic.aurion.common.nhinccommonadapter.AdapterDocumentRetrieveDefer
 import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import javax.xml.ws.WebServiceContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 
 /**
  *
@@ -26,6 +22,7 @@ import javax.xml.ws.WebServiceContext;
 public class AdapterDocRetrieveDeferredRequestErrorImpl {
     public DocRetrieveAcknowledgementType crossGatewayRetrieveRequestError(AdapterDocumentRetrieveDeferredRequestErrorSecuredType body, WebServiceContext context) {
         AssertionType assertion = getAssertion(context, null);
+        getSoapLogger().logRawAssertion(assertion);
         AdapterDocumentRetrieveDeferredRequestErrorType   request = new AdapterDocumentRetrieveDeferredRequestErrorType();
 
         request.setAssertion(assertion);
@@ -37,6 +34,7 @@ public class AdapterDocRetrieveDeferredRequestErrorImpl {
 
     public DocRetrieveAcknowledgementType crossGatewayRetrieveRequestError(AdapterDocumentRetrieveDeferredRequestErrorType body, WebServiceContext context) {
         AssertionType assertion = getAssertion(context, body.getAssertion());
+        getSoapLogger().logRawAssertion(assertion);
         AdapterDocumentRetrieveDeferredRequestErrorType   request = new AdapterDocumentRetrieveDeferredRequestErrorType();
 
         request.setAssertion(assertion);
@@ -60,6 +58,10 @@ public class AdapterDocRetrieveDeferredRequestErrorImpl {
         }
 
         return assertion;
+    }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
     }
 
 }

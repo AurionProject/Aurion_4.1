@@ -1,9 +1,3 @@
-/*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
- */
 package org.alembic.aurion.hiem.entity.subscribe;
 
 import org.alembic.aurion.async.AsyncMessageIdExtractor;
@@ -29,6 +23,7 @@ import javax.xml.ws.WebServiceContext;
 import org.alembic.aurion.hiem.dte.SoapUtil;
 import org.w3c.dom.Element;
 import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
+import org.alembic.aurion.util.soap.SoapLogger;
 
 /**
  *
@@ -56,6 +51,7 @@ public class EntityNotificationProducerImpl
     {
         log.debug("In secure subscribe");
         AssertionType assertion = getAssertion(context, null);
+        getSoapLogger().logRawAssertion(assertion);
 
         Element subscribeElement = getSubscribeElement(context);
         SubscribeResponse response = new EntityHiemSubscribeOrchImpl().subscribe(subscribeRequest.getSubscribe(), assertion, subscribeRequest.getNhinTargetCommunities(), subscribeElement);
@@ -66,6 +62,7 @@ public class EntityNotificationProducerImpl
     public SubscribeResponse subscribe(SubscribeRequestType subscribeRequest, WebServiceContext context) throws NotifyMessageNotSupportedFault, UnsupportedPolicyRequestFault, InvalidMessageContentExpressionFault, UnacceptableInitialTerminationTimeFault, InvalidProducerPropertiesExpressionFault, TopicNotSupportedFault, TopicExpressionDialectUnknownFault, UnrecognizedPolicyRequestFault, InvalidFilterFault, InvalidTopicExpressionFault, ResourceUnknownFault, SubscribeCreationFailedFault {
         log.debug("In unsecure subscribe");
         AssertionType assertion = getAssertion(context, subscribeRequest.getAssertion());
+        getSoapLogger().logRawAssertion(assertion);
 
         Element subscribeElement = getSubscribeElement(context);
         SubscribeResponse response = new EntityHiemSubscribeOrchImpl().subscribe(subscribeRequest.getSubscribe(), assertion, subscribeRequest.getNhinTargetCommunities(), subscribeElement);
@@ -92,4 +89,9 @@ public class EntityNotificationProducerImpl
         Element subscribeElement = new SoapUtil().extractFirstElement(context, "subscribeSoapMessage", "Subscribe");
         return subscribeElement;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

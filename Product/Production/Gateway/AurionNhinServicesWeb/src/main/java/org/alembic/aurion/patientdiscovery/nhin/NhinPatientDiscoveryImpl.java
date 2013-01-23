@@ -15,6 +15,7 @@ import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
 import javax.xml.namespace.QName;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -33,6 +34,7 @@ public class NhinPatientDiscoveryImpl {
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
 
         if (assertion != null) {
+            getSoapLogger().logRawAssertion(assertion);
             AsyncMessageIdExtractor wsAddrExtractor = new AsyncMessageIdExtractor();
             assertion.setToUrl(wsAddrExtractor.GetToURL(context));
             assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
@@ -64,4 +66,8 @@ public class NhinPatientDiscoveryImpl {
         return interfaceName;
     }
     
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }

@@ -9,6 +9,7 @@ package org.alembic.aurion.patientdiscovery.adapter;
 import org.alembic.aurion.common.nhinccommon.AssertionType;
 import org.alembic.aurion.saml.extraction.SamlTokenExtractor;
 import javax.xml.ws.WebServiceContext;
+import org.alembic.aurion.util.soap.SoapLogger;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.apache.commons.logging.Log;
@@ -47,6 +48,7 @@ public class AdapterPatientDiscoveryImpl
         {
             assertion = new AssertionType();
         }
+        getSoapLogger().logRawAssertion(assertion);
 
         AdapterPatientDiscoveryOrchImpl oOrchestrator = new AdapterPatientDiscoveryOrchImpl();
         PRPAIN201306UV02 response = oOrchestrator.respondingGatewayPRPAIN201305UV02(request, assertion);
@@ -55,4 +57,9 @@ public class AdapterPatientDiscoveryImpl
         log.debug("Exiting AdapterPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02");
         return response;
     }
+
+    protected SoapLogger getSoapLogger() {
+        return new SoapLogger();
+    }
+
 }
