@@ -1,12 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.alembic.aurion.patientdiscovery.passthru;
 
 import org.alembic.aurion.common.nhinccommon.AssertionType;
 import org.alembic.aurion.common.nhinccommon.NhinTargetSystemType;
-import org.alembic.aurion.common.nhinccommon.HomeCommunityType;
 import org.apache.commons.logging.Log;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -95,6 +90,10 @@ public class NhincPatientDiscoveryOrchImplTest {
                     @Override
                     protected PRPAIN201306UV02 sendToNhinProxy(PRPAIN201305UV02 request, AssertionType assertion, NhinTargetSystemType target) {
                         return mockPRPAIN201306UV02;
+                    }
+                    @Override
+                    protected boolean getPropertyBoolean(String sPropertiesFile, String sPropertyName) {
+                        return false;
                     }
 
             };

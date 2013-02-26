@@ -87,7 +87,7 @@ public class NhincPatientDiscoveryOrchImpl {
      * @param sPropertyName
      * @return boolean
      */
-    private boolean getPropertyBoolean(String sPropertiesFile, String sPropertyName) {
+    protected boolean getPropertyBoolean(String sPropertiesFile, String sPropertyName) {
         boolean sPropertyValue = false;
         try {
             sPropertyValue = PropertyAccessor.getPropertyBoolean(sPropertiesFile, sPropertyName);
