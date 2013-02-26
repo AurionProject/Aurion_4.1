@@ -3,7 +3,7 @@ ANT_OPTS="-Xmx872m -XX:MaxPermSize=640m -Dcom.sun.aas.instanceName=server"
 NHINC_SOURCE_DIR=`pwd`
 ANT_HOME="$NHINC_SOURCE_DIR"/Build/Packages/Ant/Ant
 NHINC_PROPERTIES_DIR=/nhin/SUNWappserver/domains/domain1/config/nhin
-JAVA_HOME=/opt/java
+JAVA_HOME=/usr/lib/jvm/jdk1.6.0_27
 PATH=$ANT_HOME/bin:$PATH:$JAVA_HOME/bin:/sbin:$AS_HOME/bin
 NHINC_THIRDPARTY_DIR="$NHINC_SOURCE_DIR"/ThirdParty
 MYSQL_HOME=/nhin/mysql-5.1.42-linux-i686-glibc23
