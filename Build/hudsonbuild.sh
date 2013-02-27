@@ -5,5 +5,5 @@ cd 4.1
 cd "$NHINC_SOURCE_DIR/Product"
 env | sort
 type ant
-sh "$ANT_HOME/bin/ant" clean package.create unittest.run copy.deployable.artifacts publish.create
+sh "$ANT_HOME/bin/ant" -DBUILD_NUMBER=$BUILD_NUMBER clean package.create unittest.run copy.deployable.artifacts publish.create
 
