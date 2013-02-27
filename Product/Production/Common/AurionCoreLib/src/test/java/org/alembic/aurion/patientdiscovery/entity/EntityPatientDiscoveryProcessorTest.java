@@ -285,6 +285,11 @@ public class EntityPatientDiscoveryProcessorTest
                 {
                     return mockLog;
                 }
+                @Override
+                protected boolean isAuditEnabled() {
+                    return false;
+                }
+
             };
             context.checking(new Expectations()
             {
@@ -316,6 +321,10 @@ public class EntityPatientDiscoveryProcessorTest
                 protected Log createLogger()
                 {
                     return mockLog;
+                }
+                @Override
+                protected boolean isAuditEnabled() {
+                    return false;
                 }
             };
             context.checking(new Expectations()
@@ -352,6 +361,10 @@ public class EntityPatientDiscoveryProcessorTest
                 protected Log createLogger()
                 {
                     return mockLog;
+                }
+                @Override
+                protected boolean isAuditEnabled() {
+                    return false;
                 }
             };
             context.checking(new Expectations()
@@ -420,6 +433,10 @@ public class EntityPatientDiscoveryProcessorTest
                 protected PatientDiscovery201306Processor getPatientDiscovery201306Processor()
                 {
                     return mockPatientDiscovery201306Processor;
+                }
+                @Override
+                protected boolean isAuditEnabled() {
+                    return false;
                 }
             };
             context.checking(new Expectations()
@@ -492,6 +509,10 @@ public class EntityPatientDiscoveryProcessorTest
                 {
                     return mockPatientDiscovery201306Processor;
                 }
+                @Override
+                protected boolean isAuditEnabled() {
+                    return false;
+                }
             };
             context.checking(new Expectations()
             {
@@ -556,6 +577,10 @@ public class EntityPatientDiscoveryProcessorTest
                 protected PatientDiscovery201306Processor getPatientDiscovery201306Processor()
                 {
                     return mockPatientDiscovery201306Processor;
+                }
+                @Override
+                protected boolean isAuditEnabled() {
+                    return false;
                 }
             };
             context.checking(new Expectations()
@@ -622,6 +647,10 @@ public class EntityPatientDiscoveryProcessorTest
                 protected PatientDiscovery201306Processor getPatientDiscovery201306Processor()
                 {
                     return mockPatientDiscovery201306Processor;
+                }
+                @Override
+                protected boolean isAuditEnabled() {
+                    return false;
                 }
             };
             context.checking(new Expectations()
@@ -692,6 +721,10 @@ public class EntityPatientDiscoveryProcessorTest
                 {
                     return mockPatientDiscovery201306Processor;
                 }
+                @Override
+                protected boolean isAuditEnabled() {
+                    return false;
+                }
             };
             context.checking(new Expectations()
             {
@@ -740,6 +773,10 @@ public class EntityPatientDiscoveryProcessorTest
                 {
                     return mockAuditLogger;
                 }
+                @Override
+                protected boolean isAuditEnabled() {
+                    return true;
+                }
             };
             context.checking(new Expectations()
             {
@@ -776,6 +813,10 @@ public class EntityPatientDiscoveryProcessorTest
                 protected PatientDiscoveryAuditLogger getPatientDiscoveryAuditLogger()
                 {
                     return mockAuditLogger;
+                }
+                @Override
+                protected boolean isAuditEnabled() {
+                    return true;
                 }
             };
             context.checking(new Expectations()
@@ -816,6 +857,10 @@ public class EntityPatientDiscoveryProcessorTest
                 protected PatientDiscoveryPolicyChecker getPatientDiscoveryPolicyChecker()
                 {
                     return mockPolicyChecker;
+                }
+                @Override
+                protected boolean isAuditEnabled() {
+                    return false;
                 }
             };
             context.checking(new Expectations()

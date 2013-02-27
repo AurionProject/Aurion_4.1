@@ -61,7 +61,7 @@ public class EntityPatientDiscoveryOrchImpl {
     protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
-
+    
     /**
      * 
      * @param request
@@ -71,7 +71,7 @@ public class EntityPatientDiscoveryOrchImpl {
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion) {
         log.debug("Begin respondingGatewayPRPAIN201305UV02");
         RespondingGatewayPRPAIN201306UV02ResponseType response = null;
-        boolean isEntityAudit = getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.ENTITY_AUDIT_PROPERTY);
+        boolean isEntityAudit = isAuditEnabled();
         if (request == null) {
             log.warn("RespondingGatewayPRPAIN201305UV02RequestType was null.");
         } else if (assertion == null) {
@@ -308,6 +308,10 @@ public class EntityPatientDiscoveryOrchImpl {
             request.setAssertion(assertion);
         }
         return getPatientDiscoveryPolicyChecker().checkOutgoingPolicy(request);
+    }
+
+    protected boolean isAuditEnabled() {
+        return getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.ENTITY_AUDIT_PROPERTY);
     }
 
     /**
