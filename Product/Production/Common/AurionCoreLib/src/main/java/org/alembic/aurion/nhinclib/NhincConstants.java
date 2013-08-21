@@ -329,6 +329,12 @@ public class NhincConstants {
     public static final String PATIENT_DISCOVERY_ENTITY_ASYNC_RESP_SERVICE_NAME = "entitypatientdiscoveryasyncresp";
     public static final String PATIENT_DISCOVERY_ENTITY_SECURED_ASYNC_RESP_SERVICE_NAME = "entitypatientdiscoverysecuredasyncresp";
 
+    /**
+     * The amount of time (in seconds) the entity layer should wait for patient
+     * discovery responses.
+     */
+    public static final String PATIENT_DISCOVERY_ENTITY_TIMEOUT = "patientDiscoveryEntityTimeout";
+
     // Patient Discovery Error Constants
     public static final String PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE = "AnswerNotAvailable";
     // XDR Constants
@@ -457,6 +463,7 @@ public class NhincConstants {
     public static final String CONNECTION_MANAGER_SERVICE = "connectionmanager";
     public static final String SERVICE_REQUEST_STRING = "Request";
     public static final String SERVICE_RESPONSE_STRING = "Response";
+    
     private NhincConstants() {
     }
 }

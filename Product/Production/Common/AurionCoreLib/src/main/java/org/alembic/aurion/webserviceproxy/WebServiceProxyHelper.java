@@ -51,6 +51,7 @@ public class WebServiceProxyHelper {
 
     public static final String CONFIG_FILE = "gateway";
     public static final String CONFIG_KEY_TIMEOUT = "webserviceproxy.timeout";
+    public static final String CONFIG_KEY_CONNECTION_TIMEOUT = "webserviceproxy.connectiontimeout";
     public static final String CONFIG_KEY_RETRYATTEMPTS = "webserviceproxy.retryattempts";
     public static final String CONFIG_KEY_RETRYDELAY = "webserviceproxy.retrydelay";
     public static final String CONFIG_KEY_EXCEPTION = "webserviceproxy.exceptionstext";
@@ -278,6 +279,27 @@ public class WebServiceProxyHelper {
         }
 
         return retryDelay;
+    }
+    
+    /**
+     * Returns the amount of time to wait (in milliseconds) before giving up
+     * trying to connect to a web service.
+     * 
+     * @return the number of milliseconds to wait before timing out a web
+     *         service connection attempt.
+     */
+    public int getConnectionTimeout()
+    {
+        int timeout = 0;
+        try {
+            timeout = (int) PropertyAccessor.getPropertyLong(NhincConstants.GATEWAY_PROPERTY_FILE, CONFIG_KEY_CONNECTION_TIMEOUT);
+        } catch (PropertyAccessException e) {
+            log.warn("Error occurred reading property " + CONFIG_KEY_CONNECTION_TIMEOUT + ": " + e.getMessage());
+            // Since this is a new property, look for the old timeout property that
+            // was previously used for a value
+            timeout = getTimeout();
+        }
+        return timeout;
     }
 
     /**
@@ -521,7 +543,8 @@ public class WebServiceProxyHelper {
         }
 
         int timeout = getTimeout();
-        log.info("initializing port [url=" + url + "][timeout=" + timeout + "][port=" + port.toString() + "]");
+        int connectionTimeout = getConnectionTimeout();
+        log.info("initializing port [url=" + url + "][timeout=" + timeout + "][connection timeout=" + connectionTimeout + "][port=" + port.toString() + "]");
 
         log.debug("setting url " + url);
         if ((requestContext.containsKey(KEY_URL)) &&
@@ -530,9 +553,16 @@ public class WebServiceProxyHelper {
         }
         requestContext.put(KEY_URL, url);
 
+        if (connectionTimeout > 0) {
+            log.debug("setting connection timeout " + connectionTimeout);
+            requestContext.put(KEY_CONNECT_TIMEOUT, connectionTimeout);
+        } else {
+            log.warn("connection timeout not set.  This may lead to undesirable behavior under heavy load");
+        }
+        
+        
         if (timeout > 0) {
-            log.debug("setting timeout " + timeout);
-            requestContext.put(KEY_CONNECT_TIMEOUT, timeout);
+            log.debug("setting port timeout " + timeout);
             requestContext.put(KEY_REQUEST_TIMEOUT, timeout);
         } else {
             log.warn("port timeout not set.  This may lead to undesirable behavior under heavy load");
@@ -718,7 +748,7 @@ public class WebServiceProxyHelper {
 
                 // We have tried our max times - so we need to get out of here.
                 //--------------------------------------------------------------
-                if (i >= iRetryCount) {
+                if (i >= iRetryCount && (eCatchExp != null)) {
                     log.error("Failed to call " + portClass.getCanonicalName() + "." + oMethod.getName() +
                             " Webservice " + iRetryCount + " times.  " +
                             "Stopping processing of this call.  Exception: " + eCatchExp.getMessage(), eCatchExp);
