@@ -636,9 +636,9 @@ public class WebServiceProxyHelperTest
 
 
                 {
-                    exactly(1).of(mockLog).warn(with(any(String.class)));
-                    exactly(4).of(mockLog).info(with(any(String.class)));
-                    exactly(4).of(mockLog).debug(with(any(String.class)));
+                    allowing(mockLog).warn(with(any(String.class)));
+                    allowing(mockLog).info(with(any(String.class)));
+                    allowing(mockLog).debug(with(any(String.class)));
                 }
             });
             WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
@@ -701,8 +701,8 @@ public class WebServiceProxyHelperTest
 
 
                 {
-                    exactly(4).of(mockLog).info(with(any(String.class)));
-                    exactly(4).of(mockLog).debug(with(any(String.class)));
+                    allowing(mockLog).info(with(any(String.class)));
+                    allowing(mockLog).debug(with(any(String.class)));
                 }
             });
             WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
@@ -800,7 +800,7 @@ public class WebServiceProxyHelperTest
 
 
                 {
-                    exactly(1).of(mockLog).info(with(any(String.class)));
+                    allowing(mockLog).info(with(any(String.class)));
                 }
             });
             WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
@@ -878,7 +878,7 @@ public class WebServiceProxyHelperTest
 
 
                 {
-                    exactly(1).of(mockLog).info(with(any(String.class)));
+                    allowing(mockLog).info(with(any(String.class)));
                 }
             });
             WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
@@ -956,7 +956,7 @@ public class WebServiceProxyHelperTest
 
 
                 {
-                    exactly(1).of(mockLog).info(with(any(String.class)));
+                    allowing(mockLog).info(with(any(String.class)));
                 }
             });
             WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
@@ -1028,7 +1028,7 @@ public class WebServiceProxyHelperTest
 
 
                 {
-                    exactly(2).of(mockLog).info(with(any(String.class)));
+                    allowing(mockLog).info(with(any(String.class)));
                 }
             });
             WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
@@ -1115,7 +1115,7 @@ public class WebServiceProxyHelperTest
 
 
                 {
-                    exactly(1).of(mockLog).info(with(any(String.class)));
+                    allowing(mockLog).info(with(any(String.class)));
                 }
             });
             WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
@@ -1188,9 +1188,9 @@ public class WebServiceProxyHelperTest
 
 
                 {
-                    exactly(1).of(mockLog).warn(with(any(String.class)));
-                    exactly(3).of(mockLog).info(with(any(String.class)));
-                    exactly(4).of(mockLog).debug(with(any(String.class)));
+                    allowing(mockLog).warn(with(any(String.class)));
+                    allowing(mockLog).info(with(any(String.class)));
+                    allowing(mockLog).debug(with(any(String.class)));
                 }
             });
             WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
@@ -1252,9 +1252,10 @@ public class WebServiceProxyHelperTest
 
 
                 {
-                    exactly(3).of(mockLog).info(with(any(String.class)));
-                    exactly(2).of(mockLog).debug(with(any(String.class)));
-                    exactly(3).of(mockLog).warn(with(any(String.class)));
+                    
+                    allowing(mockLog).info(with(any(String.class)));
+                    allowing(mockLog).debug(with(any(String.class)));
+                    allowing(mockLog).warn(with(any(String.class)));
                 }
             });
             WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
@@ -1337,7 +1338,7 @@ public class WebServiceProxyHelperTest
 
 
                 {
-                    exactly(4).of(mockLog).debug(with(any(String.class)));
+                    allowing(mockLog).debug(with(any(String.class)));
                 }
             });
             WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
@@ -1400,8 +1401,8 @@ public class WebServiceProxyHelperTest
 
 
                 {
-                    exactly(3).of(mockLog).debug(with(any(String.class)));
-                    exactly(1).of(mockLog).error(with(any(String.class)), with(any(IllegalArgumentException.class)));
+                    allowing(mockLog).debug(with(any(String.class)));
+                    allowing(mockLog).error(with(any(String.class)), with(any(IllegalArgumentException.class)));
                 }
             });
             WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
@@ -1460,8 +1461,8 @@ public class WebServiceProxyHelperTest
 
 
                 {
-                    exactly(2).of(mockLog).debug(with(any(String.class)));
-                    exactly(1).of(mockLog).error(with(any(String.class)), with(any(WebServiceException.class)));
+                    allowing(mockLog).debug(with(any(String.class)));
+                    allowing(mockLog).error(with(any(String.class)), with(any(WebServiceException.class)));
                 }
             });
             WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
@@ -1530,7 +1531,7 @@ public class WebServiceProxyHelperTest
 
 
                 {
-                    exactly(4).of(mockLog).debug(with(any(String.class)));
+                    allowing(mockLog).debug(with(any(String.class)));
                 }
             });
             WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
@@ -1589,8 +1590,8 @@ public class WebServiceProxyHelperTest
 
 
                 {
-                    exactly(3).of(mockLog).debug(with(any(String.class)));
-                    exactly(1).of(mockLog).error(with(any(String.class)), with(any(WebServiceException.class)));
+                    allowing(mockLog).debug(with(any(String.class)));
+                    allowing(mockLog).error(with(any(String.class)), with(any(WebServiceException.class)));
                 }
             });
             WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
@@ -1658,8 +1659,8 @@ public class WebServiceProxyHelperTest
 
 
                 {
-                    exactly(3).of(mockLog).debug(with(any(String.class)));
-                    exactly(1).of(mockLog).error(with(any(String.class)), with(any(WebServiceException.class)));
+                    allowing(mockLog).debug(with(any(String.class)));
+                    allowing(mockLog).error(with(any(String.class)), with(any(WebServiceException.class)));
                 }
             });
             WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
@@ -1727,8 +1728,8 @@ public class WebServiceProxyHelperTest
 
 
                 {
-                    exactly(5).of(mockLog).debug(with(any(String.class)));
-                    exactly(1).of(mockLog).error(with(any(String.class)), with(any(WebServiceException.class)));
+                    allowing(mockLog).debug(with(any(String.class)));
+                    allowing(mockLog).error(with(any(String.class)), with(any(WebServiceException.class)));
                 }
             });
             WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
@@ -1796,7 +1797,7 @@ public class WebServiceProxyHelperTest
 
 
                 {
-                    exactly(3).of(mockLog).info(with(any(String.class)));
+                    allowing(mockLog).info(with(any(String.class)));
                 }
             });
             WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
@@ -1844,7 +1845,7 @@ public class WebServiceProxyHelperTest
 
 
                 {
-                    exactly(1).of(mockLog).error(with(any(String.class)));
+                    allowing(mockLog).error(with(any(String.class)));
                 }
             });
             WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
@@ -1890,8 +1891,8 @@ public class WebServiceProxyHelperTest
 
 
                 {
-                    exactly(3).of(mockLog).info(with(any(String.class)));
-                    exactly(1).of(mockLog).error(with(any(String.class)), with(any(Exception.class)));
+                    allowing(mockLog).info(with(any(String.class)));
+                    allowing(mockLog).error(with(any(String.class)), with(any(Exception.class)));
                 }
             });
             WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
@@ -1944,7 +1945,7 @@ public class WebServiceProxyHelperTest
 
 
                 {
-                    exactly(1).of(mockLog).info(with(any(String.class)));
+                    allowing(mockLog).info(with(any(String.class)));
                 }
             });
             WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
@@ -1985,7 +1986,7 @@ public class WebServiceProxyHelperTest
             context.checking(new Expectations()
             {
                 {
-                    exactly(1).of(mockLog).error(with(any(String.class)));
+                    allowing(mockLog).error(with(any(String.class)));
                 }
             });
             WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
@@ -2029,7 +2030,7 @@ public class WebServiceProxyHelperTest
             context.checking(new Expectations()
             {
                 {
-                    exactly(1).of(mockLog).error(with(any(String.class)));
+                    allowing(mockLog).error(with(any(String.class)));
                 }
             });
             WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
@@ -2073,8 +2074,8 @@ public class WebServiceProxyHelperTest
             context.checking(new Expectations()
             {
                 {
-                    exactly(1).of(mockLog).info(with(any(String.class)));
-                    exactly(1).of(mockLog).error(with(any(String.class)), with(any(ConnectionManagerException.class)));
+                    allowing(mockLog).info(with(any(String.class)));
+                    allowing(mockLog).error(with(any(String.class)), with(any(ConnectionManagerException.class)));
                 }
             });
             WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
@@ -2153,7 +2154,7 @@ public class WebServiceProxyHelperTest
             context.checking(new Expectations()
             {
                 {
-                    exactly(1).of(mockLog).error(with(any(String.class)), with(any(ConnectionManagerException.class)));
+                    allowing(mockLog).error(with(any(String.class)), with(any(ConnectionManagerException.class)));
                 }
             });
             WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
