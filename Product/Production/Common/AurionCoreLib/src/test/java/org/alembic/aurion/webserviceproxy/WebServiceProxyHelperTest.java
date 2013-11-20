@@ -638,7 +638,7 @@ public class WebServiceProxyHelperTest
                 {
                     exactly(1).of(mockLog).warn(with(any(String.class)));
                     exactly(4).of(mockLog).info(with(any(String.class)));
-                    exactly(3).of(mockLog).debug(with(any(String.class)));
+                    exactly(4).of(mockLog).debug(with(any(String.class)));
                 }
             });
             WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
@@ -655,6 +655,11 @@ public class WebServiceProxyHelperTest
                         throws PropertyAccessException
                 {
                     return "5";
+                }
+                
+                @Override
+                public int getConnectionTimeout() {
+                    return 5;
                 }
 
                 @Override
@@ -697,7 +702,7 @@ public class WebServiceProxyHelperTest
 
                 {
                     exactly(4).of(mockLog).info(with(any(String.class)));
-                    exactly(3).of(mockLog).debug(with(any(String.class)));
+                    exactly(4).of(mockLog).debug(with(any(String.class)));
                 }
             });
             WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
@@ -714,6 +719,11 @@ public class WebServiceProxyHelperTest
                         throws PropertyAccessException
                 {
                     return "5";
+                }
+                
+                @Override
+                public int getConnectionTimeout() {
+                    return 5;
                 }
 
                 @Override
@@ -1180,7 +1190,7 @@ public class WebServiceProxyHelperTest
                 {
                     exactly(1).of(mockLog).warn(with(any(String.class)));
                     exactly(3).of(mockLog).info(with(any(String.class)));
-                    exactly(3).of(mockLog).debug(with(any(String.class)));
+                    exactly(4).of(mockLog).debug(with(any(String.class)));
                 }
             });
             WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
@@ -1197,6 +1207,11 @@ public class WebServiceProxyHelperTest
                         throws PropertyAccessException
                 {
                     return "5";
+                }
+                
+                @Override
+                public int getConnectionTimeout() {
+                    return 5;
                 }
 
                 @Override
@@ -1239,7 +1254,7 @@ public class WebServiceProxyHelperTest
                 {
                     exactly(3).of(mockLog).info(with(any(String.class)));
                     exactly(2).of(mockLog).debug(with(any(String.class)));
-                    exactly(2).of(mockLog).warn(with(any(String.class)));
+                    exactly(3).of(mockLog).warn(with(any(String.class)));
                 }
             });
             WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
