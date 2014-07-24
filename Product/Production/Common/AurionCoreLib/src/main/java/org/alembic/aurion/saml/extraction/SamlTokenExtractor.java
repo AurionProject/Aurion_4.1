@@ -241,7 +241,7 @@ public class SamlTokenExtractor {
      */
     private static void extractIssuer(com.sun.xml.wss.saml.internal.saml20.jaxb20.AssertionType assertType, AssertionType assertOut)
     {
-        log.debug("Entering SamlTokenExtractor.extractIssuer...");
+        log.info("Entering SamlTokenExtractor.extractIssuer...");
 
         SamlIssuerType samlIssuer = assertOut.getSamlIssuer();
 
@@ -251,7 +251,9 @@ public class SamlTokenExtractor {
                 (assertType.getIssuer().getValue() != null))
         {
             samlIssuer.setIssuer(assertType.getIssuer().getValue());
-            log.debug("Assertion.SamlIssuer.Issuer = " + assertOut.getSamlIssuer().getIssuer());
+            log.info("Assertion.SamlIssuer.Issuer = " + assertOut.getSamlIssuer().getIssuer());
+        } else {
+            log.info("Assertion.SamlIssuer.Issuer null");
         }
 
         // Issuer Format
@@ -260,7 +262,9 @@ public class SamlTokenExtractor {
                 (assertType.getIssuer().getFormat() != null))
         {
             samlIssuer.setIssuerFormat(assertType.getIssuer().getFormat());
-            log.debug("Assertion.SamlIssuer.IssuerFormat = " + assertOut.getSamlIssuer().getIssuerFormat());
+            log.info("Assertion.SamlIssuer.IssuerFormat = " + assertOut.getSamlIssuer().getIssuerFormat());
+        } else {
+            log.info("Assertion.SamlIssuer.IssuerFormat null");
         }
     }
     

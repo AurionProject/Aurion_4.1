@@ -199,19 +199,24 @@ public class SamlTokenCreator {
                     log.error("Error: samlSendOperation input assertion AuthzDecisionStatement Evidence is null");
                 }
 
-                if (assertion.getSamlIssuer() != null) {
-                    if (NullChecker.isNotNullish(assertion.getSamlIssuer().getIssuer())) {
-                        requestContext.put(NhincConstants.ASSERTION_ISSUER_PROP, assertion.getSamlIssuer().getIssuer());
-                    }
-                    if (NullChecker.isNotNullish(assertion.getSamlIssuer().getIssuerFormat())) {
-                        requestContext.put(NhincConstants.ASSERTION_ISSUER_FORMAT_PROP, assertion.getSamlIssuer().getIssuerFormat());
-                    }
-                } else {
-                    log.debug("samlSendOperation input assertion Saml Issuer is null");
-                }
             } else {
                 requestContext.put(NhincConstants.AUTHZ_STATEMENT_EXISTS_PROP, "false");
                 log.info("AuthzDecisionStatement is null.  It will not be part of the SAML Assertion");
+            }
+            if (assertion.getSamlIssuer() != null) {
+                log.info("The Saml Issuer is not null");
+                if (NullChecker.isNotNullish(assertion.getSamlIssuer().getIssuer())) {
+                    requestContext.put(NhincConstants.ASSERTION_ISSUER_PROP, assertion.getSamlIssuer().getIssuer());
+                } else {
+                    log.info("The saml issuer - issuer was null");
+                }
+                if (NullChecker.isNotNullish(assertion.getSamlIssuer().getIssuerFormat())) {
+                    requestContext.put(NhincConstants.ASSERTION_ISSUER_FORMAT_PROP, assertion.getSamlIssuer().getIssuerFormat());
+                } else {
+                    log.info("The saml issuer - format was null");
+                }
+            } else {
+                log.info("samlSendOperation input assertion Saml Issuer is null");
             }
         } else {
             log.error("Error: samlSendOperation input assertion is null");
