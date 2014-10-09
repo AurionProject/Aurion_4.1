@@ -59,6 +59,7 @@ import sun.security.x509.X500Name;
  */
 public class SamlTokenExtractor {
 
+    private static final String ATTRIBUTE_PREFIX_HL7 = "hl7:";
     private static Log log = LogFactory.getLog(SamlTokenExtractor.class);
     private static final String X509_FORMAT = "urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName";
     private static final String EMPTY_STRING = "";
@@ -609,19 +610,19 @@ public class SamlTokenExtractor {
                                 if ((attrNode != null) &&
                                         (attrNode.getNodeName() != null) &&
                                         (!attrNode.getNodeName().isEmpty())) {
-                                    if (attrNode.getNodeName().equalsIgnoreCase(NhincConstants.CE_CODE_ID)) {
+                                    if ((attrNode.getNodeName().equalsIgnoreCase(NhincConstants.CE_CODE_ID)) || (attrNode.getNodeName().equalsIgnoreCase(ATTRIBUTE_PREFIX_HL7 + NhincConstants.CE_CODE_ID))) {
                                         ce.setCode(attrNode.getNodeValue());
                                         log.debug(codeId + ": ce.Code = " + ce.getCode());
                                     }
-                                    if (attrNode.getNodeName().equalsIgnoreCase(NhincConstants.CE_CODESYS_ID)) {
+                                    if ((attrNode.getNodeName().equalsIgnoreCase(NhincConstants.CE_CODESYS_ID)) || (attrNode.getNodeName().equalsIgnoreCase(ATTRIBUTE_PREFIX_HL7 + NhincConstants.CE_CODESYS_ID))) {
                                         ce.setCodeSystem(attrNode.getNodeValue());
                                         log.debug(codeId + ": ce.CodeSystem = " + ce.getCodeSystem());
                                     }
-                                    if (attrNode.getNodeName().equalsIgnoreCase(NhincConstants.CE_CODESYSNAME_ID)) {
+                                    if ((attrNode.getNodeName().equalsIgnoreCase(NhincConstants.CE_CODESYSNAME_ID)) || (attrNode.getNodeName().equalsIgnoreCase(ATTRIBUTE_PREFIX_HL7 + NhincConstants.CE_CODESYSNAME_ID))) {
                                         ce.setCodeSystemName(attrNode.getNodeValue());
                                         log.debug(codeId + ": ce.CodeSystemName = " + ce.getCodeSystemName());
                                     }
-                                    if (attrNode.getNodeName().equalsIgnoreCase(NhincConstants.CE_DISPLAYNAME_ID)) {
+                                    if ((attrNode.getNodeName().equalsIgnoreCase(NhincConstants.CE_DISPLAYNAME_ID)) || (attrNode.getNodeName().equalsIgnoreCase(ATTRIBUTE_PREFIX_HL7 + NhincConstants.CE_DISPLAYNAME_ID))) {
                                         ce.setDisplayName(attrNode.getNodeValue());
                                         log.debug(codeId + ": ce.DisplayName = " + ce.getDisplayName());
                                     }
