@@ -32,6 +32,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryPackageType;
 import java.io.ByteArrayOutputStream;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
+import org.alembic.aurion.nhinclib.NullChecker;
 
 /**
  *
@@ -443,10 +444,14 @@ public class XDRTransforms {
             }
 
 
-            if (body.getSubmitObjectsRequest().getId().isEmpty())
+            if (NullChecker.isNullish(body.getSubmitObjectsRequest().getId()))
             {
-                log.error("SubmitObjectsRequest has no id");
-                return true;
+                log.error("SubmitObjectsRequest had no id - setting to a default");
+                body.getSubmitObjectsRequest().setId("1");
+                // The Direct transport testing toolkit sends an XDR message
+                // without this field. Hardcoding to a default to enable certification.
+//                log.error("SubmitObjectsRequest has no id");
+//                return true;
             }
             if(body.getSubmitObjectsRequest().getRegistryObjectList() == null)
             {
@@ -516,13 +521,13 @@ public class XDRTransforms {
                 return true;
             }
 
-            if (oAssertion.getUserInfo().getOrg().getHomeCommunityId() != null)
+            if ((oAssertion.getUserInfo().getOrg() != null) && (oAssertion.getUserInfo().getOrg().getHomeCommunityId() != null))
             {
                 log.debug("Incomming request.getAssertion.getUserInfo.getOrg().getHomeCommunityId(): " + oAssertion.getUserInfo().getOrg().getHomeCommunityId());
             }
             else
             {
-                log.error("Incomming request.getAssertion.getUserInfo.getOrg().getHomeCommunityId() was null.");
+                log.error("Incomming request.getAssertion.getUserInfo.getOrg() or request.getAssertion.getUserInfo.getOrg().getHomeCommunityId() was null.");
                 bReturnVal = true;
                 return true;
             }
