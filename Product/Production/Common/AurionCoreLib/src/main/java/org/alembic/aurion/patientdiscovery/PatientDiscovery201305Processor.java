@@ -49,16 +49,15 @@ public class PatientDiscovery201305Processor {
         response = queryMpi(request, assertion);
 
         // Check to see if the Patient was found
-        if (response != null &&
-                response.getControlActProcess() != null) {
+        if ((response != null) &&
+                (response.getControlActProcess() != null) &&
+                (NullChecker.isNotNullish(response.getControlActProcess().getSubject())) &&
+                (response.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null) &&
+                (response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null)) {
 
             II patIdOverride = NhinPatientDiscoveryUtils.extractPatientIdFrom201306(response);
 
-            if (NullChecker.isNotNullish(response.getControlActProcess().getSubject()) &&
-                    response.getControlActProcess().getSubject().get(0) != null &&
-                    response.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null &&
-                    response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null &&
-                    response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null &&
+            if (response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null &&
                     NullChecker.isNotNullish(response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId()) &&
                     response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0) != null &&
                     NullChecker.isNotNullish(response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getExtension()) &&
