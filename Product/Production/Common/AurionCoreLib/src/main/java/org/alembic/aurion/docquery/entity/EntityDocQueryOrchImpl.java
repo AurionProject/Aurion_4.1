@@ -133,6 +133,8 @@ public class EntityDocQueryOrchImpl
                             subjectIds.getQualifiedSubjectIdentifier().add(subjectId);
                         }
                     }
+                    DocQueryCorrelationFilter correlationFilter = new DocQueryCorrelationFilter(subjectIds);
+                    subjectIds = correlationFilter.filterDuplicateCorrelations();
 
                     String transactionId = startTransaction(aggregator, subjectIds);
 
