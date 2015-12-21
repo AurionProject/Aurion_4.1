@@ -10,7 +10,7 @@ DROP TABLE nhincuser.subscription;
 DROP TABLE nhincuser.asyncmsgrepo;
 DROP TABLE nhincuser.gateway_lift_message;
 DROP TABLE nhincuser.transfer_data;
-DROP TABLE nhincuser.performance;
+DROP TABLE nhincuser.auditperformance;
 
 DROP SEQUENCE nhincuser.hibernate_sequence;
 

@@ -109,7 +109,7 @@ CREATE TABLE nhincuser.eventcode (
   PRIMARY KEY  (eventcodeid)
 );
 
-CREATE SEQUENCE nhincuser.hibernate_sequence;
+--CREATE SEQUENCE nhincuser.hibernate_sequence;
 
 CREATE TABLE nhincuser.gateway_lift_message
 (
@@ -164,27 +164,28 @@ CREATE TABLE nhincuser.subscription (
 );
 
 CREATE TABLE nhincuser.asyncmsgrepo (
-                ID           integer primary key,
+                ID           number(19) NOT NULL,
                 MessageId    varchar2(100) NOT NULL,
                 CreationTime DATE NOT NULL,
                 ServiceName  varchar2(100),
-                MsgData      BLOB
+                MsgData      BLOB,
+		PRIMARY KEY (ID)
 );
 
-CREATE SEQUENCE asyncmsgrepo_id_seq nocycle;
+--CREATE SEQUENCE asyncmsgrepo_id_seq nocycle;
 
-CREATE OR REPLACE TRIGGER asyncmsgrepo_id_pkey_trig BEFORE INSERT on asyncmsgrepo
-for each row
-begin
-    select asyncmsgrepo_id_seq.nextval into :new.id from dual;
-end;
+--CREATE OR REPLACE TRIGGER asyncmsgrepo_id_pkey_trig BEFORE INSERT on asyncmsgrepo
+--for each row
+--begin
+--    select asyncmsgrepo_id_seq.nextval into :new.id from dual;
+--end;
 
 CREATE TABLE nhincuser.auditperformance (
-	Id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+	Id number(19) NOT NULL,
 	transactionId varchar(45) NOT NULL,
 	txTimeStamp varchar(45) NOT NULL,
 	interface varchar(45) NOT NULL,
-	attempts bigint(20) unsigned NOT NULL,
+	attempts number(10) NOT NULL,
 	type varchar(45) NOT NULL,
 	PRIMARY KEY (Id)
 );
